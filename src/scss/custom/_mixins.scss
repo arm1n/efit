@@ -1,0 +1,5 @@
+@mixin code-number($margin-left: 0, $margin-right: 0){
+  content: '';
+  display: inline-block;
+  margin: 0 $margin-right 0 $margin-left;
+}

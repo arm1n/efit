@@ -1,0 +1,39 @@
+/* ==================================================
+ * HOOKS
+ * $author Armin Pfurtscheller
+ * ================================================== */
+
+// navbar
+@mixin hook-navbar-container() {
+  background-color: $global-background;
+}
+
+@mixin hook-navbar-nav-item() {
+  position: relative;
+
+  &:after{
+    bottom: 0;
+    content: '';
+    height: 3px;
+    display: none;
+    position: absolute;
+    background: $global-primary-background;
+    left: $navbar-nav-item-padding-horizontal;
+    right: $navbar-nav-item-padding-horizontal;
+  }
+}
+
+@mixin hook-navbar-nav-item-active() {
+  &:after{
+    display: block;
+  }
+}
+
+// icons
+@mixin hook-icon-misc() {
+  &.uk-icon-filled{
+    [fill] {
+      fill: inherit;
+    }
+  }
+}
