@@ -17,8 +17,11 @@
 // 4) uk theme
 @import "uikit-theme.scss";
 
-// 5) misc helpers
+// 5) uk addons
+@import "custom/addons";
 
+// 5) app
+@import "app/bret";
 
 /* --------------------------------------------------
  *  WRAPPER

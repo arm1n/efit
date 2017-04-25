@@ -6,12 +6,3 @@
  * @version 1.0.5
  * Copyright 2017. MIT licensed.
  */
-(function($){
-  'use strict';
-
-  var _onReady = function() {
-  };
-
-  $(document).ready(_onReady);
-
-})(jQuery);

@@ -1,0 +1,109 @@
+<div class="bret">
+  <div class="matrix">
+
+    <p class="uk-width-1-2@m uk-margin-auto">
+      Wähle aus den untenstehenden Boxen aus - sobald du fertig bist, kannst du den Button "Auflösen" drücken:
+    </p>
+
+    <p>
+      <strong>Gesammelt:</strong> {{ bretController.getCollectedBoxes() }}&nbsp;&nbsp;&nbsp;<strong>Verbleibend:</strong> {{ bretController.getRemainingBoxes() }}
+    </p>
+
+    <div
+      class="row"
+      data-ng-repeat="(row,columns) in bretController.matrix">
+      <div
+        class="col"
+        data-ng-repeat="(col,column) in columns track by bretController.trackId(column)">
+        <div
+          class="holder"
+          data-bret-card="column"
+          data-bret-card-is-active="column.$$active"
+          data-bret-card-is-disabled="bretController.resolved"
+          data-bret-card-is-clickable="!bretController.dynamic"
+          data-bret-card-on-toggle="bretController.update(column,state)"
+          data-ng-class="{
+            'resolved':bretController.resolved && column.$$resolved,
+            'bomb':bretController.resolved && bretController.isBomb(column)
+          }">
+            <span class="front">
+              <span class="icon" uk-icon="icon: check; ratio: 1.5"></span>
+            </span>
+            <span class="back">
+              <span class="icon icon-success" uk-icon="icon: happy; ratio: 1.5"></span>
+              <span class="icon icon-failure" uk-icon="icon: bolt; ratio: 1.5"></span>
+            </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="uk-margin">
+
+      <button
+        href="javascript:void(0)"
+        data-ng-if="bretController.dynamic"
+        data-ng-click="bretController.start()"
+        data-ng-disabled="bretController.started"
+        class="uk-button uk-button-success uk-button-small start">
+        <span>Start</span>
+      </button>
+
+      <button
+        href="javascript:void(0)"
+        data-ng-if="bretController.dynamic"
+        data-ng-click="bretController.stop()"
+        class="uk-button uk-button-danger uk-button-small stop"
+        data-ng-disabled="!bretController.started || bretController.stopped">
+        <span>Stop</span>
+      </button>
+
+      <button
+        href="javascript:void(0)"
+        data-ng-click="bretController.resolve()"
+        data-ng-disabled="(
+          (bretController.dynamic && !bretController.stopped) ||
+          !bretController.getCollectedBoxes() ||
+          bretController.resolved
+        )"
+        data-ng-if="!bretController.resolved"
+        class="uk-button uk-button-success uk-button-small resolve">
+        <span>Auflösen</span>
+      </button>
+
+      <button
+        href="javascript:void(0)"
+        data-ng-click="bretController.reset()"
+        data-ng-if="bretController.resolved"
+        class="uk-button uk-button-danger uk-button-small reset">
+        <span>Zurücksetzen</span>
+      </button>
+
+      <a
+        href="#feedback"
+        uk-scroll="offset: 80"
+        data-ng-if="bretController.resolved"
+        class="uk-button uk-button-primary uk-button-small feedback">
+        <span>Auswertung</span>
+      </a>
+
+    </div>
+
+    <div id="feedback" class="uk-margin-medium-top" data-ng-if="bretController.resolved">
+      <div class="uk-animation-slide-top-small">
+        <hr>
+        <h2>Auswertung</h2>
+        <span>Im Schnitt drehen die Menschen bei dieser Übung {{bretController.avg}} Boxen um. Du hast </span>
+        <span data-ng-if="bretController.getCollectedBoxes() < bretController.avg">{{bretController.getCollectedBoxes() }}, also weniger </span>
+        <span data-ng-if="bretController.getCollectedBoxes() == bretController.avg">gleich viele Boxen</span>
+        <span data-ng-if="bretController.getCollectedBoxes() > bretController.avg">{{bretController.getCollectedBoxes() }}, also mehr </span>
+        <span>Boxen umgedreht, was zeigt, dass du</span>
+        <span data-ng-if="bretController.getCollectedBoxes() < bretController.avg"> risikoscheuer als </span>
+        <span data-ng-if="bretController.getCollectedBoxes() == bretController.avg"> die gleiche Risikoeinstellung hast wie </span>
+        <span data-ng-if="bretController.getCollectedBoxes() > bretController.avg"> risikobereiter als </span>
+        <span>als der Durchschnitt der Bevölkerung. Wie schon gesagt, gibt es hier <strong>keine richtigen oder falschen Entscheidungen</strong>. Dieses Experiment soll dich motivieren, in Situationen mit unsicherem Ausgang zu überlegen, wie es dir dabei geht, wenn du mehr oder weniger Risiko eingehst. <strong>Ein gutes Bewusstsein für unsere Risikoeinstellung hilft jedem von uns, unsere persönlichen Entscheidungen so zu treffen, dass wir uns damit wohl fühlen.</strong>
+        </span>
+      </div>
+    </div>
+
+  </div>
+</div>

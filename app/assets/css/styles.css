@@ -8501,6 +8501,206 @@ td.uk-text-break {
   h3 {
     page-break-after: avoid; } }
 
+.uk-button-success {
+  color: #fff;
+  background-color: #32d296;
+  border: 1px solid transparent; }
+
+.uk-button-success:hover,
+.uk-button-success:focus {
+  color: #fff;
+  background-color: #2ac088; }
+
+.uk-button-success:active,
+.uk-button-success.uk-active {
+  color: #fff;
+  background-color: #26ab79; }
+
+.uk-button-warning {
+  color: #fff;
+  background-color: #faa05a;
+  border: 1px solid transparent; }
+
+.uk-button-warning:hover,
+.uk-button-warning:focus {
+  color: #fff;
+  background-color: #f99241; }
+
+.uk-button-warning:active,
+.uk-button-warning.uk-active {
+  color: #fff;
+  background-color: #f98429; }
+
+.uk-button-success:disabled,
+.uk-button-warning:disabled {
+  background-color: transparent;
+  color: #999;
+  border-color: #e5e5e5; }
+
+/*!
+ * BOMBTASK STYLES
+ *
+ * @author Armin Pfurtscheller
+ * @license MIT
+ */
+/** MATRIX */
+/** ROWS */
+/** COLS */
+.bret .col {
+  padding: 5px;
+  display: inline-block; }
+
+/** CARD */
+/** size */
+.bret .holder {
+  width: 50px;
+  height: 50px; }
+  @media (min-width: 640px) {
+    .bret .holder {
+      width: 75px;
+      height: 75px; } }
+
+/** holder */
+.bret .holder {
+  perspective: 1000px;
+  transform-style: preserve-3d; }
+
+.bret .holder.resolved .card {
+  transform: rotateY(180deg); }
+
+/** container */
+.bret .holder .card {
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: default;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: 0.3s;
+  transform-style: preserve-3d; }
+
+/** clickable */
+.bret .holder .card.clickable {
+  cursor: pointer; }
+
+/** disabled */
+.bret .holder .card.disabled {
+  cursor: default !important; }
+
+.bret .holder .card.disabled .front {
+  opacity: 0.5; }
+
+.bret .holder.resolved .card.disabled .front {
+  opacity: 1; }
+
+.bret .holder .card.disabled .front:after {
+  opacity: 0.35 !important; }
+
+/** CARD FRONT/BACK */
+/** general shared */
+.bret .holder .card .front,
+.bret .holder .card .back {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: table;
+  position: absolute;
+  vertical-align: middle;
+  color: #999;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  background-color: #fff;
+  transition: 0.3s;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  transform-style: preserve-3d; }
+
+/** line shared */
+.bret .holder .card .front:after,
+.bret .holder .card .back:after {
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  content: '';
+  display: block;
+  transition: 0.5s;
+  position: absolute; }
+
+/** icon shared */
+.bret .holder .card .icon {
+  top: 0 !important;
+  display: table-cell;
+  vertical-align: middle;
+  width: auto !important; }
+
+/* swap z-index of front/back if resolved */
+.bret .holder.resolved .card .front {
+  z-index: 1;
+  visibility: hidden; }
+
+.bret .holder.resolved .card .back {
+  z-index: 2;
+  visibility: visible; }
+
+/** CARD FRONT */
+/** container */
+.bret .holder .card .front {
+  z-index: 2;
+  transform: rotateY(0deg); }
+
+.bret .holder .card.clickable:hover .front:after,
+.bret .holder .card.clickable:active .front:after,
+.bret .holder .card.clickable.active .front:after {
+  opacity: 1; }
+
+/** line */
+.bret .holder .card .front:after {
+  background: #003362;
+  opacity: 0.35; }
+
+.bret .holder .card.active .front:after {
+  opacity: 1; }
+
+/** icon */
+.bret .holder .card .front .icon {
+  display: none;
+  padding-bottom: 5px; }
+
+.bret .holder .card.active .front .icon {
+  display: table-cell; }
+
+/** CARD BACK */
+/** container */
+.bret .holder .card .back {
+  z-index: 1;
+  visibility: hidden;
+  transform: rotateY(-180deg); }
+
+/** line */
+.bret .holder .card .back:after {
+  background: #32d296; }
+
+.bret .holder.bomb .card .back:after {
+  background: #f0506e; }
+
+/** icon (happy) */
+.bret .holder .card .back .icon-success {
+  color: #32d296;
+  display: table-cell; }
+
+.bret .holder.bomb .card .back .icon-success {
+  display: none; }
+
+/** icon (bolt) */
+.bret .holder .card .back .icon-failure {
+  color: #f0506e;
+  display: none; }
+
+.bret .holder.bomb .card .back .icon-failure {
+  display: table-cell; }
+
 /* --------------------------------------------------
  *  WRAPPER
  * -------------------------------------------------- */
