@@ -25,11 +25,11 @@
 
   Bret.prototype.cols = 5;
 
-  Bret.prototype.dynamic = false;
+  Bret.prototype.interval = 1;
 
   Bret.prototype.random = false;
 
-  Bret.prototype.interval = 1;
+  Bret.prototype.dynamic = false;
 
   Bret.prototype.$onInit = function() {
     this.init();
