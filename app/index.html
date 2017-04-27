@@ -33,55 +33,16 @@
     <link type="text/css" rel="stylesheet" href="assets/css/styles.min.css"/>
   </head>
 
-  <body class="uk-background-muted" data-ng-controller="AppController as app">
+  <body
+    class="uk-background-muted"
+    data-ng-controller="AppController as appController">
 
     <div id="wrap" class="tm-wrap uk-offcanvas-content">
 
       <!-- Begin: Header -->
-      <header id="header" class="uk-navbar-container uk-sticky uk-sticky-fixed" uk-sticky="" >
-        <div class="uk-navbar-container">
-          <div class="uk-container">
-            <nav class="uk-navbar" uk-navbar>
-                <div class="uk-navbar-left">
-                  <a href="http://www.uibk.ac.at" class="uk-navbar-item">
-                    <img src="assets/img/logo.png" class="tm-logo">
-                  </a>
-                </div>
-
-                <div class="uk-navbar-center uk-visible@m">
-                  <a href="#home" class="uk-navbar-item uk-logo" uk-scroll="offset: 80">
-                    FiT
-                  </a>
-                </div>
-                <div class="uk-navbar-right">
-                  <ul class="uk-navbar-nav uk-visible@s" uk-scrollspy-nav="closest: li; scroll: true; offset: 80">
-                      <li><a href="#home">Start</a></li>
-                      <li>
-                        <a href="#topics">Themen</a>
-                        <div class="uk-navbar-dropdown">
-                          <ul class="uk-nav uk-navbar-dropdown-nav">
-                            <li><a href="#financial-knowledge">Finanzwissen</a></li>
-                            <li><a href="#consumer-behaviour">Konsumverhalten</a></li>
-                            <li><a href="#self-control">Selbstkontrolle</a></li>
-                          </ul>
-                        </div>
-                      </li>
-                      <li><a href="#status">Mein Status</a></li>
-                      <li><a href="#contact">Kontakt</a></li>
-                  </ul>
-
-                  <a
-                    href="javascript:void(0)"
-                    class="uk-navbar-toggle uk-hidden@s"
-                    uk-toggle="target: #off-canvas; cls: uk-open">
-                    <span uk-navbar-toggle-icon></span>
-                    <span class="uk-margin-small-left">Menü</span>
-                  </a>
-
-                </div>
-            </nav>
-          </div>
-        </div>
+      <header
+        id="header"
+        data-ng-include="'views/static/navbar.html'">
       </header>
       <!-- End: Header -->
 
@@ -90,292 +51,56 @@
 
         <!-- Begin: Content -->
         <div id="content" class="uk-container">
-          <div class="uk-grid-small" uk-grid>
 
-            <div class="uk-width-2-3@s uk-width-3-4@m uk-width-5-6@l">
-
-              <!-- Begin: Section Start -->
-              <div id="home" class="tm-section" uk-scrollspy="cls: uk-animation-scale-up; target: .tm-scrollspy; delay: 500; repeat: false">
-                <div class="uk-container">
-                  <div class="uk-margin-large-top uk-margin-large-bottom">
-
-                    <div class="tm-scrollspy uk-margin-auto uk-width-2-3@m">
-                      <h1>Werde FiT für deine Träume</h1>
-                      <img src="assets/img/teaser-1.svg" class="uk-margin-small" width="300">
-                      <p>Lerne die Finanzwelt auf spielerische Art und Weise kennen, teste dein Wissen anhand von spannenden und kniffligen Aufgaben und werde zum Finanzprofi - damit deine Träume auch wirklich wahr werden.</p>
-                      <form class="uk-form-stacked uk-margin-medium-top" onsubmit="javascript: return false;">
-                          <div class="uk-margin-auto uk-width-1-2">
-                            <label class="uk-form-label uk-text-uppercase uk-text-bold" for="form-stacked-text">Dein Code lautet:</label>
-                            <div class="uk-form-controls">
-                                <input class="uk-input" id="form-stacked-text" type="text" placeholder="__  __  __ __  __  __">
-                            </div>
-                            <div class="uk-margin-small uk-text-left uk-text-meta">
-                              <span class="tm-code">(1)</span>
-                              <span class="tm-code">(2)</span>
-                              <span class="tm-code double">(3)</span>
-                              <span class="tm-code">(4)</span>
-                              <span class="tm-code">(5)</span>
-                            </div>
-                          </div>
-
-                          <button type="submit" class="uk-margin-small uk-button uk-button-primary">Los geht's</button>
-                          <a href="javascript:void(0)" class="uk-margin-small-top uk-display-block uk-text-small" uk-toggle="target: #code-info">
-                            Ich habe meinen Code vergessen
-                          </a>
-                          <div id="code-info" class="uk-margin-small-top uk-text-meta" hidden="hidden" aria-hidden="true">
-                            <table class="uk-table uk-table-small uk-width-auto uk-margin-auto uk-margin-remove-top">
-                              <tbody>
-                                  <tr>
-                                      <td class="uk-text-right">
-                                        <div class="uk-margin-small-bottom">Zweiter Buchstabe deines Vornamens (A-Z):</div>
-                                        <div class="uk-margin-small-bottom">Dritter Buchstabe deines Nachnamens (A-Z):</div>
-                                        <div class="uk-margin-small-bottom">Tag deines Geburtstages (01 - 31):</div>
-                                        <div class="uk-margin-small-bottom">Erster Buchstabe deines Geburtsmonates (A-Z):</div>
-                                        <div class="uk-margin-small-bottom">Anzahl deiner Geschwister (0 - ...):</div>
-                                      </td>
-                                      <td class="uk-text-left">
-                                        <div class="uk-margin-small-bottom">(1) = __</div>
-                                        <div class="uk-margin-small-bottom">(2) = __</div>
-                                        <div class="uk-margin-small-bottom">(3) = __ __</div>
-                                        <div class="uk-margin-small-bottom">(4) = __</div>
-                                        <div class="uk-margin-small-bottom">(5) = __</div>
-                                      </td>
-                                  </tr>
-                              </tbody>
-                            </table>
-                          </div>
-                      </form>
-
-
-                    </div>
-
-                  </div>
-                  <hr class="uk-divider-icon"/>
-
-                </div>
-              </div>
-              <!-- End: Section Start -->
-
-              <!-- Begin: Section Topics -->
-              <div id="topics" class="tm-section" uk-scrollspy="cls: uk-animation-scale-up; target: .tm-scrollspy; delay: 500; repeat: false">
-                <div class="uk-container">
-                  <div class="uk-margin-large-top uk-margin-large-bottom">
-
-                    <div class="tm-scrollspy uk-margin-auto uk-margin-large-bottom uk-width-2-3@m">
-                      <h1>Themen</h1>
-                      <p>Die Aufgaben gliedern sich drei Bereiche: Finanzwissen, Konsumverhalten und Selbstkontrolle. Klingt langweilig? Dann überzeuge dich vom Gegenteil - du wirst sehen, wie hilf- und lehrreich ein Wissen in diesen Gebieten ist.</p>
-                    </div>
-
-                    <div class="uk-grid-divider" uk-grid>
-                      <div class="tm-scrollspy uk-width-1-3@m">
-                        <img src="assets/img/topic-financial-knowledge.svg" width="300">
-                        <h3>Finanzwissen</h3>
-                        <p>Hierher sollte ein kurzer Beschreibungstext zum Thema Finanzwissen. Ein bis zwei Sätze sind ausreichend.</p>
-                        <a href="#financial-knowledge" class="uk-button uk-button-primary" uk-scroll="offset: 80">Zu den Aufgaben</a>
-                      </div>
-                      <div class="tm-scrollspy uk-width-1-3@m">
-                        <img src="assets/img/topic-consumer-behaviour.svg" width="300">
-                        <h3>Konsumverhalten</h3>
-                        <p>Hierher sollte ein kurzer Beschreibungstext zum Thema Konsumverhalten. Ein bis zwei Sätze sind ausreichend.</p>
-                        <a href="#consumer-behaviour" class="uk-button uk-button-primary" uk-scroll="offset: 80">Zu den Aufgaben</a>
-                      </div>
-                      <div class="tm-scrollspy uk-width-1-3@m">
-                          <img src="assets/img/topic-selfcontrol.svg" width="300">
-                          <h3>Selbstkontrolle</h3>
-                          <p>Hierher sollte ein kurzer Beschreibungstext zum Thema Selbstkontrolle. Ein bis zwei Sätze sind ausreichend.</p>
-                          <a href="#self-control" class="uk-button uk-button-primary" uk-scroll="offset: 80">Zu den Aufgaben</a>
-                      </div>
-                    </div>
-
-                  </div>
-                  <hr class="uk-divider-icon"/>
-
-                </div>
-              </div>
-              <!-- End: Section Topics -->
-
-              <!-- Begin: Section Financial Knowledge -->
-              <div id="financial-knowledge" class="tm-section" uk-scrollspy="cls: uk-animation-scale-up; target: .tm-scrollspy; delay: 500; repeat: false">
-                <div class="uk-container">
-                  <div class="uk-margin-large-top uk-margin-large-bottom">
-                    <h1>Finanzwissen</h1>
-                      <p class="uk-text-lead">@TODO</p>
-
-                    <!--
-                    <p>Hier geht es darum, richtig einschätzen zu können, wie sich Zinsen auf dein Sparguthaben auswirken. <strong>Zinsen sind gewissermaßen eine Belohnung dafür, dass du jemand anderem (der Bank) dein Geld für eine bestimmte Zeit überlässt</strong>. Die Zinsen werden in Prozent angegeben und hängen somit von der Höhe des überlassenen Geldbetrages ab. Je mehr Geld du also auf dem Sparbuch hast, umso höher sind auch die Zinsen, die du dafür bekommst.</p>
-
-                    <ul class="uk-margin-large-top" uk-tab="animation: uk-animation-slide-top-small" uk-switcher>
-                      <li><a href="#">Beschreibung</a></li>
-                      <li><a href="#">Aufgabe</a></li>
-                    </ul>
-                    <ul class="uk-switcher uk-text-left@m">
-                        <li>
-                          <div uk-grid>
-                            <div class="uk-width-2-5@m uk-width-1-3@l">
-                              <img src="assets/img/description-financial-knowledge.svg" width="300">
-                            </div>
-                            <div class="uk-width-3-5@m uk-width-2-3@l">
-                              <p>Angenommen, du hast zu Beginn 1.000 Euro auf deinem Sparbuch und erhältst im ersten Jahr 2% Zinsen auf 1.000 Euro, also <code>0,02 x 1.000 = 20 Euro</code>. Dein Guthaben beträgt in einem Jahr daher <code>1.000 + 20 = 1.020 Euro</code> (Startguthaben + Zinsen aus dem ersten Jahr).</p>
-                              <p>Wenn du das Geld nun ein weiteres Jahr auf dem Sparbuch lässt, erhältst du im zweiten Jahr 2% Zinsen auf dein neues Guthaben von 1.020 Euro, die Zinsen im zweiten Jahr betragen demnach <code>0,02 x 1.020 = 20,40 Euro</code>. Weshalb sind die Zinsen im zweiten Jahr höher als im ersten Jahr?</p>
-                              <p>Das liegt daran, dass dein Guthaben im ersten Jahr durch die Zinsen des ersten Jahres um 20 Euro gewachsen ist. Im zweiten Jahr erhältst du nun nicht nur Zinsen auf die ursprünglichen 1.000 Euro, sondern auf das neue Guthaben von 1.020 Euro. Deshalb erhältst du im zweiten Jahr 20,40 Euro an Zinsen, sodass sich nach zwei Jahren <code>1.020 + 20,40 = 1.040,40 Euro</code> (Guthaben nach einem Jahr + Zinsen aus dem zweiten Jahr) auf deinem Sparbuch befinden. Du bekommst also im zweiten Jahr auch Zinsen auf die bereits erhaltenen Zinsen aus dem ersten Jahr, was als <strong>"Zinseszinsen"</strong> bezeichnet wird. Durch die Zinseszinsen wächst dein Guthaben daher immer schneller, je länger du es auf dem Sparbuch lässt. Dieser Effekt wirkt anfangs eher klein, kann über die Jahre aber große Auswirkungen haben.
-                              </p>
-
-                              <a href="#" class="uk-button uk-button-primary" uk-switcher-item="next">Zur Aufgabe</a>
-                            </div>
-                          </div>
-
-                        </li>
-                        <li>
-                          <p class="uk-text-lead">@TODO</p>
-                        </li>
-                    </ul>-->
-
-                  </div>
-                  <hr class="uk-divider-icon"/>
-
-                </div>
-              </div>
-              <!-- End: Section Financial Knowledge -->
-
-              <!-- Begin: Section Consumer Behaviour -->
-              <div id="consumer-behaviour" class="tm-section" uk-scrollspy="cls: uk-animation-scale-up; target: .tm-scrollspy; delay: 500; repeat: false">
-                <div class="uk-container">
-                  <div class="uk-margin-large-top uk-margin-large-bottom">
-                    <h1>Konsumverhalten</h1>
-                    <p>Bei diesem Experiment kannst du etwas über deine Risikoeinstellung erfahren. <strong>Bei der Risikoeinstellung geht es darum, wie du dich in unsicheren Situationen verhältst. Es gibt hier keine richtigen oder falschen Entscheidungen.</strong> Manche Menschen gehen gerne mehr Risiko ein, anderen ist größere Sicherheit wichtig. So wie manche lieber Äpfel essen und andere lieber Birnen.</p>
-
-                    <ul class="uk-margin-large-top" uk-tab="animation: uk-animation-slide-top-small" uk-switcher>
-                      <li><a href="#">Beschreibung</a></li>
-                      <li><a href="#">Aufgabe</a></li>
-                    </ul>
-                    <ul class="uk-switcher uk-text-left@m">
-                        <li>
-                          <div uk-grid>
-                            <div class="uk-width-2-5@m uk-width-1-3@l">
-                              <img src="assets/img/description-consumer-behaviour.svg" width="300">
-                            </div>
-                            <div class="uk-width-3-5@m uk-width-2-3@l">
-                              <p class="uk-text-small">In dieser Übung liegt die Unsicherheit darin, dass du nicht weißt, in welcher Box die Bombe liegt. Je mehr Boxen du umdrehst, desto mehr kannst du gewinnen – gleichzeitig steigt damit aber auch die Wahrscheinlichkeit, dass du die Bombe erwischst und dann gar nichts erhältst. Risikoscheue Menschen werden daher weniger Boxen umdrehen, während risikofreudige Menschen mehr Boxen umdrehen.</p>
-
-                              <a href="#" class="uk-button uk-button-primary" uk-switcher-item="next">Zur Aufgabe</a>
-                            </div>
-                          </div>
-                        </li>
-                        <li>
-                          <div class="uk-text-center">
-                            <div data-bret="" data-bret-on-resolve="app.update()">
-                            </div>
-                          </div>
-                        </li>
-                    </ul>
-
-
-                  </div>
-                  <hr class="uk-divider-icon"/>
-
-                </div>
-              </div>
-              <!-- End: Section Consumer Behaviour -->
-
-              <!-- Begin: Section Selfcontrol -->
-              <div id="self-control" class="tm-section" uk-scrollspy="cls: uk-animation-scale-up; target: .tm-scrollspy; delay: 500; repeat: false">
-                <div class="uk-container">
-                  <div class="uk-margin-large-top uk-margin-large-bottom">
-                    <h1>Selbstkontrolle</h1>
-                    <p class="uk-text-lead">@TODO</p>
-                  </div>
-                </div>
-              </div>
-              <!-- End: Section Selfcontrol -->
-
-            </div>
-
-            <div class="uk-width-1-3@s uk-width-1-4@m uk-width-1-6@l uk-visible@s">
-              <div id="sidebar" uk-sticky="offset: 120; bottom: #content">
-                <!--<div class="uk-clearfix uk-margin-medium">
-                  <div class="uk-background-primary uk-light uk-padding-small uk-float-right">
-                    <h3>Mein Status</h3>
-                    <div class="uk-margin-small-bottom">
-                      <span class="uk-text-success" uk-icon="icon: star; ratio: 1.25"></span>
-                      <span class="uk-text-success" uk-icon="icon: star; ratio: 1.25"></span>
-                      <span class="uk-text-success" uk-icon="icon: star; ratio: 1.25"></span>
-                      <span class="uk-text-success" uk-icon="icon: star; ratio: 1.25"></span>
-                    </div>
-                    <div class="uk-badge uk-margin-small uk-padding-small">
-                      Finanz-Einsteiger
-                    </div>
-                    <a href="#status" class="uk-display-block uk-text-small" uk-scroll="offset: 80">Was heißt das?</a>
-                  </div>
-                </div>-->
-                <div class="uk-align-right uk-margin-medium">
-                  <div class="uk-background-primary uk-light uk-padding-small uk-display-inline-block" style="width: 100%">
-                    <div data-status="" data-status-is-compact="true">
-                      <a href="#status" class="uk-display-block uk-text-small" uk-scroll="offset: 80">Was heißt das?</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <!-- Begin: Section Start -->
+          <div
+            id="home"
+            data-ng-include="'views/static/home.html'">
           </div>
+          <!-- End: Section Start -->
+
+          <!-- Begin: Section Topics -->
+          <div
+            id="topics"
+            data-ng-include="'views/static/topics.html'">
+          </div>
+          <!-- End: Section Topics -->
+
+          <!-- Begin: Section Financial Knowledge -->
+          <div
+            id="financial-knowledge"
+            data-ng-include="'views/static/financial-knowledge.html'">
+          </div>
+          <!-- End: Section Financial Knowledge -->
+
+          <!-- Begin: Section Consumer Behaviour -->
+          <div
+            id="consumer-behaviour"
+            data-ng-include="'views/static/consumer-behaviour.html'">
+          </div>
+          <!-- End: Section Consumer Behaviour -->
+
+          <!-- Begin: Section Selfcontrol -->
+          <div
+            id="self-control"
+            data-ng-include="'views/static/self-control.html'">
+          </div>
+          <!-- End: Section Selfcontrol -->
+
         </div>
         <!-- End: Content -->
 
         <!-- Begin: Section Status -->
-        <div id="status" class="tm-section uk-background-primary uk-light" uk-scrollspy="cls: uk-animation-scale-up; target: .tm-scrollspy; delay: 500; repeat: false">
-          <div class="uk-container">
-            <div class="uk-margin-large-top uk-margin-xlarge-bottom">
-
-              <div class="tm-scrollspy uk-margin-auto uk-width-1-2@m">
-                <!--<h1>Mein Status</h1>
-                <p>Hier siehst du, wie viele Aufgaben du bereits bearbeitet hast. Je öfter du übst, umso besser kennst du dich mit Finanzangelegenheiten aus und umso höher wird dein Status!</p>
-                <div class="tm-stars uk-margin-small-top uk-margin-small-bottom">
-                  <span class="uk-text-success" uk-icon="icon: star; ratio: 2.5"></span>
-                  <span class="uk-text-success" uk-icon="icon: star; ratio: 2.5"></span>
-                  <span class="uk-text-success" uk-icon="icon: star; ratio: 2.5"></span>
-                  <span class="uk-text-success" uk-icon="icon: star; ratio: 2.5"></span>
-                </div>
-                <h3>Dein aktueller Status</h3>
-                <div class="uk-badge uk-padding-small">
-                  Finanz-Einsteiger
-                </div>-->
-                <div data-status=""></div>
-              </div>
-
-            </div>
-          </div>
+        <div
+          id="status"
+          data-ng-include="'views/static/status.html'">
         </div>
         <!-- End: Section Status -->
 
         <!-- Begin: Section Contact -->
-        <div id="contact" class="tm-section uk-background-secondary uk-light" uk-scrollspy="cls: uk-animation-scale-up; target: .tm-scrollspy; delay: 500; repeat: false">
-          <div class="uk-container">
-            <div class="uk-margin-large-top uk-margin-large-bottom">
-
-              <div class="tm-scrollspy uk-margin-auto uk-width-1-2@m">
-                <h1>Kontakt</h1>
-                <p>Du hast eine Frage zum Inhalt oder zur App? Kein Problem - schick uns einfach dein Anliegen und wir helfen dir so schnell wie möglich!</p>
-                <form class="uk-form-stacked" onsubmit="javascript: return false;">
-                  <div class="uk-margin">
-                    <input class="uk-input" type="text" placeholder="Name">
-                  </div>
-                  <div class="uk-margin">
-                    <input class="uk-input" type="email" placeholder="Email">
-                  </div>
-                  <div class="uk-margin">
-                    <input class="uk-input" type="text" placeholder="Betreff">
-                  </div>
-                  <div class="uk-margin">
-                    <textarea class="uk-textarea" rows="5" placeholder="Nachricht"></textarea>
-                  </div>
-                  <button type="submit" class="uk-button uk-button-primary">
-                    Absenden
-                  </button>
-                </form>
-              </div>
-
-            </div>
-          </div>
-          <hr class="uk-margin-remove">
+        <div
+          id="contact"
+          data-ng-include="'views/static/contact.html'">
         </div>
         <!-- End: Section Contact -->
 
@@ -383,53 +108,18 @@
       <!-- End: Main -->
 
       <!-- Start: Footer -->
-      <footer id="footer" class="uk-background-default uk-text-center uk-padding">
-        <div class="uk-container">
-          <div>Ein Projekt der Uni Innsbruck in Zusammenarbeit mit der AK Tirol</div>
-          <div class="uk-text-meta">© 2017 by Universität Innsbruck, Institut für Banken und Finanzen.</div>
-        </div>
+      <footer
+        id="footer"
+        data-ng-include="'views/static/footer.html'">
       </footer>
       <!-- End: Footer -->
     </div>
 
     <!-- Start: Offcanvas -->
-    <div id="off-canvas" uk-offcanvas="mode: reveal; flip: true; overlay: true">
-        <div class="uk-offcanvas-bar">
-            <button class="uk-offcanvas-close" type="button" uk-close></button>
-
-            <ul class="uk-nav uk-nav-default" uk-scrollspy-nav="closest: li; scroll: true; offset: 80">
-                <li><a href="#home" uk-off-canvas-scroll="target: #off-canvas; offset: 80">Start</a></li>
-                <li class="uk-parent">
-                  <a href="#topics" uk-off-canvas-scroll="target: #off-canvas; offset: 80">Themen</a>
-                  <ul class="uk-nav-sub">
-                    <li><a href="#financial-knowledge" uk-off-canvas-scroll="target: #off-canvas; offset: 80">Finanzwissen</a></li>
-                    <li><a href="#consumer-behaviour" uk-off-canvas-scroll="target: #off-canvas; offset: 80">Konsumverhalten</a></li>
-                    <li><a href="#self-control" uk-off-canvas-scroll="target: #off-canvas; offset: 80">Selbstkontrolle</a></li>
-                  </ul>
-                </li>
-                <li>
-                  <a href="#status" uk-off-canvas-scroll="target: #off-canvas; offset: 80">Mein Status</a>
-                </li>
-                <li><a href="#contact" uk-off-canvas-scroll="target: #off-canvas; offset: 80">Kontakt</a></li>
-            </ul>
-
-            <hr>
-
-            <div class="uk-text-center">
-              <h5 class="uk-margin-remove-top">Mein Status</h5>
-              <div class="uk-margin-small-bottom">
-                <span class="uk-text-success" uk-icon="icon: star; ratio: 1.25"></span>
-                <span class="uk-text-success" uk-icon="icon: star; ratio: 1.25"></span>
-                <span class="uk-text-success" uk-icon="icon: star; ratio: 1.25"></span>
-                <span class="uk-text-success" uk-icon="icon: star; ratio: 1.25"></span>
-              </div>
-              <div class="uk-badge uk-margin-small uk-padding-small">
-                Finanz-Einsteiger
-              </div>
-              <a href="#status" class="uk-display-block uk-text-small" uk-off-canvas-scroll="target: #off-canvas; offset: 80">Was heißt das?</a>
-            </div>
-
-        </div>
+    <div
+      id="off-canvas"
+      data-ng-include="'views/static/offcanvas.html'"
+      data-uk-offcanvas="mode: reveal; flip: true; overlay: true" >
     </div>
     <!-- End: Offcanvas -->
 

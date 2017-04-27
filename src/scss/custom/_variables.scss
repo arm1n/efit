@@ -31,15 +31,11 @@ $global-medium-font-size: 1.25rem;
 $global-small-font-size: 0.875rem;
 
 // font families
-//$global-font-family: 'ABeeZee', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, "Helvetica Neue", Arial, sans-serif;
-//$base-heading-font-family: 'Crete Round', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, "Helvetica Neue", Arial, sans-serif;
-
 $global-font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, "Helvetica Neue", Arial, sans-serif;
 $base-heading-font-family: 'Oswald', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, "Helvetica Neue", Arial, sans-serif;
-
-// forms
-$inverse-global-muted-background: transparent;
 
 // navbar
 $navbar-nav-item-active-color: $tm-primary;
 
+// tabs
+$tab-item-border-width: 3px;

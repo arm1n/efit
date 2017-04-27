@@ -1,3 +1,9 @@
+// texts
+.uk-text-inverse{
+  color: $global-inverse-color;
+}
+
+// buttons
 $button-success-background:                      $global-success-background !default;
 $button-success-color:                           $global-inverse-color !default;
 $button-success-hover-background:                darken($button-success-background, 5%) !default;

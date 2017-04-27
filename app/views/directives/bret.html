@@ -1,14 +1,6 @@
 <div class="bret">
   <div class="matrix">
 
-    <p class="uk-width-1-2@m uk-margin-auto">
-      Wähle aus den untenstehenden Boxen aus - sobald du fertig bist, kannst du den Button "Auflösen" drücken:
-    </p>
-
-    <p>
-      <strong>Gesammelt:</strong> {{ bretController.getCollectedBoxes() }}&nbsp;&nbsp;&nbsp;<strong>Verbleibend:</strong> {{ bretController.getRemainingBoxes() }}
-    </p>
-
     <div
       class="row"
       data-ng-repeat="(row,columns) in bretController.matrix">
@@ -92,16 +84,40 @@
       <div class="uk-animation-slide-top-small">
         <hr>
         <h2>Auswertung</h2>
-        <span>Im Schnitt drehen die Menschen bei dieser Übung {{bretController.avg}} Boxen um. Du hast </span>
-        <span data-ng-if="bretController.getCollectedBoxes() < bretController.avg">{{bretController.getCollectedBoxes() }}, also weniger </span>
-        <span data-ng-if="bretController.getCollectedBoxes() == bretController.avg">gleich viele Boxen</span>
-        <span data-ng-if="bretController.getCollectedBoxes() > bretController.avg">{{bretController.getCollectedBoxes() }}, also mehr </span>
-        <span>Boxen umgedreht, was zeigt, dass du</span>
-        <span data-ng-if="bretController.getCollectedBoxes() < bretController.avg"> risikoscheuer als </span>
-        <span data-ng-if="bretController.getCollectedBoxes() == bretController.avg"> die gleiche Risikoeinstellung hast wie </span>
-        <span data-ng-if="bretController.getCollectedBoxes() > bretController.avg"> risikobereiter als </span>
-        <span>als der Durchschnitt der Bevölkerung. Wie schon gesagt, gibt es hier <strong>keine richtigen oder falschen Entscheidungen</strong>. Dieses Experiment soll dich motivieren, in Situationen mit unsicherem Ausgang zu überlegen, wie es dir dabei geht, wenn du mehr oder weniger Risiko eingehst. <strong>Ein gutes Bewusstsein für unsere Risikoeinstellung hilft jedem von uns, unsere persönlichen Entscheidungen so zu treffen, dass wir uns damit wohl fühlen.</strong>
-        </span>
+
+        <div class="uk-text-small">
+          <p data-ng-class="{
+              'uk-text-success': !bretController.hasBomb(),
+              'uk-text-danger': bretController.hasBomb()
+            }">
+            <strong>
+              <span>Du hast {{bretController.getCollectedBoxes()}} Boxen gesammelt. Da die Bombe</span>
+              <span data-ng-if="!bretController.hasBomb()"> nicht </span>
+              <span data-ng-if="bretController.hasBomb()"> </span>
+              <span>unter den gesammelten Boxen war, beträgt deine Auszahlung</span>
+              <span data-ng-if="!bretController.hasBomb()"> {{bretController.getCollectedBoxes()}} </span>
+              <span data-ng-if="bretController.hasBomb()"> 0 </span>
+              <span>Taler.</span>
+            </strong>
+          </p>
+
+          <p>
+            In dieser Übung liegt die Unsicherheit darin, dass du im Vorhinein nicht weißt, hinter welcher Box sich die Bombe befindet. Je mehr Boxen du umdrehst, desto mehr kannst du gewinnen – gleichzeitig steigt damit aber auch die Wahrscheinlichkeit, dass du die Bombe erwischst und dann gar nichts erhältst. Risikoscheue Menschen werden daher weniger Boxen umdrehen, während risikofreudige Menschen mehr Boxen umdrehen.
+          </p>
+
+          <p>
+            <span>Im Schnitt drehen die Menschen bei dieser Übung {{bretController.avg}} Boxen um. Du hast </span>
+            <span data-ng-if="bretController.getCollectedBoxes() < bretController.avg">{{bretController.getCollectedBoxes() }}, also weniger </span>
+            <span data-ng-if="bretController.getCollectedBoxes() == bretController.avg">gleich viele Boxen</span>
+            <span data-ng-if="bretController.getCollectedBoxes() > bretController.avg">{{bretController.getCollectedBoxes() }}, also mehr </span>
+            <span>Boxen gesammelt. Demnach</span>
+            <span data-ng-if="bretController.getCollectedBoxes() < bretController.avg"> bist du eher risikoscheuer als </span>
+            <span data-ng-if="bretController.getCollectedBoxes() == bretController.avg"> hast du in etwa die gleiche Risikobereitschaft wie </span>
+            <span data-ng-if="bretController.getCollectedBoxes() > bretController.avg"> bist du eher risikofreudiger als </span>
+            <span>als der Durchschnitt. Wie schon gesagt, gibt es hier <strong>keine richtigen oder falschen Entscheidungen</strong>. Dieses Experiment soll dich motivieren, in Situationen mit unsicherem Ausgang zu überlegen, wie es dir dabei geht, wenn du mehr oder weniger Risiko eingehst. <strong>Ein gutes Bewusstsein für unsere Risikoeinstellung hilft jedem von uns, unsere persönlichen Entscheidungen so zu treffen, dass wir uns damit wohl fühlen.</strong>
+            </span>
+          </p>
+        </div>
       </div>
     </div>
 

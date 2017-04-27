@@ -6,6 +6,7 @@
   // Bret
   // --------------------------------------------------
 
+  // controller
   var Bret = function($scope, $attrs, $element, $filter, $interval) {
     this._storageKey = 'bret_state';
 
@@ -285,9 +286,6 @@
     */
   };
 
-  /**
-  * @ignore
-  */
   Bret.prototype._initMatrix = function() {
     this.matrix = [];
     this.iterator = [];
@@ -349,6 +347,7 @@
     return array;
   };
 
+  // controller
   angular.module(module).directive('bret',function(){
     return {
       scope: {
@@ -364,7 +363,7 @@
       controller: Bret,
       bindToController: true,
       controllerAs: 'bretController',
-      templateUrl: 'assets/views/bret.html'
+      templateUrl: 'views/directives/bret.html'
     };
   });
 
@@ -372,6 +371,7 @@
   // Bret Card
   // --------------------------------------------------
 
+  // controller
   var BretCard = function(){
   };
 
@@ -396,6 +396,7 @@
     });
   };
 
+  // registry
   angular.module(module).directive('bretCard', function(){
     return {
       scope: {
@@ -410,7 +411,7 @@
       controller: BretCard,
       bindToController: true,
       controllerAs: 'bretCardController',
-      templateUrl: 'assets/views/bret-card.html'
+      templateUrl: 'views/directives/bret-card.html'
     };
   });
 

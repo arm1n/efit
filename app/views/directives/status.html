@@ -1,8 +1,7 @@
 <div data-ng-if="statusController.isCompact">
-    <h3>Mein Status</h3>
+    <h4>Mein Status</h4>
     <div class="uk-margin-small-bottom">
       <span
-        class="uk-text-success"
         uk-icon="icon: star; ratio: 1.25"
         data-ng-class="{
           'uk-icon-filled': statusController.state.get()>0,
@@ -10,7 +9,6 @@
         }">
       </span>
       <span
-        class="uk-text-success"
         uk-icon="icon: star; ratio: 1.25"
         data-ng-class="{
           'uk-icon-filled': statusController.state.get()>1,
@@ -18,7 +16,6 @@
         }">
       </span>
       <span
-        class="uk-text-success"
         uk-icon="icon: star; ratio: 1.25"
         data-ng-class="{
           'uk-icon-filled': statusController.state.get()>2,
@@ -26,7 +23,6 @@
         }">
       </span>
       <span
-        class="uk-text-success"
         uk-icon="icon: star; ratio: 1.25"
         data-ng-class="{
           'uk-icon-filled': statusController.state.get()>3,
@@ -52,6 +48,7 @@
       </span>
     </div>
     <div class="data-ng-transclude">
+      <!-- transcluded content -->
     </div>
 </div>
 
@@ -60,7 +57,6 @@
   <p>Hier siehst du, wie viele Aufgaben du bereits bearbeitet hast. Je öfter du übst, umso besser kennst du dich mit Finanzangelegenheiten aus und umso höher wird dein Status!</p>
   <div class="uk-margin-small-top uk-margin-small-bottom">
     <span
-        class="uk-text-success"
         uk-icon="icon: star; ratio: 2.5"
         data-ng-class="{
           'uk-icon-filled': statusController.state.get()>0,
@@ -68,7 +64,6 @@
         }">
       </span>
       <span
-        class="uk-text-success"
         uk-icon="icon: star; ratio: 2.5"
         data-ng-class="{
           'uk-icon-filled': statusController.state.get()>1,
@@ -76,7 +71,6 @@
         }">
       </span>
       <span
-        class="uk-text-success"
         uk-icon="icon: star; ratio: 2.5"
         data-ng-class="{
           'uk-icon-filled': statusController.state.get()>2,
@@ -84,7 +78,6 @@
         }">
       </span>
       <span
-        class="uk-text-success"
         uk-icon="icon: star; ratio: 2.5"
         data-ng-class="{
           'uk-icon-filled': statusController.state.get()>3,

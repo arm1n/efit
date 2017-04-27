@@ -22,7 +22,7 @@
       controller: Status,
       bindToController: true,
       controllerAs: 'statusController',
-      templateUrl: 'assets/views/status.html'
+      templateUrl: 'views/directives/status.html'
     };
   });
 

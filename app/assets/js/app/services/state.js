@@ -13,6 +13,8 @@
   var State = function() {
   };
 
+  State.$inject = [];
+
   State.prototype.current = 'STATE0';
 
   State.prototype.total = 5;
@@ -24,8 +26,6 @@
     'STATE3': 3,
     'STATE4': 4
   };
-
-  State.$inject = [];
 
   State.prototype.add = function() {
     var current = this.states[this.current];
