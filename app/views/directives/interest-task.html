@@ -1,7 +1,7 @@
 <div class="interest-task">
 
   <div class="description">
-    <p>Nimm an, du hast {{interestTaskController.amount|currency:' Euro':0}} auf einem Sparbuch und der Zinssatz beträgt {{interestTaskController.rate|percent}} pro Jahr.</p>
+    <p>Wir haben für dich {{interestTaskController.amount|currency:' Euro':0}} auf dein Spielgeld-Sparbuch einbezahlt. Die Bank bezahlt dir {{interestTaskController.rate|percent}} pro Jahr.</p>
   </div>
 
   <div class="question-1 question">
@@ -99,12 +99,12 @@
                 </span>
               </span>
               <span data-ng-if="interestTaskController.correctAnswers === 0">
-                Leider hast du beide Aufgaben falsch gelöst. Lies dir die Erklärung durch, um auf deinen Fehler zu kommen.
+                Leider hast du beide Aufgaben falsch gelöst. Die folgende Erklärung hilft dir dabei, den Zinseffekt besser zu verstehen.
               </span>
             </strong>
           </p>
 
-          <p>Hier geht es darum, richtig einschätzen zu können, wie sich Zinsen auf dein Sparguthaben auswirken. <strong>Zinsen sind gewissermaßen eine Belohnung dafür, dass du jemand anderem (der Bank) dein Geld für eine bestimmte Zeit überlässt</strong>. Die Zinsen werden in Prozent angegeben und hängen somit von der Höhe des überlassenen Geldbetrages ab. Je mehr Geld du also auf dem Sparbuch hast, umso höher sind auch die Zinsen, die du dafür bekommst.</p>
+          <p>Zinsen werden meistens in Prozent angegeben und hängen somit von der Höhe des überlassenen Geldbetrages ab. Je mehr Geld du also auf dem Sparbuch hast, umso höher sind auch die Zinsen, die du dafür bekommst.</p>
 
           <p>Angenommen, du hast zu Beginn 1.000 Euro auf deinem Sparbuch und erhältst im ersten Jahr 2% Zinsen auf 1.000 Euro, also</p>
           <p><code>0,02 x 1.000 = 20 Euro</code></p>

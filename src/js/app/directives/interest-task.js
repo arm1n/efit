@@ -117,8 +117,8 @@
   };
 
   InterestTaskExercise.$inject = ['$scope','$element','$attrs'];
-  InterestTaskExercise.prototype.notes = [5,10,20,50,100,200,500];
-  InterestTaskExercise.prototype.coins = [0.01,0.02,0.05,0.1,0.2,0.5,1,2];
+  InterestTaskExercise.prototype.notes = [500,200,100,50,20,10,5];
+  InterestTaskExercise.prototype.coins = [2,1,0.5,0.2,0.1,0.05,0.02,0.01];
 
   InterestTaskExercise.prototype.onDrop = function(value){
     this.stack.push(value);

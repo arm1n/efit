@@ -8706,13 +8706,15 @@ td.uk-text-break {
 .drag-item.coin, .drag-item.note {
   z-index: 5;
   margin: 3px;
-  cursor: move;
   font-size: 10px;
   line-height: 40px;
   text-align: center;
   position: relative;
   display: inline-block;
   background-size: 100%;
+  cursor: move;
+  cursor: grab;
+  cursor: -webkit-grab;
   -moz-user-select: -moz-none;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -8730,7 +8732,9 @@ td.uk-text-break {
   background-image: url(../img/note.svg); }
 
 .drag-item.active {
-  opacity: 0.75; }
+  opacity: 0.75;
+  cursor: grabbing;
+  cursor: -webkit-grabbing; }
 
 .drag-item.disabled {
   cursor: not-allowed; }

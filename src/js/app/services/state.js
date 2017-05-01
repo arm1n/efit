@@ -39,7 +39,7 @@
     this.set(this.states[state]);
 
     this.notification.notify(
-      'Gratulation, du hast einen neuen Status!',
+      'Gratulation, du hast einen neuen Status erreicht!',
       'success'
     );
   };
