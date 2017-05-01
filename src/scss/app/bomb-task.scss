@@ -74,7 +74,7 @@
 }
 
 .bomb-task .holder .card.disabled .front{
-  opacity: 0.5;
+  opacity: 0.75;
 }
 
 .bomb-task .holder.resolved .card.disabled .front{
@@ -83,7 +83,7 @@
 
 .bomb-task .holder .card.disabled .front{
   &:after{
-    opacity: 0.35 !important;
+    opacity: 0.5 !important;
   }
 }
 

@@ -8576,13 +8576,13 @@ td.uk-text-break {
   cursor: default !important; }
 
 .bomb-task .holder .card.disabled .front {
-  opacity: 0.5; }
+  opacity: 0.75; }
 
 .bomb-task .holder.resolved .card.disabled .front {
   opacity: 1; }
 
 .bomb-task .holder .card.disabled .front:after {
-  opacity: 0.35 !important; }
+  opacity: 0.5 !important; }
 
 /** CARD FRONT/BACK */
 /** general shared */
@@ -8757,6 +8757,13 @@ td.uk-text-break {
   font-weight: bold;
   text-align: center;
   position: absolute; }
+
+/* --------------------------------------------------
+ *  TAGS
+ * -------------------------------------------------- */
+* {
+  -webkit-tap-highlight-color: transparent;
+  -moz-tap-highlight-color: transparent; }
 
 /* --------------------------------------------------
  *  WRAPPER
