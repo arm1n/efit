@@ -1,0 +1,16 @@
+<div class="save-coin-task">
+  <div
+    class="holder"
+    data-ng-repeat="card in saveCoinTaskController.cards">
+    <div class="label">Woche {{card}}</div>
+    <div
+      class="card"
+      data-ng-class="{
+        'disabled': saveCoinTaskController.resolved
+      }"
+      data-save-coin-task-card=""
+      data-save-coin-task-card-on-complete="saveCoinTaskController.update()">
+      <img src="assets/img/thumb.svg" width="200">
+    </div>
+  </div>
+</div>

@@ -8762,6 +8762,34 @@ td.uk-text-break {
   text-align: center;
   position: absolute; }
 
+/*!
+ * SAVE COIN TASK
+ *
+ * @author Armin Pfurtscheller
+ * @license MIT
+ */
+.save-coin-task canvas {
+  max-width: none; }
+
+.save-coin-task .holder {
+  margin: 25px 0;
+  display: block; }
+  @media (min-width: 750px) {
+    .save-coin-task .holder {
+      margin: 0 10px;
+      display: inline-block; } }
+
+.save-coin-task .label {
+  margin: 0 0 10px;
+  font-weight: bold; }
+
+.save-coin-task .card {
+  visibility: hidden;
+  display: inline-block;
+  transition: opacity 0.3s; }
+  .save-coin-task .card.disabled {
+    opacity: 0.75; }
+
 /* --------------------------------------------------
  *  TAGS
  * -------------------------------------------------- */

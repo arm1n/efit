@@ -61,8 +61,8 @@ gulp.task('vendor', function(){
     'src/vendor/angular/angular.min.js',
     'src/vendor/angular-i18n/angular-locale_de.js',
     'src/vendor/angular-sanitize/angular-sanitize.min.js',
-    'src/vendor/ngDraggable/ngDraggable.js',
     'src/vendor/interactjs/dist/interact.min.js',
+    'src/vendor/scratchcard/dist/scratchcard-standalone.min.js',
     'src/vendor/jQuery/dist/jquery.min.js',
     'src/vendor/uikit/dist/js/uikit.min.js',
     'src/vendor/uikit/dist/js/uikit-icons.min.js'
