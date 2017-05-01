@@ -13,7 +13,11 @@
   // MODULE
   //
   var module = 'eFit';
-  angular.module(module,[]);
+
+  //
+  // APP
+  //
+  angular.module(module,['ngSanitize']);
 
   //
   // CONSTANTS

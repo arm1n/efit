@@ -59,16 +59,14 @@ gulp.task('js',function(){
 gulp.task('vendor', function(){
   return gulp.src([
     'src/vendor/angular/angular.min.js',
+    'src/vendor/angular-i18n/angular-locale_de.js',
+    'src/vendor/angular-sanitize/angular-sanitize.min.js',
+    'src/vendor/ngDraggable/ngDraggable.js',
+    'src/vendor/interactjs/dist/interact.min.js',
     'src/vendor/jQuery/dist/jquery.min.js',
     'src/vendor/uikit/dist/js/uikit.min.js',
     'src/vendor/uikit/dist/js/uikit-icons.min.js'
   ]).pipe(gulp.dest('app/assets/js/vendor'));
-});
-
-gulp.task('fonts', function(){
-  /*return gulp.src([
-    'src/vendor/materialize/dist/fonts/roboto/*'
-  ]).pipe(gulp.dest('app/assets/fonts/roboto'));*/
 });
 
 gulp.task('browser-sync', function() {
@@ -82,7 +80,7 @@ gulp.task('bs-reload', function () {
     browserSync.reload();
 });
 
-gulp.task('default', ['css', 'js', 'vendor', /*'fonts',*/ 'browser-sync'], function () {
+gulp.task('default', ['css', 'js', 'vendor', 'browser-sync'], function () {
     gulp.watch("src/scss/**/*.scss", ['css']);
     gulp.watch("src/js/**/*.js", ['js']);
     gulp.watch("app/**/*.html", ['bs-reload']);

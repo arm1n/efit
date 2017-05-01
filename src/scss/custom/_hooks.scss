@@ -29,6 +29,31 @@
   }
 }
 
+// notification
+@mixin hook-notification-message-primary() {
+  color: $global-inverse-color;
+  background-color: $global-primary-background;
+}
+
+@mixin hook-notification-message-success() {
+  color: $global-inverse-color;
+  background-color: $global-success-background;
+}
+
+@mixin hook-notification-message-warning() {
+  color: $global-inverse-color;
+  background-color: $global-warning-background;
+}
+
+@mixin hook-notification-message-danger() {
+  color: $global-inverse-color;
+  background-color: $global-danger-background;
+}
+
+@mixin hook-notification-close() {
+  color: $global-inverse-color !important;
+}
+
 // icons
 @mixin hook-icon-misc() {
   &.uk-icon-filled{

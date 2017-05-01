@@ -11,71 +11,62 @@
   'use strict';
 
   // --------------------------------------------------
-  // Bret
+  // BombTask
   // --------------------------------------------------
 
   // controller
-  var Bret = function($scope, $attrs, $element, $filter, $interval) {
-    this._storageKey = 'bret_state';
+  var BombTask = function($scope, $attrs, $element, $filter, $interval, random) {
+    // this._storageKey = 'bomb_task_state';
 
     this.$interval = $interval;
     this.$element = $element;
     this.$filter = $filter;
     this.$attrs = $attrs;
     this.$scope = $scope;
+
+    this.random = random;
   };
 
-  Bret.$inject = ['$scope', '$attrs', '$element', '$filter', '$interval'];
+  BombTask.$inject = ['$scope', '$attrs', '$element', '$filter', '$interval', 'random'];
 
-  Bret.prototype.avg = 12;
+  BombTask.prototype.avg = 12;
+  BombTask.prototype.rows = 5;
+  BombTask.prototype.cols = 5;
+  BombTask.prototype.interval = 1;
+  BombTask.prototype.random = false;
+  BombTask.prototype.dynamic = false;
 
-  Bret.prototype.rows = 5;
+  BombTask.prototype.totalBoxes = 0;
+  BombTask.prototype.stopped = false;
+  BombTask.prototype.started = false;
+  BombTask.prototype.hasBomb = false;
+  BombTask.prototype.resolved = false;
+  BombTask.prototype.remainingBoxes = 0;
+  BombTask.prototype.collectedBoxes = 0;
 
-  Bret.prototype.cols = 5;
-
-  Bret.prototype.interval = 1;
-
-  Bret.prototype.random = false;
-
-  Bret.prototype.dynamic = false;
-
-  Bret.prototype.$onInit = function() {
+  BombTask.prototype.$onInit = function() {
     this.init();
   };
 
-  Bret.prototype.init = function() {
-
-    // init internal members
+  BombTask.prototype.init = function() {
     this._initInternals();
-    this._initWatches();
     this._initMatrix();
     this._initBomb();
 
-    // restore state
     this._desist();
 
-    // auto kick off
     if (!this.dynamic) {
       this.start();
     }
   };
 
-  Bret.prototype.reset = function() {
-
-    // unset watches and storage
-    // this._collectionUnwatchF();
-    // this._bombUnwatchF();
+  BombTask.prototype.reset = function() {
     this._removeState();
 
-    // reinitialize
     this.init();
   };
 
-  Bret.prototype.start = function(index) {
-
-    // automatically resolve cards
-    // by given time interval, so
-    // by random order or rows
+  BombTask.prototype.start = function(index) {
     if (this.dynamic) {
       var me = this;
       var max = this.iterator.length;
@@ -102,7 +93,7 @@
     this._persist();
   };
 
-  Bret.prototype.stop = function() {
+  BombTask.prototype.stop = function() {
     if (this.dynamic && this._intervalId) {
       this.$interval.cancel(this._intervalId);
     }
@@ -111,7 +102,7 @@
     this._persist();
   };
 
-  Bret.prototype.resolve = function() {
+  BombTask.prototype.resolve = function() {
     for (var i=0; i<this.collection.length; i++) {
       this.collection[i].$$resolved = true;
     }
@@ -121,12 +112,13 @@
     this._persist();
   };
 
-  Bret.prototype.update = function(column,active) {
+  BombTask.prototype.update = function(column, active) {
     var index = this.collection.indexOf(column);
 
     if (active) {
       if (index<0) {
         this.collection.push(column);
+        this.collectedBoxes++;
       }
 
       column.$$active = true;
@@ -134,73 +126,63 @@
       if (index>=0) {
         this.collection.splice(index,1);
         column.$$active = false;
+        this.collectedBoxes--;
       }
     }
+
+    if (this.isBomb(column)) {
+      this.hasBomb = true;
+    }
+
+    var total = this.totalBoxes;
+    var collected = this.collectedBoxes;
+    this.remainingBoxes = total - collected;
 
     this._persist();
   };
 
-  Bret.prototype.trackId = function(column) {
+  BombTask.prototype.trackId = function(column) {
     return column.row + '_' + column.col;
   };
 
-  Bret.prototype.isBomb = function(column) {
+  BombTask.prototype.isBomb = function(column) {
     return angular.equals(this.bomb,column);
   };
 
-  Bret.prototype.hasBomb = function() {
-    var me = this;
-    var filtered = this.$filter('filter')(
-      this.collection,
-      function(column)
-      {
-        return me.isBomb(column);
-      }
-    );
-
-    return +(filtered.length === 1);
-  };
-
-  Bret.prototype.getTotalBoxes = function() {
-    return this.rows * this.cols;
-  };
-
-  Bret.prototype.getCollectedBoxes = function() {
-    return this.collection.length;
-  };
-
-  Bret.prototype.getRemainingBoxes = function() {
-    return this.getTotalBoxes() - this.getCollectedBoxes();
-  };
-
-  Bret.prototype._getColumn = function(data) {
+  BombTask.prototype._getColumn = function(data) {
     var row = data.row - 1;
     var col = data.col - 1;
 
     return this.matrix[row][col];
   };
 
-  Bret.prototype._getState = function() {
+  BombTask.prototype._getState = function() {
+    /*
     if (typeof sessionStorage !== 'undefined') {
       return angular.fromJson(sessionStorage.getItem(this._storageKey));
     }
+    */
 
     return null;
   };
 
-  Bret.prototype._setState = function(data) {
+  BombTask.prototype._setState = function(/*data*/) {
+    /*
     if (typeof sessionStorage !== 'undefined') {
       sessionStorage.setItem(this._storageKey,angular.toJson(data));
     }
+    */
   };
 
-  Bret.prototype._removeState = function() {
+  BombTask.prototype._removeState = function() {
+    /*
     if (typeof sessionStorage !== 'undefined') {
       sessionStorage.removeItem(this._storageKey);
     }
+    */
   };
 
-  Bret.prototype._persist = function() {
+  BombTask.prototype._persist = function() {
     /*
     var state = {
       bomb: this.bomb,
@@ -220,7 +202,7 @@
     */
   };
 
-  Bret.prototype._desist = function() {
+  BombTask.prototype._desist = function() {
     /*
     var state = this._getState();
     if (state === null) {
@@ -266,35 +248,20 @@
     */
   };
 
-  Bret.prototype._initInternals = function() {
+  BombTask.prototype._initInternals = function() {
     this.collection = [];
+
+    this.hasBomb = false;
     this.started = false;
     this.stopped = false;
     this.resolved = false;
+
+    this.collectedBoxes = 0;
+    this.remainingBoxes = 0;
+    this.totalBoxes = this.rows * this.cols;
   };
 
-  Bret.prototype._initWatches = function() {
-    /*
-    var me = this;
-    this._collectionUnwatchF = this.$scope.$watchCollection(
-      function(){ return me.collection; },
-      function(collection){
-        me.form.boxes_collected = collection.length;
-        me.form.boxes_scheme = angular.toJson(collection);
-      }
-    );
-
-    this._bombUnwatchF = this.$scope.$watch(
-      function(){ return me.hasBomb(); },
-      function(hasBomb){
-        me.form.bomb = hasBomb;
-        me.form.bomb_location = angular.toJson(me.bomb);
-      }
-    );
-    */
-  };
-
-  Bret.prototype._initMatrix = function() {
+  BombTask.prototype._initMatrix = function() {
     this.matrix = [];
     this.iterator = [];
 
@@ -313,7 +280,7 @@
           if (!this.random) {
             this.iterator.push(data);
           } else {
-            this._pushRandom(this.iterator,data);
+            this.random.push(this.iterator,data);
           }
         }
       }
@@ -322,76 +289,51 @@
     }
   };
 
-  Bret.prototype._initBomb = function() {
-    var row = this._getRandom(0,this.rows-1);
-    var col = this._getRandom(0,this.cols-1);
+  BombTask.prototype._initBomb = function() {
+    var row = this.random.between(0,this.rows-1);
+    var col = this.random.between(0,this.cols-1);
 
     this.bomb = this.matrix[row][col];
   };
 
-  Bret.prototype._getRandom = function(min,max) {
-    return Math.floor(Math.random() * (max-min+1) + min);
-  };
-
-  Bret.prototype._pushRandom = function(array,value) {
-    // Methodology: Inside-Out Shuffle Algorithm
-    var rand = this._getRandom(0,array.length);
-    array.push(array[rand]);
-    array[rand] = value;
-
-    return array.length;
-  };
-
-  Bret.prototype._shuffleArray = function(array) {
-    // Methodology: Fisher-Yates-Algorithm
-    for (var i=array.length-1; i>0; i--) {
-      var rand = this._getRandom(0,i),
-          temp = array[i];
-
-          array[i] = array[rand];
-          array[rand] = temp;
-    }
-
-    return array;
-  };
-
   // controller
-  angular.module(module).directive('bret',function(){
+  angular.module(module).directive('bombTask',function(){
     return {
       scope: {
-        rows: '=?bretRows',
-        cols: '=?bretCols',
-        random: '=?bretRandom',
-        dynamic: '=?bretDynamic',
-        interval: '=?bretInterval',
-        onResolve: '&bretOnResolve'
+        avg: '=?bombTaskAvg',
+        rows: '=?bombTaskRows',
+        cols: '=?bombTaskCols',
+        random: '=?bombTaskRandom',
+        dynamic: '=?bombTaskDynamic',
+        interval: '=?bombTaskInterval',
+        onResolve: '&bombTaskOnResolve'
       },
       restrict: 'A',
       transclude: true,
-      controller: Bret,
+      controller: BombTask,
       bindToController: true,
-      controllerAs: 'bretController',
-      templateUrl: 'views/directives/bret.html'
+      controllerAs: 'bombTaskController',
+      templateUrl: 'views/directives/bomb-task.html'
     };
   });
 
   // --------------------------------------------------
-  // Bret Card
+  // BombTask Card
   // --------------------------------------------------
 
   // controller
-  var BretCard = function(){
+  var BombTaskCard = function(){
   };
 
-  BretCard.prototype.model = null;
+  BombTaskCard.prototype.model = null;
 
-  BretCard.prototype.isActive = false;
+  BombTaskCard.prototype.isActive = false;
 
-  BretCard.prototype.isDisabled = false;
+  BombTaskCard.prototype.isDisabled = false;
 
-  BretCard.prototype.isClickable = true;
+  BombTaskCard.prototype.isClickable = true;
 
-  BretCard.prototype.toggle = function() {
+  BombTaskCard.prototype.toggle = function() {
     if (this.isDisabled || !this.isClickable) {
       return;
     }
@@ -405,21 +347,21 @@
   };
 
   // registry
-  angular.module(module).directive('bretCard', function(){
+  angular.module(module).directive('bombTaskCard', function(){
     return {
       scope: {
-        model:'=bretCard',
-        onToggle:'&bretCardOnToggle',
-        isActive:'=?bretCardIsActive',
-        isDisabled:'=?bretCardIsDisabled',
-        isClickable:'=?bretCardIsClickable'
+        model:'=bombTaskCard',
+        onToggle:'&bombTaskCardOnToggle',
+        isActive:'=?bombTaskCardIsActive',
+        isDisabled:'=?bombTaskCardIsDisabled',
+        isClickable:'=?bombTaskCardIsClickable'
       },
       restrict: 'A',
       transclude: true,
-      controller: BretCard,
+      controller: BombTaskCard,
       bindToController: true,
-      controllerAs: 'bretCardController',
-      templateUrl: 'views/directives/bret-card.html'
+      controllerAs: 'bombTaskCardController',
+      templateUrl: 'views/directives/bomb-task-card.html'
     };
   });
 

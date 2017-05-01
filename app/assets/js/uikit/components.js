@@ -1,12 +1,12 @@
 /*!
- * fastshell
- * Fiercely quick and opinionated front-ends
- * https://HosseinKarami.github.io/fastshell
- * @author Hossein Karami
- * @version 1.0.5
+ * eFit Website
+ * An app for financial training in educational environments
+ * http://www.e-fit.com
+ * @author Armin Pfurtscheller
+ * @version 1.0.0
  * Copyright 2017. MIT licensed.
  */
-/* globals jQuery, UIkit */
+/* globals UIkit */
 (function() {
   'use strict';
 

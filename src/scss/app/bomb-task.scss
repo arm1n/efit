@@ -1,18 +1,18 @@
 /*!
- * BOMBTASK STYLES
+ * BOMB TASK
  *
  * @author Armin Pfurtscheller
  * @license MIT
  */
 
 /** MATRIX */
-.bret .matrix{}
+.bomb-task .matrix{}
 
 /** ROWS */
-.bret .row{}
+.bomb-task .row{}
 
 /** COLS */
-.bret .col{
+.bomb-task .col{
   padding: 5px;
   display: inline-block;
 }
@@ -20,7 +20,7 @@
 /** CARD */
 
 /** size */
-.bret .holder{
+.bomb-task .holder{
   width: 45px;
   height: 45px;
 
@@ -31,17 +31,21 @@
 }
 
 /** holder */
-.bret .holder{
+.bomb-task .holder{
+  -webkit-perspective: 1000px;
   perspective: 1000px;
+
+  -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
 }
 
-.bret .holder.resolved .card{
+.bomb-task .holder.resolved .card{
+  -webkit-transform: rotateY(180deg);
   transform: rotateY(180deg);
 }
 
 /** container */
-.bret .holder .card{
+.bomb-task .holder .card{
 
   width: 100%;
   height: 100%;
@@ -51,29 +55,33 @@
   text-align: center;
   text-decoration: none;
 
+
+  -webkit-transition: 0.3s;
   transition: 0.3s;
+
+  -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
 }
 
 /** clickable */
-.bret .holder .card.clickable{
+.bomb-task .holder .card.clickable{
   cursor: pointer;
 }
 
 /** disabled */
-.bret .holder .card.disabled{
+.bomb-task .holder .card.disabled{
   cursor: default !important;
 }
 
-.bret .holder .card.disabled .front{
+.bomb-task .holder .card.disabled .front{
   opacity: 0.5;
 }
 
-.bret .holder.resolved .card.disabled .front{
+.bomb-task .holder.resolved .card.disabled .front{
   opacity: 1;
 }
 
-.bret .holder .card.disabled .front{
+.bomb-task .holder .card.disabled .front{
   &:after{
     opacity: 0.35 !important;
   }
@@ -82,8 +90,8 @@
 /** CARD FRONT/BACK */
 
 /** general shared */
-.bret .holder .card .front,
-.bret .holder .card .back{
+.bomb-task .holder .card .front,
+.bomb-task .holder .card .back{
   top: 0;
   left: 0;
   width: 100%;
@@ -95,15 +103,19 @@
   box-shadow: $global-small-box-shadow;
   background-color: $global-background;
 
-
+  -webkit-transition: 0.3s;
   transition: 0.3s;
+
+  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
+
+  -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
 }
 
 /** line shared */
-.bret .holder .card .front:after,
-.bret .holder .card .back:after{
+.bomb-task .holder .card .front:after,
+.bomb-task .holder .card .back:after{
   right:0;
   bottom:0;
   width:100%;
@@ -115,7 +127,7 @@
 }
 
 /** icon shared */
-.bret .holder .card .icon{
+.bomb-task .holder .card .icon{
   top:0 !important;
   display: table-cell;
   vertical-align: middle;
@@ -123,12 +135,12 @@
 }
 
 /* swap z-index of front/back if resolved */
-.bret .holder.resolved .card .front{
+.bomb-task .holder.resolved .card .front{
   z-index: 1;
   visibility: hidden;
 }
 
-.bret .holder.resolved .card .back{
+.bomb-task .holder.resolved .card .back{
   z-index: 2;
   visibility: visible;
 }
@@ -136,14 +148,14 @@
 /** CARD FRONT */
 
 /** container */
-.bret .holder .card .front {
+.bomb-task .holder .card .front {
   z-index: 2;
   transform: rotateY(0deg);
 }
 
-.bret .holder .card.clickable:hover,
-.bret .holder .card.clickable:active,
-.bret .holder .card.clickable.active{
+.bomb-task .holder .card.clickable:hover,
+.bomb-task .holder .card.clickable:active,
+.bomb-task .holder .card.clickable.active{
   .front {
     &:after{
       opacity: 1;
@@ -152,22 +164,22 @@
 }
 
 /** line */
-.bret .holder .card .front:after{
+.bomb-task .holder .card .front:after{
   background: $global-primary-background;
   opacity: 0.35;
 }
 
-.bret .holder .card.active .front:after{
+.bomb-task .holder .card.active .front:after{
   opacity: 1;
 }
 
 /** icon */
-.bret .holder .card .front .icon{
+.bomb-task .holder .card .front .icon{
   display: none;
   padding-bottom: 5px;
 }
 
-.bret .holder .card.active .front .icon{
+.bomb-task .holder .card.active .front .icon{
   display: table-cell;
 }
 
@@ -175,37 +187,39 @@
 /** CARD BACK */
 
 /** container */
-.bret .holder .card .back {
+.bomb-task .holder .card .back {
   z-index: 1;
   visibility: hidden;
+
+  -webkit-transform: rotateY(-180deg);
   transform: rotateY(-180deg);
 }
 
 /** line */
-.bret .holder .card .back:after{
+.bomb-task .holder .card .back:after{
   background: $global-success-background;
 }
 
-.bret .holder.bomb .card .back:after{
+.bomb-task .holder.bomb .card .back:after{
   background: $global-danger-background;
 }
 
 /** icon (happy) */
-.bret .holder .card .back .icon-success{
+.bomb-task .holder .card .back .icon-success{
   color: $global-success-background;
   display: table-cell;
 }
 
-.bret .holder.bomb .card .back .icon-success{
+.bomb-task .holder.bomb .card .back .icon-success{
   display: none;
 }
 
 /** icon (bolt) */
-.bret .holder .card .back .icon-failure{
+.bomb-task .holder .card .back .icon-failure{
   color: $global-danger-background;
   display: none;
 }
 
-.bret .holder.bomb .card .back .icon-failure{
+.bomb-task .holder.bomb .card .back .icon-failure{
   display: table-cell;
 }

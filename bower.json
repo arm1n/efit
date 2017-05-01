@@ -20,7 +20,11 @@
   "dependencies": {
     "uikit": "^3.0.0",
     "jQuery": "^3.1.1",
-    "angular": "1.6.4"
+    "angular": "1.6.4",
+    "ngDraggable": "ngdraggable#^0.1.11",
+    "angular-i18n": "^1.6.4",
+    "interactjs": "^1.2.8",
+    "angular-sanitize": "^1.6.4"
   },
   "resolutions": {
     "angular": "1.6.4"

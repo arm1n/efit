@@ -1,13 +1,13 @@
 {
-  "name": "fastshell",
-  "title": "Fiercely quick and opinionated front-ends",
-  "author": "Hossein Karami",
-  "url": "https://HosseinKarami.github.io/fastshell",
-  "version": "1.0.5",
+  "name": "eFit Website",
+  "title": "An app for financial training in educational environments",
+  "author": "Armin Pfurtscheller",
+  "url": "http://www.e-fit.com",
+  "version": "1.0.0",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "http://github.com/HosseinKarami/fastshell.git"
+    "url": "http://github.com/arm1n/e-fit.git"
   },
   "devDependencies": {
     "browser-sync": "^2.11.1",

@@ -1,106 +1,32 @@
-<div data-ng-if="statusController.isCompact">
-    <h4>Mein Status</h4>
-    <div class="uk-margin-small-bottom">
-      <span
-        uk-icon="icon: star; ratio: 1.25"
-        data-ng-class="{
-          'uk-icon-filled': statusController.state.get()>0,
-          'uk-animation-scale-down': statusController.state.get()>0
-        }">
-      </span>
-      <span
-        uk-icon="icon: star; ratio: 1.25"
-        data-ng-class="{
-          'uk-icon-filled': statusController.state.get()>1,
-          'uk-animation-scale-down': statusController.state.get()>1
-        }">
-      </span>
-      <span
-        uk-icon="icon: star; ratio: 1.25"
-        data-ng-class="{
-          'uk-icon-filled': statusController.state.get()>2,
-          'uk-animation-scale-down': statusController.state.get()>2
-        }">
-      </span>
-      <span
-        uk-icon="icon: star; ratio: 1.25"
-        data-ng-class="{
-          'uk-icon-filled': statusController.state.get()>3,
-          'uk-animation-scale-down': statusController.state.get()>3
-        }">
-      </span>
-    </div>
-    <div data-ng-switch="statusController.state.current" class="uk-badge uk-margin-small uk-padding-small">
-      <span data-ng-switch-when="STATE4">
-        Profi
-      </span>
-      <span data-ng-switch-when="STATE3">
-        Experte/in
-      </span>
-      <span data-ng-switch-when="STATE2">
-        Fortgeschrittene/r
-      </span>
-      <span data-ng-switch-when="STATE1">
-        Amateuer/in
-      </span>
-      <span data-ng-switch-default="">
-        Einsteiger/in
-      </span>
-    </div>
-    <div class="data-ng-transclude">
-      <!-- transcluded content -->
-    </div>
-</div>
-
 <div data-ng-if="!statusController.isCompact">
   <h1>Mein Status</h1>
   <p>Hier siehst du, wie viele Aufgaben du bereits bearbeitet hast. Je öfter du übst, umso besser kennst du dich mit Finanzangelegenheiten aus und umso höher wird dein Status!</p>
-  <div class="uk-margin-small-top uk-margin-small-bottom">
-    <span
-        uk-icon="icon: star; ratio: 2.5"
-        data-ng-class="{
-          'uk-icon-filled': statusController.state.get()>0,
-          'uk-animation-scale-down': statusController.state.get()>0
-        }">
-      </span>
-      <span
-        uk-icon="icon: star; ratio: 2.5"
-        data-ng-class="{
-          'uk-icon-filled': statusController.state.get()>1,
-          'uk-animation-scale-down': statusController.state.get()>1
-        }">
-      </span>
-      <span
-        uk-icon="icon: star; ratio: 2.5"
-        data-ng-class="{
-          'uk-icon-filled': statusController.state.get()>2,
-          'uk-animation-scale-down': statusController.state.get()>2
-        }">
-      </span>
-      <span
-        uk-icon="icon: star; ratio: 2.5"
-        data-ng-class="{
-          'uk-icon-filled': statusController.state.get()>3,
-          'uk-animation-scale-down': statusController.state.get()>3
-        }">
-      </span>
+  <div
+    data-status-icons=""
+    data-status-icons-ratio="statusController.iconRatio"
+    data-status-icons-color="statusController.iconColor"
+    class="uk-margin-small-top uk-margin-small-bottom">
   </div>
   <h3>Dein aktueller Status</h3>
-  <div data-ng-switch="statusController.state.current" class="uk-badge uk-padding-small">
-    <span data-ng-switch-when="STATE4">
-      Profi
-    </span>
-    <span data-ng-switch-when="STATE3">
-      Experte/in
-    </span>
-    <span data-ng-switch-when="STATE2">
-      Fortgeschrittene/r
-    </span>
-    <span data-ng-switch-when="STATE1">
-      Amateuer/in
-    </span>
-    <span data-ng-switch-default="">
-      Einsteiger/in
-    </span>
+  <div data-status-label=""></div>
+  <div data-ng-transclude="">
+    <!-- transclusion -->
   </div>
+</div>
+
+<div data-ng-if="statusController.isCompact">
+    <h4>Mein Status</h4>
+    <div
+      data-status-icons=""
+      data-status-icons-ratio="statusController.iconRatio"
+      data-status-icons-color="statusController.iconColor"
+      class="uk-margin-bottom">
+    </div>
+    <div
+      data-status-label=""
+      class="uk-margin-small">
+    </div>
+    <div data-ng-transclude="">
+      <!-- transclusion -->
+    </div>
 </div>

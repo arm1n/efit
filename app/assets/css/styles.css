@@ -5165,7 +5165,8 @@ ul.uk-nav-sub {
   display: none;
   position: absolute;
   top: 20px;
-  right: 15px; }
+  right: 15px;
+  color: #fff !important; }
 
 .uk-notification-message:hover .uk-notification-close {
   display: block; }
@@ -5176,25 +5177,33 @@ ul.uk-nav-sub {
  * Primary
  */
 .uk-notification-message-primary {
-  color: #003362; }
+  color: #003362;
+  color: #fff;
+  background-color: #003362; }
 
 /*
  * Success
  */
 .uk-notification-message-success {
-  color: #32d296; }
+  color: #32d296;
+  color: #fff;
+  background-color: #32d296; }
 
 /*
  * Warning
  */
 .uk-notification-message-warning {
-  color: #faa05a; }
+  color: #faa05a;
+  color: #fff;
+  background-color: #faa05a; }
 
 /*
  * Danger
  */
 .uk-notification-message-danger {
-  color: #f0506e; }
+  color: #f0506e;
+  color: #fff;
+  background-color: #f0506e; }
 
 /* ========================================================================
    Component: Tooltip
@@ -8516,7 +8525,7 @@ td.uk-text-break {
   border-color: #e5e5e5; }
 
 /*!
- * BOMBTASK STYLES
+ * BOMB TASK
  *
  * @author Armin Pfurtscheller
  * @license MIT
@@ -8524,30 +8533,30 @@ td.uk-text-break {
 /** MATRIX */
 /** ROWS */
 /** COLS */
-.bret .col {
+.bomb-task .col {
   padding: 5px;
   display: inline-block; }
 
 /** CARD */
 /** size */
-.bret .holder {
+.bomb-task .holder {
   width: 45px;
   height: 45px; }
   @media (min-width: 640px) {
-    .bret .holder {
+    .bomb-task .holder {
       width: 75px;
       height: 75px; } }
 
 /** holder */
-.bret .holder {
+.bomb-task .holder {
   perspective: 1000px;
   transform-style: preserve-3d; }
 
-.bret .holder.resolved .card {
+.bomb-task .holder.resolved .card {
   transform: rotateY(180deg); }
 
 /** container */
-.bret .holder .card {
+.bomb-task .holder .card {
   width: 100%;
   height: 100%;
   display: block;
@@ -8559,26 +8568,26 @@ td.uk-text-break {
   transform-style: preserve-3d; }
 
 /** clickable */
-.bret .holder .card.clickable {
+.bomb-task .holder .card.clickable {
   cursor: pointer; }
 
 /** disabled */
-.bret .holder .card.disabled {
+.bomb-task .holder .card.disabled {
   cursor: default !important; }
 
-.bret .holder .card.disabled .front {
+.bomb-task .holder .card.disabled .front {
   opacity: 0.5; }
 
-.bret .holder.resolved .card.disabled .front {
+.bomb-task .holder.resolved .card.disabled .front {
   opacity: 1; }
 
-.bret .holder .card.disabled .front:after {
+.bomb-task .holder .card.disabled .front:after {
   opacity: 0.35 !important; }
 
 /** CARD FRONT/BACK */
 /** general shared */
-.bret .holder .card .front,
-.bret .holder .card .back {
+.bomb-task .holder .card .front,
+.bomb-task .holder .card .back {
   top: 0;
   left: 0;
   width: 100%;
@@ -8591,12 +8600,12 @@ td.uk-text-break {
   background-color: #fff;
   transition: 0.3s;
   -webkit-backface-visibility: hidden;
-          backface-visibility: hidden;
+  backface-visibility: hidden;
   transform-style: preserve-3d; }
 
 /** line shared */
-.bret .holder .card .front:after,
-.bret .holder .card .back:after {
+.bomb-task .holder .card .front:after,
+.bomb-task .holder .card .back:after {
   right: 0;
   bottom: 0;
   width: 100%;
@@ -8607,77 +8616,147 @@ td.uk-text-break {
   position: absolute; }
 
 /** icon shared */
-.bret .holder .card .icon {
+.bomb-task .holder .card .icon {
   top: 0 !important;
   display: table-cell;
   vertical-align: middle;
   width: auto !important; }
 
 /* swap z-index of front/back if resolved */
-.bret .holder.resolved .card .front {
+.bomb-task .holder.resolved .card .front {
   z-index: 1;
   visibility: hidden; }
 
-.bret .holder.resolved .card .back {
+.bomb-task .holder.resolved .card .back {
   z-index: 2;
   visibility: visible; }
 
 /** CARD FRONT */
 /** container */
-.bret .holder .card .front {
+.bomb-task .holder .card .front {
   z-index: 2;
   transform: rotateY(0deg); }
 
-.bret .holder .card.clickable:hover .front:after,
-.bret .holder .card.clickable:active .front:after,
-.bret .holder .card.clickable.active .front:after {
+.bomb-task .holder .card.clickable:hover .front:after,
+.bomb-task .holder .card.clickable:active .front:after,
+.bomb-task .holder .card.clickable.active .front:after {
   opacity: 1; }
 
 /** line */
-.bret .holder .card .front:after {
+.bomb-task .holder .card .front:after {
   background: #003362;
   opacity: 0.35; }
 
-.bret .holder .card.active .front:after {
+.bomb-task .holder .card.active .front:after {
   opacity: 1; }
 
 /** icon */
-.bret .holder .card .front .icon {
+.bomb-task .holder .card .front .icon {
   display: none;
   padding-bottom: 5px; }
 
-.bret .holder .card.active .front .icon {
+.bomb-task .holder .card.active .front .icon {
   display: table-cell; }
 
 /** CARD BACK */
 /** container */
-.bret .holder .card .back {
+.bomb-task .holder .card .back {
   z-index: 1;
   visibility: hidden;
   transform: rotateY(-180deg); }
 
 /** line */
-.bret .holder .card .back:after {
+.bomb-task .holder .card .back:after {
   background: #32d296; }
 
-.bret .holder.bomb .card .back:after {
+.bomb-task .holder.bomb .card .back:after {
   background: #f0506e; }
 
 /** icon (happy) */
-.bret .holder .card .back .icon-success {
+.bomb-task .holder .card .back .icon-success {
   color: #32d296;
   display: table-cell; }
 
-.bret .holder.bomb .card .back .icon-success {
+.bomb-task .holder.bomb .card .back .icon-success {
   display: none; }
 
 /** icon (bolt) */
-.bret .holder .card .back .icon-failure {
+.bomb-task .holder .card .back .icon-failure {
   color: #f0506e;
   display: none; }
 
-.bret .holder.bomb .card .back .icon-failure {
+.bomb-task .holder.bomb .card .back .icon-failure {
   display: table-cell; }
+
+/*!
+ * INTEREST TASK
+ *
+ * @author Armin Pfurtscheller
+ * @license MIT
+ */
+.interest-task .exercise {
+  width: 300px;
+  transition: opacity 0.3s; }
+  .interest-task .exercise.disabled {
+    opacity: 0.75; }
+  @media (min-width: 640px) {
+    .interest-task .exercise {
+      width: 400px; } }
+
+.drag-item.coin, .drag-item.note {
+  z-index: 5;
+  margin: 3px;
+  cursor: move;
+  font-size: 10px;
+  line-height: 40px;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+  background-size: 100%;
+  -moz-user-select: -moz-none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  transition: opacity 0.3s; }
+
+.drag-item.coin {
+  width: 40px;
+  color: #cc8d00;
+  background-image: url(../img/coin.svg); }
+
+.drag-item.note {
+  width: 78px;
+  color: #8b9b2c;
+  background-image: url(../img/note.svg); }
+
+.drag-item.active {
+  opacity: 0.75; }
+
+.drag-item.disabled {
+  cursor: not-allowed; }
+
+.interest-task .dropzone {
+  z-index: 1;
+  width: 150px;
+  height: 165px;
+  color: #bfbcba;
+  display: block;
+  position: relative;
+  background-size: 100%;
+  vertical-align: middle;
+  background-image: url(../img/bag.svg);
+  transition: 0.3s; }
+  .interest-task .dropzone.enter {
+    -ms-transform: scale(1.1);
+        transform: scale(1.1); }
+
+.interest-task .sum {
+  top: 50%;
+  width: 100%;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  position: absolute; }
 
 /* --------------------------------------------------
  *  WRAPPER

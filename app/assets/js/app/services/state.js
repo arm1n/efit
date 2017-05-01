@@ -1,47 +1,86 @@
 /*!
- * fastshell
- * Fiercely quick and opinionated front-ends
- * https://HosseinKarami.github.io/fastshell
- * @author Hossein Karami
- * @version 1.0.5
+ * eFit Website
+ * An app for financial training in educational environments
+ * http://www.e-fit.com
+ * @author Armin Pfurtscheller
+ * @version 1.0.0
  * Copyright 2017. MIT licensed.
  */
 /* global ANGULAR_MODULE, angular */
 (function(module, angular) {
   'use strict';
 
-  var State = function() {
+  var State = function(notification) {
+    this.notification = notification;
   };
 
-  State.$inject = [];
+  State.$inject = ['notification'];
 
-  State.prototype.current = 'STATE0';
+  State.BEGINNER = 1;
+  State.AMATEUR = 2;
+  State.ADVANCED = 3;
+  State.EXPERT = 4;
+  State.PROFI = 5;
 
-  State.prototype.total = 5;
+  State.prototype.states = [
+    State.BEGINNER,
+    State.AMATEUR,
+    State.ADVANCED,
+    State.EXPERT,
+    State.PROFI
+  ];
 
-  State.prototype.states = {
-    'STATE0': 0,
-    'STATE1': 1,
-    'STATE2': 2,
-    'STATE3': 3,
-    'STATE4': 4
-  };
+  State.prototype.currentState = State.BEGINNER;
+  State.prototype.isBeginner = true;
+  State.prototype.isAmateuer = false;
+  State.prototype.isAdvanced = false;
+  State.prototype.isExpert = false;
+  State.prototype.isProfi = false;
 
   State.prototype.add = function() {
-    var current = this.states[this.current];
-    var max = this.total - 1;
-    if (current >= max) {
+    var total = this.states.length;
+    var state = this.currentState;
+    if (state === total) {
       return;
     }
 
-    var next = current + 1;
-    current = 'STATE' + next;
+    this.set(this.states[state]);
 
-    this.current = current;
+    this.notification.notify(
+      'Gratulation, du hast einen neuen Status!',
+      'success'
+    );
   };
 
   State.prototype.get = function() {
-    return this.states[this.current];
+    switch(this.currentState) {
+      case State.BEGINNER:
+        return 'BEGINNER';
+      case State.AMATEUR:
+        return 'AMATEUR';
+      case State.ADVANCED:
+        return 'ADVANCED';
+      case State.EXPERT:
+        return 'EXPERT';
+      case State.PROFI:
+        return 'PROFI';
+      default:
+        return null;
+    }
+  };
+
+  State.prototype.set = function(state) {
+    if (this.states.indexOf(state) < 0) {
+      return;
+    }
+
+    this.isBeginner = state >= State.BEGINNER;
+    this.isAmateur = state >= State.AMATEUR;
+    this.isAdvanced = state >= State.ADVANCED;
+    this.isExpert = state >= State.EXPERT;
+    this.isProfi = state >= State.PROFI;
+
+    this.currentState = state;
   };
 
   angular.module(module).service('state', State);

@@ -1,4 +1,4 @@
-/* globals jQuery, UIkit */
+/* globals UIkit */
 (function() {
   'use strict';
 

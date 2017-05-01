@@ -1,9 +1,9 @@
 /*!
- * fastshell
- * Fiercely quick and opinionated front-ends
- * https://HosseinKarami.github.io/fastshell
- * @author Hossein Karami
- * @version 1.0.5
+ * eFit Website
+ * An app for financial training in educational environments
+ * http://www.e-fit.com
+ * @author Armin Pfurtscheller
+ * @version 1.0.0
  * Copyright 2017. MIT licensed.
  */
 /* global angular */
@@ -21,7 +21,11 @@
   // MODULE
   //
   var module = 'eFit';
-  angular.module(module,[]);
+
+  //
+  // APP
+  //
+  angular.module(module,['ngSanitize']);
 
   //
   // CONSTANTS
