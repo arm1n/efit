@@ -10,79 +10,50 @@
 (function(module, angular) {
   'use strict';
 
-  var State = function(notification) {
-    this.notification = notification;
-  };
+  //
+  // SERVICE
+  //
 
-  State.$inject = ['notification'];
+  /**
+   * @constructor
+   */
+  var AppState = function()
+    {
+      this.httpBusy = false;
+      this.routeBusy = false;
+    };
 
-  State.BEGINNER = 1;
-  State.AMATEUR = 2;
-  State.ADVANCED = 3;
-  State.EXPERT = 4;
-  State.PROFI = 5;
+  AppState.$inject = [];
 
-  State.prototype.states = [
-    State.BEGINNER,
-    State.AMATEUR,
-    State.ADVANCED,
-    State.EXPERT,
-    State.PROFI
-  ];
+  //
+  // PROPERTIES
+  //
 
-  State.prototype.currentState = State.BEGINNER;
-  State.prototype.isBeginner = true;
-  State.prototype.isAmateuer = false;
-  State.prototype.isAdvanced = false;
-  State.prototype.isExpert = false;
-  State.prototype.isProfi = false;
+  /** @var {boolean} httpBusy If $http is currently doing work. */
+  AppState.prototype.httpBusy = null;
 
-  State.prototype.add = function() {
-    var total = this.states.length;
-    var state = this.currentState;
-    if (state === total) {
-      return;
-    }
+  /** @var {boolean} routerBusy If router is currently doing work. */
+  AppState.prototype.routerBusy = null;
 
-    this.set(this.states[state]);
+  //
+  // METHODS
+  //
 
-    this.notification.notify(
-      'Gratulation, du hast einen neuen Status erreicht!',
-      'success'
-    );
-  };
+  /**
+   * Returns true if `httpBusy` or `routeBusy` is true.
+   *
+   * @public
+   * @method isBusy
+   * @return {void}
+   */
+  AppState.prototype.isBusy = function()
+    {
+      return this.httpBusy || this.routeBusy;
+    };
 
-  State.prototype.get = function() {
-    switch(this.currentState) {
-      case State.BEGINNER:
-        return 'BEGINNER';
-      case State.AMATEUR:
-        return 'AMATEUR';
-      case State.ADVANCED:
-        return 'ADVANCED';
-      case State.EXPERT:
-        return 'EXPERT';
-      case State.PROFI:
-        return 'PROFI';
-      default:
-        return null;
-    }
-  };
+  //
+  // REGISTRY
+  //
+  angular.module(module).service('appState', AppState);
 
-  State.prototype.set = function(state) {
-    if (this.states.indexOf(state) < 0) {
-      return;
-    }
-
-    this.isBeginner = state >= State.BEGINNER;
-    this.isAmateur = state >= State.AMATEUR;
-    this.isAdvanced = state >= State.ADVANCED;
-    this.isExpert = state >= State.EXPERT;
-    this.isProfi = state >= State.PROFI;
-
-    this.currentState = state;
-  };
-
-  angular.module(module).service('state', State);
-
-})(ANGULAR_MODULE, angular);
+})();

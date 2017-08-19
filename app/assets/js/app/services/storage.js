@@ -10,236 +10,268 @@
 (function(module, angular) {
   'use strict';
 
-  var Storage = function($window, $document, $log) {
-    this.log = $log;
-    this.window = $window;
-    this.document = $document;
-
-    this._init();
+  /**
+   * @varructor
+   */
+  var Storage = function($injector) {
+    this.$injector = $injector;
   };
 
-  Storage.$inject = ['$window', '$document', '$log'];
+  Storage.MODE_COOKIES = 'COOKIES';
+  Storage.MODE_STORAGE = 'STORAGE';
+  Storage.$inject = ['$injector'];
 
-  Storage.prototype.set = function(key, value, expires, domain, path, secure) {
-    this._store.set(key, value, expires, domain, path, secure);
-  };
+  /**
+   * Gets the current storage interface of the service.
+   * Can be one of modes `COOKIES` or `STORAGE`. If no
+   * one is given will default to local storage if it's
+   * supported, otherwise falls back to cookies.
+   *
+   * @public
+   * @method getProxy
+   * @param {String} mode
+   * @return {Object}
+   */
+  Storage.prototype.getProxy = function(mode) {
+    switch (mode) {
+      case Storage.MODE_COOKIES:
+       return this._getCookieProxy();
 
-  Storage.prototype.get = function(key) {
-    return this._store.get(key);
-  };
+      case Storage.MODE_STORAGE:
+       return this._getLocalStorageProxy();
 
-  Storage.prototype.getAll = function() {
-    return this._store.getAll();
-  };
+     default:
+      if (this.supportsLocalStorage()) {
+        return this._getLocalStorageProxy();
+      }
 
-  Storage.prototype.remove = function(key) {
-    this._store.remove(key);
-  };
-
-  Storage.prototype.removeAll = function() {
-    this._store.removeAll();
-  };
-
-  Storage.prototype.hasLocalStorage = function() {
-    try {
-        return (
-            'localStorage' in this.window &&
-            this.$window.localStorage !== null
-        );
-    } catch(e){
-        return false;
+      return this._getCookieProxy();
     }
   };
 
-  Storage.prototype._init = function() {
-      var useCookies = (
-          this.useCookies ||
-          !this.hasLocalStorage()
-      );
+  /**
+   * Checks if browser supports local storage.
+   *
+   * @public
+   * @method supportsLocalStorage
+   * @return {Boolean}
+   */
+  Storage.prototype.supportsLocalStorage = function() {
+    var $window = this.$injector.get('$window');
+    var storageProxy = $window.localStorage;
+    var key = '__local__storage__feature__test';
+    var val = '__local__storage__feature__test';
 
-      this._store = useCookies ?
-          this._getCookieProxy() :
-          this._getLocalStorageProxy();
+    try {
+     storageProxy.setItem(key, val);
+     storageProxy.removeItem(key);
+    } catch (e) {
+     return false;
+    }
+
+    return true;
   };
 
-  Storage.prototype._getLocalStorageProxy = function() {
-      var me = this;
-      var setItem = function(key,value) {
-        value = encodeURIComponent(angular.toJson(value));
-        me.$window.localStorage.setItem(key, value);
-      };
+  /**
+   * Stringifies and uri encodes a value.
+   *
+   * @private
+   * @param {Mixed} value
+   * @method _encode
+   *
+   * @return {String}
+   */
+  Storage.prototype._encode = function(value) {
+    try {
+     value = JSON.stringify(value);
+    } catch (e) {
+     value = undefined;
+    }
 
-      var getItem = function(key) {
-        var value = me.$window.localStorage.getItem(key);
-        if( typeof value !== 'string' ) {
-          return undefined;
-        }
-
-        value = decodeURIComponent(value);
-        if (value === 'undefined') {
-          return undefined;
-        }
-
-        try{
-            return angular.fromJson(value);
-        } catch(e){
-            return value;
-        }
-      };
-
-      var getAllItems = function() {
-        var items = {};
-
-        for (var i=0; i<me.$window.localStorage.length; i++) {
-            var key = me.$window.localStorage.key(i);
-            items[key] = getItem(key);
-        }
-
-        return items;
-      };
-
-      var removeItem = function(key) {
-          me.$window.localStorage.removeItem(key);
-      };
-
-      var removeAllItems = function() {
-          me.$window.localStorage.clear();
-      };
-
-      return {
-          get: getItem,
-          getAll: getAllItems,
-          set: setItem,
-          remove: removeItem,
-          removeAll: removeAllItems
-      };
+    return encodeURIComponent(value);
   };
 
+  /**
+   * Decodes a stringified and uri encoded value.
+   *
+   * @private
+   * @param {Mixed}
+   * @method _decodeValue
+   *
+   * @return {Mixed}
+   */
+  Storage.prototype._decode = function(value) {
+    var decoded;
+    switch (typeof value) {
+     case 'string':
+       decoded = decodeURIComponent(value);
+       try {
+         decoded = JSON.parse(decoded);
+       } catch (e) {
+         /* noop */
+       }
+       break;
+     default:
+       decoded = undefined;
+    }
+
+    if (decoded === 'undefined') {
+     decoded = undefined;
+    }
+
+    if (decoded === undefined) {
+     decoded = null;
+    }
+
+    return decoded;
+  };
+
+  /**
+   * Provides cookie storage proxy layer.
+   *
+   * @private
+   * @method _getCookieProxy
+   *
+   * @return {Object}
+   */
   Storage.prototype._getCookieProxy = function() {
+    var documentProxy = this.$injector.get('$document');
+
     var me = this;
-
-    var _parse = function(value) {
-      if (typeof value !== 'string') {
-          return undefined;
-      }
-
-      value = decodeURIComponent(value);
-      if (value === 'undefined') {
-          return undefined;
-      }
-
-      try{
-          return angular.fromJson(value);
-      } catch(e) {
-          return value;
-      }
-    };
-
     var _getAll = function(parse) {
-      var cookies = me.document[0].cookie.split('; '),
-          items = {};
+     var items = {};
 
-      if (cookies.length===1 && cookies[0]==='') {
-        return items;
-      }
+     var cookies = documentProxy.cookie.split('; ');
+     if (cookies.length === 1 && cookies[0] === '') {
+       return items;
+     }
 
-      for (var i = 0 ; i < cookies.length; i++) {
-          var cookie = cookies[i].split('=');
+     for (var i = 0; i < cookies.length; i++) {
+       var cookie = cookies[i].split('=');
+       if (!parse) {
+         items[cookie[0]] = cookie[1];
+         continue;
+       }
 
-          if (!parse) {
-              items[cookie[0]] = cookie[1];
-              continue;
-          }
+       items[cookie[0]] = me._decode(cookie[1]);
+     }
 
-          items[cookie[0]] = _parse(cookie[1]);
-      }
-
-      return items;
+     return items;
     };
 
-    var setCookie = function(key,value,expires,domain,path,secure) {
-      value = (
-          value !== undefined &&
-          typeof value === 'object'
-      ) ? angular.toJson(value) : value;
+    var setCookie = function(key, value, expires, domain, path, secure) {
+     value = me._encode(value);
 
-      value = encodeURIComponent(value);
+     try {
+       var date = new Date(expires);
+       if (isNaN(date)) {
+         var input = expires;
+         expires = undefined;
+         throw new Error('storage.js: "' + input + '" cannot be converted to date string!');
+       }
 
-      if (typeof expires !== 'undefined') {
-          try{
+       expires = date.toUTCString();
+     } catch (e) {
+       /* noop */
+     }
 
-              var date = new Date(expires);
+     expires = expires ? expires : false;
 
-              if( isNaN(date) ) // >>> "Invalid date"
-              {
-                  var input = expires; expires = undefined;
-                  throw new Error('Storage.set(): "'+input+'" cannot be converted to date string!');
-              }
+     var cookie = key + '=' + value;
+     cookie += expires ? ';expires='+expires : '';
+     cookie += domain ? ';domain='+domain : '';
+     cookie += path ? ';path='+path : '';
+     cookie += secure ? ';secure' : '';
 
-              // cookies must be in UTC!
-              expires = date.toUTCString();
-
-          } catch(e){
-              this.$log.error(e.message);
-          }
-      }
-
-      expires = expires ? expires : false;
-
-      var cookie = key + '=' + value;
-
-      if (expires) {
-        cookie += ';expires=' + expires;
-      }
-
-      if (domain) {
-        cookie += ';domain=' + domain;
-      }
-
-      if (path) {
-        cookie += ';path=' + path;
-      }
-
-      if (secure) {
-        cookie += ';secure';
-      }
-
-      me.document[0].cookie = cookie;
+     documentProxy.cookie = cookie;
     };
 
     var getCookie = function(key) {
-      var cookies = _getAll(false);
-      if (cookies.hasOwnProperty(key)) {
-        return _parse(cookies[key]);
-      }
+     var cookies = _getAll(false);
+     if (cookies.hasOwnProperty(key)) {
+       return me._decode(cookies[key]);
+     }
 
-      return undefined;
+     return null;
     };
 
     var getAllCookies = function() {
-      return _getAll(true);
+     return _getAll(true);
     };
 
     var removeCookie = function(key) {
-      setCookie(key, '', -1);
+     setCookie(key, '', -1);
     };
 
     var removeAllCookies = function() {
-      var cookies = getAllCookies();
-      for (var key in cookies) {
-        removeCookie(key);
-      }
+     for (var key in getAllCookies()) {
+       removeCookie(key);
+     }
     };
 
     return {
-        get: getCookie,
-        getAll: getAllCookies,
-        set: setCookie,
-        remove: removeCookie,
-        removeAll: removeAllCookies
+     getItem: getCookie,
+     getAllItems: getAllCookies,
+     setItem: setCookie,
+     removeItem: removeCookie,
+     removeAllItems: removeAllCookies
     };
   };
 
+  /**
+   * Provides local storage proxy layer.
+   *
+   * @private
+   * @method _getLocalStorageProxy
+   *
+   * @return {Object}
+   */
+  Storage.prototype._getLocalStorageProxy = function() {
+    var $window = this.$injector.get('$window');
+    var storageProxy = $window.localStorage;
+
+    var me = this;
+    var setItem = function(key, value) {
+     value = me._encode(value);
+     storageProxy.setItem(key, value);
+    };
+
+    var getItem = function(key) {
+     var value = storageProxy.getItem(key);
+     return me._decode(value);
+    };
+
+    var getAllItems = function() {
+     var items = {};
+
+     for (var i = 0; i < storageProxy.length; i++) {
+       var key = storageProxy.key(i);
+       items[key] = getItem(key);
+     }
+
+     return items;
+    };
+
+    var removeItem = function(key) {
+     storageProxy.removeItem(key);
+    };
+
+    var removeAllItems = function() {
+     storageProxy.clear();
+    };
+
+    return {
+     getItem: getItem,
+     getAllItems: getAllItems,
+     setItem: setItem,
+     removeItem: removeItem,
+     removeAllItems: removeAllItems
+    };
+  };
+
+  //
+  // REGISTRY
+  //
   angular.module(module).service('storage', Storage);
 
 })(ANGULAR_MODULE, angular);

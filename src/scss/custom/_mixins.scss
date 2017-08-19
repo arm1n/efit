@@ -4,3 +4,18 @@
   display: inline-block;
   margin: 0 $margin-right 0 $margin-left;
 }
+
+// keyframes
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+@mixin animation($name, $duration: 1s, $count: 1) {
+  -webkit-animation: #{$name} $duration $count;
+  animation: #{$name} $duration $count;
+}

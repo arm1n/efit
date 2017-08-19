@@ -3,6 +3,17 @@
   color: $global-inverse-color;
 }
 
+// margin
+$margin-xsmall-margin:                          $global-small-margin / 2;
+
+.uk-margin-xsmall { margin-bottom: $margin-xsmall-margin; }
+* + .uk-margin-xsmall { margin-top: $margin-xsmall-margin !important; }
+
+.uk-margin-xsmall-top { margin-top: $margin-xsmall-margin !important; }
+.uk-margin-xsmall-bottom { margin-bottom: $margin-xsmall-margin !important; }
+.uk-margin-xsmall-left { margin-left: $margin-xsmall-margin !important; }
+.uk-margin-xsmall-right { margin-right: $margin-xsmall-margin !important; }
+
 // buttons
 $button-success-background:                      $global-success-background !default;
 $button-success-color:                           $global-inverse-color !default;

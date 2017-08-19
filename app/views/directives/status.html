@@ -1,6 +1,6 @@
 <div data-ng-if="!statusController.isCompact">
   <h1>Mein Status</h1>
-  <p>Hier siehst du, wie viele Aufgaben du bereits bearbeitet hast. Je öfter du übst, umso besser kennst du dich mit Finanzangelegenheiten aus und umso höher wird dein Status!</p>
+  <p>Hier siehst du, wie viele Aufgaben du bereits bearbeitet hast. Je öfter du übst, umso besser kennst du dich mit Finanzangelegenheiten aus und umso höher wird dein Status und desto mehr Lose erhälst du für die Ziehung!</p>
   <div
     data-status-icons=""
     data-status-icons-ratio="statusController.iconRatio"
@@ -9,9 +9,15 @@
   </div>
   <h3>Dein aktueller Status</h3>
   <div data-status-label=""></div>
+
+  <h3>Deine aktuellen Lose</h3>
+  <div data-status-tickets=""></div>
+
   <div data-ng-transclude="">
     <!-- transclusion -->
   </div>
+
+
 </div>
 
 <div data-ng-if="statusController.isCompact">
@@ -24,6 +30,10 @@
     </div>
     <div
       data-status-label=""
+      class="uk-margin-small">
+    </div>
+    <div
+      data-status-tickets=""
       class="uk-margin-small">
     </div>
     <div data-ng-transclude="">

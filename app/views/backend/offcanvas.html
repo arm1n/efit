@@ -1,0 +1,31 @@
+<div class="uk-offcanvas-bar">
+    <button class="uk-offcanvas-close" type="button" data-uk-close=""></button>
+
+    <ul class="uk-nav uk-nav-default">
+        <li class="uk-nav-header uk-margin-small-bottom">Menü</li>
+        <li data-ui-sref-active="uk-active">
+          <a
+            href="javascript:void(0)"
+            data-ui-sref="backend"
+            data-uk-off-canvas-scroll="target: #off-canvas; offset: 80">
+            Workshops
+          </a>
+        </li>
+        <li data-ui-sref-active="uk-active">
+          <a
+            href="javascript:void(0)"
+            data-ui-sref="frontend"
+            data-uk-off-canvas-scroll="target: #off-canvas; offset: 80">
+            Zur App
+          </a>
+        </li>
+        <li>
+          <a
+            href="javascript:void(0)"
+            data-ng-click="backendController.logout()"
+            data-uk-off-canvas-scroll="target: #off-canvas; offset: 80">
+            Abmelden
+          </a>
+        </li>
+    </ul>
+</div>

@@ -12,14 +12,14 @@
 
   var Storage = function($window,$document,$log)
       {
-          this.log = $log;
-          this.window = $window;
-          this.document = $document;
+          this.$log = $log;
+          this.$window = $window;
+          this.$document = $document;
 
           this._init();
       };
 
-  Storage.$inject = ['$window','$document'];
+  Storage.$inject = ['$window','$document','$log'];
 
   Storage.prototype.set = function(key,value,expires,domain,path,secure) {
     this._store.set(key,value,expires,domain,path,secure);
@@ -44,7 +44,7 @@
   Storage.prototype.hasLocalStorage = function() {
     try {
         return (
-            'localStorage' in this.window &&
+            'localStorage' in this.$window &&
             this.$window.localStorage !== null
         );
     } catch(e){
@@ -137,7 +137,7 @@
     };
 
     var _getAll = function(parse) {
-      var cookies = me.document[0].cookie.split('; '),
+      var cookies = me.$document[0].cookie.split('; '),
           items = {};
 
       if (cookies.length===1 && cookies[0]==='') {
@@ -205,7 +205,7 @@
         cookie += ';secure';
       }
 
-      me.document[0].cookie = cookie;
+      me.$document[0].cookie = cookie;
     };
 
     var getCookie = function(key) {

@@ -28,7 +28,8 @@ gulp.task('css', function () {
     .pipe(sourcemaps.init())
     .pipe(sass({
       includePaths:[
-        'src/vendor/uikit/src/scss'
+        'src/vendor/uikit/src/scss',
+        'src/vendor/chartist/dist/scss'
       ]
     }).on('error', sass.logError))
     .pipe(autoprefixer('last 4 version'))
@@ -48,8 +49,8 @@ gulp.task('js',function(){
     .pipe(jshint.reporter('default'))
     .pipe(header(banner, { package : package }))
     .pipe(gulp.dest('app/assets/js'))
-    .pipe(uglify())
-    .pipe(header(banner, { package : package }))
+    //.pipe(uglify())
+    //.pipe(header(banner, { package : package }))
     .pipe(rename({ suffix: '.min' }))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('app/assets/js'))
@@ -58,15 +59,26 @@ gulp.task('js',function(){
 
 gulp.task('vendor', function(){
   return gulp.src([
-    'src/vendor/angular/angular.min.js',
+    'src/vendor/angular/angular.js',
     'src/vendor/angular-i18n/angular-locale_de.js',
-    'src/vendor/angular-sanitize/angular-sanitize.min.js',
-    'src/vendor/interactjs/dist/interact.min.js',
-    'src/vendor/scratchcard/dist/scratchcard-standalone.min.js',
-    'src/vendor/jQuery/dist/jquery.min.js',
-    'src/vendor/uikit/dist/js/uikit.min.js',
-    'src/vendor/uikit/dist/js/uikit-icons.min.js'
-  ]).pipe(gulp.dest('app/assets/js/vendor'));
+    'src/vendor/angular-messages/angular-messages.js',
+    'src/vendor/angular-sanitize/angular-sanitize.js',
+    'src/vendor/angular-resource/angular-resource.js',
+    'src/vendor/angular-ui-router/release/angular-ui-router.js',
+    'src/vendor/chartist-plugin-legend/chartist-plugin-legend.js',
+    'src/vendor/chartist/dist/chartist.js',
+    'src/vendor/interactjs/dist/interact.js',
+    'src/vendor/scratchcard/dist/scratchcard-standalone.js',
+    'src/vendor/jQuery/dist/jquery.js',
+    'src/vendor/uikit/dist/js/uikit.js',
+    'src/vendor/uikit/dist/js/uikit-icons.js',
+    'src/vendor/custom-elements/custom-elements.js',
+    'src/vendor/html5-polyfills/EventSource.js'
+  ])
+  .pipe(uglify())
+  .pipe(rename({ suffix: '.min' }))
+  .pipe(gulp.dest('app/assets/js/vendor'));
+
 });
 
 gulp.task('browser-sync', function() {

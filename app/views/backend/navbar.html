@@ -1,0 +1,43 @@
+<div data-uk-sticky="" class="uk-navbar-container uk-sticky uk-sticky-fixed">
+  <div class="uk-navbar-container">
+    <div class="uk-container">
+      <nav class="uk-navbar" data-uk-navbar="">
+
+        <div class="uk-navbar-left">
+          <div class="uk-navbar-item">
+            <a data-ui-sref="backend" class="uk-navbar-item">
+              <img
+                id="logo-efit"
+                alt="Financial Training"
+                src="assets/img/logo-efit.png">
+              </a>
+          </div>
+        </div>
+
+        <div class="uk-navbar-right">
+          <ul class="uk-navbar-nav uk-visible@s">
+
+              <li data-ui-sref-active="uk-active"><a data-ui-sref="backend">Workshops</a></li>
+              <li data-ui-sref-active="uk-active"><a data-ui-sref="frontend">Zur App</a></li>
+              <li>
+                <a
+                  href="javascript:void(0)"
+                  data-ng-click="backendController.logout()">
+                  Abmelden
+                </a>
+              </li>
+          </ul>
+
+          <a
+            href="javascript:void(0)"
+            class="uk-navbar-toggle uk-hidden@s"
+            data-uk-toggle="target: #off-canvas; cls: uk-open">
+            <span data-uk-navbar-toggle-icon></span>
+            <span class="uk-margin-small-left">Menü</span>
+          </a>
+
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>

@@ -29,6 +29,16 @@
   }
 }
 
+// button
+@mixin hook-inverse-button-primary(){
+  border-color: $inverse-global-color;
+
+  &:disabled{
+    background: transparent !important;
+    color: $inverse-global-color !important;
+  }
+}
+
 // notification
 @mixin hook-notification-message-primary() {
   color: $global-inverse-color;
@@ -54,6 +64,15 @@
   color: $global-inverse-color !important;
 }
 
+// iconnav
+@mixin hook-iconnav-item() {
+  &:disabled{
+    opacity: 0.5;
+    cursor: not-allowed;
+    color: inherit !important;
+  }
+}
+
 // icons
 @mixin hook-icon-misc() {
   &.uk-icon-filled{
@@ -61,4 +80,10 @@
       fill: inherit;
     }
   }
+}
+
+// tabs
+@mixin hook-tab-item-active() {
+  border-color: $tab-item-active-border;
+  cursor: default;
 }

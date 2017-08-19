@@ -1,0 +1,168 @@
+/*!
+ * DIVERSIFICATION TASK
+ *
+ * @author Armin Pfurtscheller
+ * @license MIT
+ */
+
+.diversification-task{}
+
+.diversification-task .vouchers{}
+
+.diversification-task .voucher{
+    z-index: 2;
+
+    cursor: move;
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    -webkit-transition: opacity 0.3s;
+    transition: opacity 0.3s;
+
+    &.active{
+        opacity: 0.75;
+        cursor: grabbing;
+        cursor: -moz-grabbing;
+        cursor: -webkit-grabbing;
+    }
+
+    &.disabled{
+      cursor: not-allowed;
+    }
+}
+
+.diversification-task .dropzone{
+    z-index: 1;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+
+    &.enter{
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+    }
+}
+
+@include keyframes(bounce) {
+  0%, 90% {
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
+  }
+  10% {
+    -webkit-animation-timing-function: cubic-bezier(0, 0.4, 0.6, 1);
+    animation-timing-function: cubic-bezier(0, 0.4, 0.6, 1);
+  }
+  50% {
+    -webkit-animation-timing-function: cubic-bezier(0.4, 0, 1, 0.6);
+    animation-timing-function: cubic-bezier(0.4, 0, 1, 0.6);
+  }
+  0% {
+    -webkit-transform: translate(0%, 30%) scaleY(0.5);
+    transform: translate(0%, 30%) scaleY(0.5);
+  }
+  10% {
+    -webkit-transform: translate(0%, 5%) scaleY(1.1);
+    transform: translate(0%, 5%) scaleY(1.1);
+  }
+  50% {
+    -webkit-transform: translate(0%, -50%) scaleY(1.1);
+    transform: translate(0%, -50%) scaleY(1.1);
+  }
+  90% {
+    -webkit-transform: translate(0%, 5%) scaleY(1.1);
+    transform: translate(0%, 5%) scaleY(1.1);
+  }
+  100% {
+    -webkit-transform: translate(0%, 30%) scaleY(0.5);
+    transform: translate(0%, 30%) scaleY(0.5);
+  }
+}
+
+@include keyframes(flip) {
+  0%, 100% {
+    -webkit-animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5);
+    animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5);
+  }
+  50% {
+    -webkit-animation-timing-function: cubic-bezier(0, 0.5, 0.5, 1);
+    animation-timing-function: cubic-bezier(0, 0.5, 0.5, 1);
+  }
+  0% {
+    -webkit-transform: rotateX(0deg);
+    transform: rotateX(0deg);
+  }
+  50% {
+    -webkit-transform: rotateX(1800deg);
+    transform: rotateX(1800deg);
+  }
+  100% {
+    -webkit-transform: rotateX(3600deg);
+    transform: rotateX(3600deg);
+  }
+}
+
+.flip {
+  @include animation(flip);
+}
+
+.bounce{
+  @include animation(bounce);
+}
+
+.coin{
+
+  -webkit-perspective: 1000px;
+  perspective: 1000px;
+
+  .wrap {
+    $size: 75px;
+
+    width: $size;
+    height: $size;
+    line-height: $size;
+    text-align: center;
+
+    font-size: 2em;
+    font-weight: bold;
+
+    color: #cc8d00;
+    background-size: 100%;
+    background-image: url(../img/coin.svg);
+
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    position: relative;
+  }
+
+  .front, .back{
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+
+  .front {
+    z-index: 2;
+    -webkit-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+  }
+
+  .back {
+    z-index: 1;
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+  }
+}

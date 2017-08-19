@@ -3,6 +3,20 @@
   'use strict';
 
   // --------------------------------------------------
+  // i18n
+  // --------------------------------------------------
+  angular.module(module).filter('i18n',['i18n',function(i18n){
+    var filter = function()
+      {
+        return i18n.get.apply(i18n, arguments);
+      };
+
+    filter.$stateful = true;
+
+    return filter;
+  }]);
+
+  // --------------------------------------------------
   // Percentage
   // --------------------------------------------------
   angular.module(module).filter('percent', function(){

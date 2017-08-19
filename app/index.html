@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html class="" data-ng-app="eFit">
+<html
+  data-ng-app="eFit"
+  data-ng-class="state.name">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="msapplication-tap-highlight" content="no"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <title>FiT - Werde FiT für deine Träume</title>
+    <base href="/">
 
     <!-- Add to homescreen for Chrome on Android -->
     <!--
@@ -28,129 +31,121 @@
     <link rel="shortcut icon" href="images/favicon.png">
     -->
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en"> -->
 
     <link type="text/css" rel="stylesheet" href="assets/css/styles.min.css"/>
   </head>
 
-  <body
-    class="uk-background-muted"
-    data-ng-controller="AppController as appController">
+  <body class="uk-background-muted">
 
-    <div id="wrap" class="tm-wrap uk-offcanvas-content">
-
-      <!-- Begin: Header -->
-      <header
-        id="header"
-        data-ng-include="'views/static/navbar.html'">
-      </header>
-      <!-- End: Header -->
-
-      <!-- Begin: Main -->
-      <main id="main" class="uk-text-center">
-
-        <!-- Begin: Content -->
-        <div id="content" class="uk-container">
-
-          <!-- Begin: Section Start -->
-          <div
-            id="home"
-            data-ng-include="'views/static/home.html'">
-          </div>
-          <!-- End: Section Start -->
-
-          <!-- Begin: Section Topics -->
-          <div
-            id="topics"
-            data-ng-include="'views/static/topics.html'">
-          </div>
-          <!-- End: Section Topics -->
-
-          <!-- Begin: Section Financial Knowledge -->
-          <div
-            id="financial-knowledge"
-            data-ng-include="'views/static/financial-knowledge.html'">
-          </div>
-          <!-- End: Section Financial Knowledge -->
-
-          <!-- Begin: Section Consumer Behaviour -->
-          <div
-            id="consumer-behaviour"
-            data-ng-include="'views/static/consumer-behaviour.html'">
-          </div>
-          <!-- End: Section Consumer Behaviour -->
-
-          <!-- Begin: Section Selfcontrol -->
-          <div
-            id="self-control"
-            data-ng-include="'views/static/self-control.html'">
-          </div>
-          <!-- End: Section Selfcontrol -->
-
-        </div>
-        <!-- End: Content -->
-
-        <!-- Begin: Section Status -->
-        <div
-          id="status"
-          data-ng-include="'views/static/status.html'">
-        </div>
-        <!-- End: Section Status -->
-
-        <!-- Begin: Section Contact -->
-        <div
-          id="contact"
-          data-ng-include="'views/static/contact.html'">
-        </div>
-        <!-- End: Section Contact -->
-
-      </main>
-      <!-- End: Main -->
-
-      <!-- Start: Footer -->
-      <footer
-        id="footer"
-        data-ng-include="'views/static/footer.html'">
-      </footer>
-      <!-- End: Footer -->
-    </div>
-
-    <!-- Start: Offcanvas -->
+    <!-- load -->
     <div
-      id="off-canvas"
-      data-ng-include="'views/static/offcanvas.html'"
-      data-uk-offcanvas="mode: reveal; flip: true; overlay: true" >
-    </div>
-    <!-- End: Offcanvas -->
+      id="load"
+      class="load-animation"
+      data-ng-show="isBusy">
 
-    <!-- Vendors -->
+      <div class="uk-overlay-default uk-position-cover">
+          <div class="uk-position-center uk-text-center">
+              <div data-uk-spinner="ratio: 2"></div>
+              <div class="uk-margin-top uk-text-center">
+                Einen Moment bitte...
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <!-- view -->
+    <div
+      id="wrap"
+      data-ui-view=""
+      class="tm-wrap uk-offcanvas-content uk-vertical-align-middle">
+    </div>
+
+    <!-- polyfills -->
+    <script>
+      (function() {
+        var supportsCustomElements = ("customElements" in window);
+        if (!supportsCustomElements) {
+
+          var script = document.createElement('script');
+          script.src = 'assets/js/vendor/custom-elements.min.js';
+          document.body.appendChild(script);
+        }
+
+        var supportsEventSource = ("EventSource" in window);
+        if (!supportsEventSource) {
+          var script = document.createElement('script');
+          script.src = 'assets/js/vendor/EventSource.min.js';
+          document.body.appendChild(script);
+        }
+      })();
+    </script>
+
+    <!-- vendors -->
     <script type="text/javascript" src="assets/js/vendor/jquery.min.js"></script>
     <script type="text/javascript" src="assets/js/vendor/uikit.min.js"></script>
     <script type="text/javascript" src="assets/js/vendor/uikit-icons.min.js"></script>
     <script type="text/javascript" src="assets/js/vendor/angular.min.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-resource.min.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-messages.min.js"></script>
     <script type="text/javascript" src="assets/js/vendor/angular-sanitize.min.js"></script>
-    <script type="text/javascript" src="assets/js/vendor/angular-locale_de.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-locale_de.min.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/angular-ui-router.min.js"></script>
     <script type="text/javascript" src="assets/js/vendor/interact.min.js"></script>
     <script type="text/javascript" src="assets/js/vendor/scratchcard-standalone.min.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/chartist.min.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/chartist-plugin-legend.min.js"></script>
 
-    <!-- UIKit -->
+    <!-- uikit -->
     <script type="text/javascript" src="assets/js/uikit/components.min.js"></script>
 
-    <!-- Angular -->
+    <!-- angular -->
     <script type="text/javascript" src="assets/js/app/module.min.js"></script>
-    <script type="text/javascript" src="assets/js/app/filters/filters.min.js"></script>
+    <script type="text/javascript" src="assets/js/app/services/http-interceptor.min.js"></script>
     <script type="text/javascript" src="assets/js/app/services/notification.min.js"></script>
+    <script type="text/javascript" src="assets/js/app/services/app-state.min.js"></script>
     <script type="text/javascript" src="assets/js/app/services/random.min.js"></script>
-    <script type="text/javascript" src="assets/js/app/services/state.min.js"></script>
+    <script type="text/javascript" src="assets/js/app/services/string.min.js"></script>
+    <script type="text/javascript" src="assets/js/app/services/storage.min.js"></script>
+    <script type="text/javascript" src="assets/js/app/services/auth.min.js"></script>
+    <script type="text/javascript" src="assets/js/app/services/i18n.min.js"></script>
+    <script type="text/javascript" src="assets/js/app/services/jwt.min.js"></script>
+    <script type="text/javascript" src="assets/js/app/services/user.min.js"></script>
+    <script type="text/javascript" src="assets/js/app/services/mail.min.js"></script>
+    <script type="text/javascript" src="assets/js/app/services/sse.min.js"></script>
+    <script type="text/javascript" src="assets/js/app/directives/card.min.js"></script>
+    <script type="text/javascript" src="assets/js/app/directives/chart.min.js"></script>
+    <script type="text/javascript" src="assets/js/app/directives/modal.min.js"></script>
     <script type="text/javascript" src="assets/js/app/directives/status.min.js"></script>
-    <script type="text/javascript" src="assets/js/app/directives/task.min.js"></script>
+    <script type="text/javascript" src="assets/js/app/directives/tabber.min.js"></script>
     <script type="text/javascript" src="assets/js/app/directives/dragdrop.js"></script>
-    <script type="text/javascript" src="assets/js/app/directives/bomb-task.min.js"></script>
-    <script type="text/javascript" src="assets/js/app/directives/interest-task.min.js"></script>
-    <script type="text/javascript" src="assets/js/app/directives/save-coin-task.min.js"></script>
-    <script type="text/javascript" src="assets/js/app/controllers/app.min.js"></script>
+    <script type="text/javascript" src="assets/js/app/directives/evaluation.js"></script>
+    <script type="text/javascript" src="assets/js/app/directives/locked-state.js"></script>
+    <script type="text/javascript" src="assets/js/app/directives/form-field.min.js"></script>
+    <script type="text/javascript" src="assets/js/app/directives/form-validators.min.js"></script>
+    <script type="text/javascript" src="assets/js/app/directives/tasks/interest-task.min.js"></script>
+    <script type="text/javascript" src="assets/js/app/directives/tasks/diversification-task.min.js"></script>
+    <script type="text/javascript" src="assets/js/app/directives/tasks/bomb-task.min.js"></script>
+    <script type="text/javascript" src="assets/js/app/directives/tasks/anchoring-task.min.js"></script>
+    <script type="text/javascript" src="assets/js/app/directives/tasks/mental-bookkeeping-task.min.js"></script>
+    <script type="text/javascript" src="assets/js/app/directives/tasks/framing-task.min.js"></script>
+    <script type="text/javascript" src="assets/js/app/directives/tasks/savings-supported-task.min.js"></script>
+    <script type="text/javascript" src="assets/js/app/directives/tasks/savings-target-task.min.js"></script>
+    <script type="text/javascript" src="assets/js/app/directives/tasks/self-commitment-task.min.js"></script>
+    <script type="text/javascript" src="assets/js/app/directives/tasks/procrastination-task.min.js"></script>
+    <script type="text/javascript" src="assets/js/app/controllers/login/frontend.min.js"></script>
+    <script type="text/javascript" src="assets/js/app/controllers/login/backend.min.js"></script>
+    <script type="text/javascript" src="assets/js/app/controllers/frontend/contact.min.js"></script>
+    <script type="text/javascript" src="assets/js/app/controllers/frontend.min.js"></script>
+    <script type="text/javascript" src="assets/js/app/controllers/backend.min.js"></script>
+    <script type="text/javascript" src="assets/js/app/controllers/workshop.min.js"></script>
+    <script type="text/javascript" src="assets/js/app/resources/workshop.min.js"></script>
+    <script type="text/javascript" src="assets/js/app/resources/result.min.js"></script>
+    <script type="text/javascript" src="assets/js/app/resources/task.min.js"></script>
+    <script type="text/javascript" src="assets/js/app/resources/user.min.js"></script>
+    <script type="text/javascript" src="assets/js/app/filters/filters.min.js"></script>
 
-    <!-- Main -->
+    <!-- main -->
     <script type="text/javascript" src="assets/js/main.min.js"></script>
   </body>
 </html>

@@ -14,10 +14,14 @@
   // BombTask
   // --------------------------------------------------
 
-  // controller
-  var BombTask = function($scope, $attrs, $element, $filter, $interval, randomService) {
-    // this._storageKey = 'bomb_task_state';
+  //
+  // CONTROLLER
+  //
 
+  /**
+   * @constructor
+   */
+  var BombTask = function($scope, $attrs, $element, $filter, $interval, randomService) {
     this.$interval = $interval;
     this.$element = $element;
     this.$filter = $filter;
@@ -44,28 +48,57 @@
 
   BombTask.$inject = ['$scope', '$attrs', '$element', '$filter', '$interval', 'random'];
 
+  //
+  // METHODS
+  //
+
+  /**
+   * Proxies to `init()` if controller's ready.
+   *
+   * @public
+   * @method $onInit
+   * @return {Void}
+   */
   BombTask.prototype.$onInit = function() {
     this.init();
   };
 
+  /**
+   * Sets up initial state.
+   *
+   * @public
+   * @method init
+   * @return {Void}
+   */
   BombTask.prototype.init = function() {
-    this._initInternals();
+    this._initMembers();
     this._initMatrix();
     this._initBomb();
-
-    this._desist();
 
     if (!this.dynamic) {
       this.start();
     }
   };
 
+  /**
+   * Resets initial state.
+   *
+   * @public
+   * @method reset
+   * @return {Void}
+   */
   BombTask.prototype.reset = function() {
-    this._removeState();
-
     this.init();
   };
 
+  /**
+   * Sets `started` flag. If `dynamic` is true,
+   * the interval will start to reveal cards.
+   *
+   * @public
+   * @method start
+   * @return {Void}
+   */
   BombTask.prototype.start = function(index) {
     if (this.dynamic) {
       var me = this;
@@ -90,18 +123,32 @@
     }
 
     this.started = true;
-    this._persist();
   };
 
+  /**
+   * Sets `stopped` flag. If `dynamic` is true,
+   * the interval will be stopped in addition.
+   *
+   * @public
+   * @method start
+   * @return {Void}
+   */
   BombTask.prototype.stop = function() {
     if (this.dynamic && this._intervalId) {
       this.$interval.cancel(this._intervalId);
     }
 
     this.stopped = true;
-    this._persist();
   };
 
+  /**
+   * Sets `resolved` flag. Calls `onResolve`
+   * callback with JSON result for consumer.
+   *
+   * @public
+   * @method resolve
+   * @return {Void}
+   */
   BombTask.prototype.resolve = function() {
     for (var i=0; i<this.collection.length; i++) {
       this.collection[i].$$resolved = true;
@@ -109,9 +156,18 @@
 
     this.resolved = true;
     this.onResolve();
-    this._persist();
   };
 
+  /**
+   * Callback for card click. Updates all
+   * related properties for final result.
+   *
+   * @public
+   * @method update
+   * @param {object} column
+   * @param {boolean} active
+   * @return {Void}
+   */
   BombTask.prototype.update = function(column, active) {
     var index = this.collection.indexOf(column);
 
@@ -137,118 +193,40 @@
     var total = this.totalBoxes;
     var collected = this.collectedBoxes;
     this.remainingBoxes = total - collected;
-
-    this._persist();
   };
 
+  /**
+   * Provides indiviual tracking id for column.
+   *
+   * @public
+   * @method trackId
+   * @param {object} column
+   * @return {Void}
+   */
   BombTask.prototype.trackId = function(column) {
     return column.row + '_' + column.col;
   };
 
+  /**
+   * Determines if column is actual bomb.
+   *
+   * @public
+   * @method isBomb
+   * @param {object} column
+   * @return {Void}
+   */
   BombTask.prototype.isBomb = function(column) {
     return angular.equals(this.bomb,column);
   };
 
-  BombTask.prototype._getColumn = function(data) {
-    var row = data.row - 1;
-    var col = data.col - 1;
-
-    return this.matrix[row][col];
-  };
-
-  BombTask.prototype._getState = function() {
-    /*
-    if (typeof sessionStorage !== 'undefined') {
-      return angular.fromJson(sessionStorage.getItem(this._storageKey));
-    }
-    */
-
-    return null;
-  };
-
-  BombTask.prototype._setState = function(/*data*/) {
-    /*
-    if (typeof sessionStorage !== 'undefined') {
-      sessionStorage.setItem(this._storageKey,angular.toJson(data));
-    }
-    */
-  };
-
-  BombTask.prototype._removeState = function() {
-    /*
-    if (typeof sessionStorage !== 'undefined') {
-      sessionStorage.removeItem(this._storageKey);
-    }
-    */
-  };
-
-  BombTask.prototype._persist = function() {
-    /*
-    var state = {
-      bomb: this.bomb,
-      started: this.started,
-      stopped: this.stopped,
-      resolved: this.resolved,
-      collection: this.collection
-    };
-
-    if( this.dynamic )
-    {
-      state.iterator = this.iterator;
-      state._intIndex = this._intIndex;
-    }
-
-    this._setState(state);
-    */
-  };
-
-  BombTask.prototype._desist = function() {
-    /*
-    var state = this._getState();
-    if (state === null) {
-      return;
-    }
-
-    this.bomb = this._getColumn(state.bomb);
-
-    var column;
-
-    if( state.iterator )
-    {
-      this.iterator = [];
-      for( var i=0;i<state.iterator.length;i++ )
-      {
-        column = this._getColumn(
-          state.iterator[i]
-        );
-
-        this.iterator.push(column);
-      }
-    }
-
-    for( var j=0;j<state.collection.length;j++ ) {
-      column = this._getColumn(
-        state.collection[j]
-      );
-
-      this.update(column,true);
-    }
-
-    if (state.started) {
-      this.start(state._intIndex);
-    }
-
-    if (state.stopped) {
-      this.stop();
-    }
-
-    if (state.resolved) {
-      this.resolve();
-    }
-    */
-  };
-
-  BombTask.prototype._initInternals = function() {
+  /**
+   * Initialzes internal properties.
+   *
+   * @private
+   * @method _initMembers
+   * @return {Void}
+   */
+  BombTask.prototype._initMembers = function() {
     this.collection = [];
 
     this.hasBomb = false;
@@ -261,6 +239,13 @@
     this.totalBoxes = this.rows * this.cols;
   };
 
+  /**
+   * Calculates the actual matrix.
+   *
+   * @private
+   * @method _initMatrix
+   * @return {Void}
+   */
   BombTask.prototype._initMatrix = function() {
     this.matrix = [];
     this.iterator = [];
@@ -289,6 +274,13 @@
     }
   };
 
+  /**
+   * Initializes bomb's actual location.
+   *
+   * @private
+   * @method _initBomb
+   * @return {Void}
+   */
   BombTask.prototype._initBomb = function() {
     var row = this.randomService.between(0,this.rows-1);
     var col = this.randomService.between(0,this.cols-1);
@@ -296,7 +288,9 @@
     this.bomb = this.matrix[row][col];
   };
 
-  // controller
+  //
+  // REGISTRY
+  //
   angular.module(module).directive('bombTask',function(){
     return {
       scope: {
@@ -321,18 +315,45 @@
   // BombTask Card
   // --------------------------------------------------
 
-  // controller
+  //
+  // CONTROLLER
+  //
+
+  /**
+   * @constructor
+   */
   var BombTaskCard = function(){
   };
 
+  //
+  // PROPERTIES
+  //
+
+  /** @var {string} id Card's accociated model. */
   BombTaskCard.prototype.model = null;
 
+  /** @var {string} isActive If card is active. */
   BombTaskCard.prototype.isActive = false;
 
+  /** @var {string} isDisabled If card is disabled. */
   BombTaskCard.prototype.isDisabled = false;
 
+  /** @var {string} isClickable If card is clickable. */
   BombTaskCard.prototype.isClickable = true;
 
+  //
+  // METHODS
+  //
+
+  /**
+   * Toggles `isActive` if `isDisabled` and
+   * `isClickable` allow the action. Invokes
+   * `onToggle` callback for consumer.
+   *
+   * @public
+   * @method toggle
+   * @return {Void}
+   */
   BombTaskCard.prototype.toggle = function() {
     if (this.isDisabled || !this.isClickable) {
       return;

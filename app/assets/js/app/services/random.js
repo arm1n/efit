@@ -73,6 +73,9 @@
     return array;
   };
 
+  //
+  // REGISTRY
+  //
   angular.module(module).service('random', Random);
 
 })(ANGULAR_MODULE, angular);

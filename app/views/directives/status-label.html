@@ -1,7 +1,4 @@
-<div class="uk-badge uk-padding-small" data-ng-switch="statusLabelController.stateService.get()">
-  <span data-ng-switch-when="PROFI">Profi</span>
-  <span data-ng-switch-when="EXPERT">Experte/in</span>
-  <span data-ng-switch-when="ADVANCED">Fortgeschrittene/r</span>
-  <span data-ng-switch-when="AMATEUR">Amateuer/in</span>
-  <span data-ng-switch-default="">Einsteiger/in</span>
+<div
+  class="uk-badge uk-padding-small"
+  data-ng-bind="statusLabelController.state|i18n">
 </div>

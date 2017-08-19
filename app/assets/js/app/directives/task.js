@@ -14,13 +14,21 @@
   // Task
   // --------------------------------------------------
 
-  // controller
+  //
+  // CONTROLLER
+  //
+
+  /**
+   * @constructor
+   */
   var Task = function() {
   };
 
   Task.$inject = ['$scope','$element','$attrs'];
 
-  // registry
+  //
+  // REGISTRY
+  //
   angular.module(module).directive('task', function(){
     return {
       scope: {
@@ -28,8 +36,8 @@
       },
       restrict: 'A',
       transclude: {
-        exercise: 'div',
-        description: 'span'
+        exercise: 'taskExercise',
+        description: 'taskDescription'
       },
       controller: Task,
       bindToController: true,
