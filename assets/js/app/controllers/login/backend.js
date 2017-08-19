@@ -25,10 +25,10 @@
   //
 
   /** @var {string} username Username for authentication. */
-  LoginBackend.prototype.username = 'admin';
+  LoginBackend.prototype.username = null;
 
   /** @var {string} workshop Password for authentication. */
-  LoginBackend.prototype.password = 'test';
+  LoginBackend.prototype.password = null;
 
   /** @var {RegExp} usernameMinLength Minimum length of username. */
   LoginBackend.prototype.usernameMinLength = 5;
