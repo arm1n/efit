@@ -41,9 +41,8 @@
     var notification = this.$injector.get('notification');
     var $http = this.$injector.get('$http');
     var i18n = this.$injector.get('i18n');
-    var me = this;
 
-    var successCallback = function(response)
+    var successCallback = function(/*response*/)
       {
         notification.success(
           i18n.get(
@@ -52,9 +51,8 @@
         );
       };
 
-    var failureCallback = function(rejection)
+    var failureCallback = function(/*rejection*/)
       {
-        console.log(rejection);
       };
 
     var promise = $http.post(

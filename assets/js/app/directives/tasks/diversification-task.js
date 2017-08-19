@@ -326,7 +326,6 @@
     this.$element = $element;
     this.$injector = $injector;
 
-    this.animate
     this._element = this.$element.find('.coin');
     this._animationEndEvent = this._getAnimationEndEvent();
   };

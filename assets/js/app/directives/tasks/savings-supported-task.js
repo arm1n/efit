@@ -198,7 +198,7 @@
     // check for sequential resolving of cards
     var nextWeek = this.count + 1;
     if (card.number !== nextWeek) {
-      var message = i18n.get("Please reveal week %s next!", nextWeek);
+      var message = i18n.get('Please reveal week %s next!', nextWeek);
       notification.warning(message);
       card.complete = false;
       return;

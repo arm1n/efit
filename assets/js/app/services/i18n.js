@@ -142,7 +142,7 @@
    */
   I18N.prototype._getJSONUrl = function(locale)
     {
-      return '/assets/json/' + locale + '.json';
+      return 'assets/json/' + locale + '.json';
     };
 
   /**
