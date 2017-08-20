@@ -25,10 +25,10 @@
   //
 
   /** @var {string} username User name for authentication. */
-  LoginFrontend.prototype.username = 'ru17O1';
+  LoginFrontend.prototype.username = null;
 
   /** @var {string} code Workshop code for authentication. */
-  LoginFrontend.prototype.code = '12345678';
+  LoginFrontend.prototype.code = null;
 
   /** @var {RegExp} codeMinLength Minimum length of password. */
   LoginFrontend.prototype.codeMinLength = 8;

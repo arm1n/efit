@@ -36,7 +36,6 @@
   // CONSTANTS
   //
   app.constant('VIEWS_PATH', 'views');
-  //app.constant('API_URL', 'http://localhost:8000/api');
   //app.constant('API_URL','http://localhost/felix/e-fit/backend/web/app_dev.php/api');
   app.constant('API_URL', 'https://efit-production.scalingo.io/api');
 

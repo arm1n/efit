@@ -1,16 +1,12 @@
-<p>Bitte gib den Code laut den Vorgaben ein und frage den Gruppenleiter nach dem Namen des Workshops:</p>
-
-<div data-ng-include="'code-field.html'">
-  <!-- @see: login.html -->
-</div>
+<p>Bitte frage deinen Gruppenleiter nach dem Registrierungscode und gib deinen persönlichen Code ein:</p>
 
 <div
   data-form-field=""
-  class="uk-text-left">
-  <label class="uk-text-uppercase uk-text-bold">Der Code des Workshops:</label>
+  class="uk-text-left uk-margin">
+  <label class="uk-text-uppercase uk-text-bold">Dein Registrierungscode:</label>
   <input
-    type="text"
     name="code"
+    type="password"
     class="uk-input"
     data-ng-required="true"
     data-form-field-model=""
@@ -32,6 +28,10 @@
       Der Code des Workshops ist ungültig!
     </div>
   </messages-custom>
+</div>
+
+<div data-ng-include="'code-field.html'">
+  <!-- @see: login.html -->
 </div>
 
 <div class="uk-margin">
