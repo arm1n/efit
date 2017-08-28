@@ -1,6 +1,6 @@
 <div class="bomb-task">
 
-  <p>Bei der folgenden Aufgabe kannst du Boxen sammeln um Taler zu verdienen. Für jede gesammelte Box erhältst du 1 Taler - aber Vorsicht: hinter einer der Boxen ist eine Bombe versteckt, die alles zerstört, was du gesammelt hast! Nachdem du die Aufgabe mit "Auflösen" beendet hast, werden die Boxen umgedreht und du siehst, ob sich hinter den gesammelten Boxen Taler (Smiley) oder die Bombe (Blitz) verborgen haben. Ist die Bombe nicht dabei, erhältst für jede gesammelte Box 1 Taler. Hast du jedoch auch die Box mit der Bombe eingesammelt, erhältst du nichts.</p>
+  <p>Bei der folgenden Aufgabe kannst du Boxen sammeln um Lose zu verdienen. Für jede gesammelte Box erhältst du 1 Los - aber Vorsicht: hinter einer der Boxen ist eine Bombe versteckt, die alles zerstört, was du gesammelt hast! Nachdem du die Aufgabe mit "Auflösen" beendet hast, werden die Boxen umgedreht und du siehst, ob sich hinter den gesammelten Boxen Lose (Smiley) oder die Bombe (Blitz) verborgen haben. Ist die Bombe nicht dabei, erhältst für jede gesammelte Box 1 Los. Hast du jedoch auch die Box mit der Bombe eingesammelt, erhältst du nichts.</p>
 
   <p><strong>Du kannst nun beginnen, Boxen zu sammeln:</strong></p>
 
@@ -18,7 +18,7 @@
           data-bomb-task-card-is-active="column.$$active"
           data-bomb-task-card-is-disabled="bombTaskController.resolved"
           data-bomb-task-card-is-clickable="!bombTaskController.dynamic"
-          data-bomb-task-card-on-toggle="bombTaskController.update(column,state)"
+          data-bomb-task-card-on-toggle="bombTaskController.toggle(column,state)"
           data-ng-class="{
             'resolved':bombTaskController.resolved && column.$$resolved,
             'bomb':bombTaskController.resolved && bombTaskController.isBomb(column)
@@ -40,8 +40,8 @@
     <evaluation-text>
 
       <p data-ng-class="{
-          'uk-text-primary': !bombTaskController.hasBomb,
-          'uk-text-warning': bombTaskController.hasBomb
+          'uk-text-warning': bombTaskController.hasBomb,
+          'uk-text-success': !bombTaskController.hasBomb
         }">
         <strong>
           <span>Du hast {{bombTaskController.collectedBoxes}} Boxen gesammelt. Da die Bombe</span>
@@ -50,7 +50,11 @@
           <span>unter den gesammelten Boxen war, beträgt deine Auszahlung</span>
           <span data-ng-if="!bombTaskController.hasBomb"> {{bombTaskController.collectedBoxes}} </span>
           <span data-ng-if="bombTaskController.hasBomb"> 0 </span>
-          <span>Taler.</span>
+          <span data-ng-if="bombTaskController.hasBomb">Lose.</span>
+          <span data-ng-if="!bombTaskController.hasBomb">
+            <span data-ng-if="bombTaskController.collectedBoxes === 1">Los.</span>
+            <span data-ng-if="bombTaskController.collectedBoxes !== 1">Lose.</span>
+          </span>
         </strong>
       </p>
 

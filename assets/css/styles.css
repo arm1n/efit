@@ -277,6 +277,44 @@
   font-weight: normal;
   font-style: normal; }
 
+@keyframes bounce {
+  0%, 90% {
+    animation-timing-function: linear; }
+  10% {
+    animation-timing-function: cubic-bezier(0, 0.4, 0.6, 1); }
+  50% {
+    animation-timing-function: cubic-bezier(0.4, 0, 1, 0.6); }
+  0% {
+    transform: translate(0%, 30%) scaleY(0.5); }
+  10% {
+    transform: translate(0%, 5%) scaleY(1.1); }
+  50% {
+    transform: translate(0%, -50%) scaleY(1.1); }
+  90% {
+    transform: translate(0%, 5%) scaleY(1.1); }
+  100% {
+    transform: translate(0%, 30%) scaleY(0.5); } }
+
+@keyframes flip {
+  0%, 100% {
+    animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5); }
+  50% {
+    animation-timing-function: cubic-bezier(0, 0.5, 0.5, 1); }
+  0% {
+    transform: rotateX(0deg); }
+  50% {
+    transform: rotateX(1800deg); }
+  100% {
+    transform: rotateX(3600deg); } }
+
+@keyframes pop {
+  from {
+    transform: translateZ(0) scale(1, 1);
+    opacity: 1; }
+  to {
+    transform: translateZ(0) scale(1.75, 1.75);
+    opacity: 0; } }
+
 /* ==================================================
  * OVERRIDE
  * $author Armin Pfurtscheller
@@ -1113,8 +1151,7 @@ a.uk-link-reset:hover,
   /* 1 */
   font-size: 0.875rem;
   font-weight: normal;
-  color: #999;
-  text-transform: uppercase; }
+  color: #999; }
 
 /* Cell
  ========================================================================== */
@@ -1383,6 +1420,9 @@ a.uk-link-reset:hover,
 .uk-active > .uk-icon-button {
   background-color: #e1e1e1;
   color: #666; }
+
+span.uk-icon {
+  cursor: default !important; }
 
 .uk-icon-filled [fill] {
   fill: inherit; }
@@ -3383,6 +3423,14 @@ select.uk-form-width-xsmall {
   text-decoration: none;
   outline: none; }
 
+.uk-badge-large {
+  height: 50px;
+  min-width: 50px;
+  line-height: 50px;
+  padding: 20px !important;
+  font-weight: bold;
+  font-size: 1.25rem; }
+
 /* ========================================================================
    Component: Label
  ========================================================================== */
@@ -4891,16 +4939,19 @@ ul.uk-nav-sub {
   font-size: 1.25rem;
   line-height: 1.4;
   cursor: pointer;
-  overflow: hidden; }
-  .uk-accordion-title::after {
+  position: relative;
+  padding-right: 1.4em; }
+  .uk-accordion-title:after {
+    top: 0;
+    right: 0;
     content: "";
+    position: absolute;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
     width: 1.4em;
     height: 1.4em;
-    float: right;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2213%22%20height%3D%2213%22%20viewBox%3D%220%200%2013%2013%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23666%22%20width%3D%2213%22%20height%3D%221%22%20x%3D%220%22%20y%3D%226%22%3E%3C%2Frect%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23666%22%20width%3D%221%22%20height%3D%2213%22%20x%3D%226%22%20y%3D%220%22%3E%3C%2Frect%3E%0A%3C%2Fsvg%3E");
-    background-repeat: no-repeat;
-    background-position: 50% 50%; }
-  .uk-open > .uk-accordion-title::after {
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2213%22%20height%3D%2213%22%20viewBox%3D%220%200%2013%2013%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23666%22%20width%3D%2213%22%20height%3D%221%22%20x%3D%220%22%20y%3D%226%22%3E%3C%2Frect%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23666%22%20width%3D%221%22%20height%3D%2213%22%20x%3D%226%22%20y%3D%220%22%3E%3C%2Frect%3E%0A%3C%2Fsvg%3E"); }
+  .uk-open > .uk-accordion-title:after {
     background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2213%22%20height%3D%2213%22%20viewBox%3D%220%200%2013%2013%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23666%22%20width%3D%2213%22%20height%3D%221%22%20x%3D%220%22%20y%3D%226%22%3E%3C%2Frect%3E%0A%3C%2Fsvg%3E"); }
 
 /* Content
@@ -6997,7 +7048,7 @@ ul.uk-nav-sub {
  * 2. Prevent text from wrapping onto multiple lines, and truncate with an ellipsis
  * 3. Fix for table cells
  */
-.uk-text-truncate {
+.uk-text-truncate, .uk-accordion-title {
   /* 1 */
   max-width: 100%;
   /* 2 */
@@ -7006,8 +7057,9 @@ ul.uk-nav-sub {
   white-space: nowrap; }
 
 /* 2 */
-th.uk-text-truncate,
-td.uk-text-truncate {
+th.uk-text-truncate, th.uk-accordion-title,
+td.uk-text-truncate,
+td.uk-accordion-title {
   max-width: 0; }
 
 /*
@@ -7210,7 +7262,7 @@ td.uk-text-break {
 .uk-background-default {
   background-color: #fff; }
 
-.uk-background-muted {
+.uk-background-muted, [class*="login"] #wrap {
   background-color: #fafafa; }
 
 .uk-background-primary {
@@ -9428,94 +9480,16 @@ td.uk-text-break {
   stroke-width: 60px; }
 
 .ct-series-a .ct-point, .ct-series-a .ct-line, .ct-series-a .ct-bar, .ct-series-a .ct-slice-donut {
-  stroke: #d70206; }
-
-.ct-series-a .ct-slice-pie, .ct-series-a .ct-slice-donut-solid, .ct-series-a .ct-area {
-  fill: #d70206; }
-
-.ct-series-b .ct-point, .ct-series-b .ct-line, .ct-series-b .ct-bar, .ct-series-b .ct-slice-donut {
-  stroke: #f05b4f; }
-
-.ct-series-b .ct-slice-pie, .ct-series-b .ct-slice-donut-solid, .ct-series-b .ct-area {
-  fill: #f05b4f; }
-
-.ct-series-c .ct-point, .ct-series-c .ct-line, .ct-series-c .ct-bar, .ct-series-c .ct-slice-donut {
-  stroke: #f4c63d; }
-
-.ct-series-c .ct-slice-pie, .ct-series-c .ct-slice-donut-solid, .ct-series-c .ct-area {
-  fill: #f4c63d; }
-
-.ct-series-d .ct-point, .ct-series-d .ct-line, .ct-series-d .ct-bar, .ct-series-d .ct-slice-donut {
-  stroke: #d17905; }
-
-.ct-series-d .ct-slice-pie, .ct-series-d .ct-slice-donut-solid, .ct-series-d .ct-area {
-  fill: #d17905; }
-
-.ct-series-e .ct-point, .ct-series-e .ct-line, .ct-series-e .ct-bar, .ct-series-e .ct-slice-donut {
-  stroke: #453d3f; }
-
-.ct-series-e .ct-slice-pie, .ct-series-e .ct-slice-donut-solid, .ct-series-e .ct-area {
-  fill: #453d3f; }
-
-.ct-series-f .ct-point, .ct-series-f .ct-line, .ct-series-f .ct-bar, .ct-series-f .ct-slice-donut {
-  stroke: #59922b; }
-
-.ct-series-f .ct-slice-pie, .ct-series-f .ct-slice-donut-solid, .ct-series-f .ct-area {
-  fill: #59922b; }
-
-.ct-series-g .ct-point, .ct-series-g .ct-line, .ct-series-g .ct-bar, .ct-series-g .ct-slice-donut {
-  stroke: #0544d3; }
-
-.ct-series-g .ct-slice-pie, .ct-series-g .ct-slice-donut-solid, .ct-series-g .ct-area {
-  fill: #0544d3; }
-
-.ct-series-h .ct-point, .ct-series-h .ct-line, .ct-series-h .ct-bar, .ct-series-h .ct-slice-donut {
-  stroke: #6b0392; }
-
-.ct-series-h .ct-slice-pie, .ct-series-h .ct-slice-donut-solid, .ct-series-h .ct-area {
-  fill: #6b0392; }
-
-.ct-series-i .ct-point, .ct-series-i .ct-line, .ct-series-i .ct-bar, .ct-series-i .ct-slice-donut {
-  stroke: #f05b4f; }
-
-.ct-series-i .ct-slice-pie, .ct-series-i .ct-slice-donut-solid, .ct-series-i .ct-area {
-  fill: #f05b4f; }
-
-.ct-series-j .ct-point, .ct-series-j .ct-line, .ct-series-j .ct-bar, .ct-series-j .ct-slice-donut {
-  stroke: #dda458; }
-
-.ct-series-j .ct-slice-pie, .ct-series-j .ct-slice-donut-solid, .ct-series-j .ct-area {
-  fill: #dda458; }
-
-.ct-series-k .ct-point, .ct-series-k .ct-line, .ct-series-k .ct-bar, .ct-series-k .ct-slice-donut {
-  stroke: #eacf7d; }
-
-.ct-series-k .ct-slice-pie, .ct-series-k .ct-slice-donut-solid, .ct-series-k .ct-area {
-  fill: #eacf7d; }
-
-.ct-series-l .ct-point, .ct-series-l .ct-line, .ct-series-l .ct-bar, .ct-series-l .ct-slice-donut {
-  stroke: #86797d; }
-
-.ct-series-l .ct-slice-pie, .ct-series-l .ct-slice-donut-solid, .ct-series-l .ct-area {
-  fill: #86797d; }
-
-.ct-series-m .ct-point, .ct-series-m .ct-line, .ct-series-m .ct-bar, .ct-series-m .ct-slice-donut {
   stroke: #b2c326; }
 
-.ct-series-m .ct-slice-pie, .ct-series-m .ct-slice-donut-solid, .ct-series-m .ct-area {
+.ct-series-a .ct-slice-pie, .ct-series-a .ct-slice-donut-solid, .ct-series-a .ct-area {
   fill: #b2c326; }
 
-.ct-series-n .ct-point, .ct-series-n .ct-line, .ct-series-n .ct-bar, .ct-series-n .ct-slice-donut {
+.ct-series-b .ct-point, .ct-series-b .ct-line, .ct-series-b .ct-bar, .ct-series-b .ct-slice-donut {
   stroke: #6188e2; }
 
-.ct-series-n .ct-slice-pie, .ct-series-n .ct-slice-donut-solid, .ct-series-n .ct-area {
+.ct-series-b .ct-slice-pie, .ct-series-b .ct-slice-donut-solid, .ct-series-b .ct-area {
   fill: #6188e2; }
-
-.ct-series-o .ct-point, .ct-series-o .ct-line, .ct-series-o .ct-bar, .ct-series-o .ct-slice-donut {
-  stroke: #a748ca; }
-
-.ct-series-o .ct-slice-pie, .ct-series-o .ct-slice-donut-solid, .ct-series-o .ct-area {
-  fill: #a748ca; }
 
 .ct-square {
   display: block;
@@ -10113,7 +10087,81 @@ td.uk-text-break {
   position: absolute; }
 
 /*!
- * SAVE COIN TASK
+ * DIVERSIFICATION TASK
+ *
+ * @author Armin Pfurtscheller
+ * @license MIT
+ */
+.diversification-task .voucher {
+  z-index: 2;
+  cursor: move;
+  cursor: grab;
+  cursor: -webkit-grab;
+  -moz-user-select: -moz-none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  transition: opacity 0.3s; }
+  .diversification-task .voucher.active {
+    opacity: 0.75;
+    cursor: grabbing;
+    cursor: -webkit-grabbing; }
+  .diversification-task .voucher.disabled {
+    cursor: not-allowed; }
+
+.diversification-task .company {
+  max-width: 45%; }
+
+.diversification-task .dropzone {
+  z-index: 1;
+  transition: 0.3s; }
+  .diversification-task .dropzone.enter {
+    -ms-transform: scale(1.1);
+        transform: scale(1.1); }
+
+.coin {
+  perspective: 1000px; }
+  .coin.bounce {
+    animation: bounce 1s ease 1 normal none running; }
+  .coin .wrap {
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    font-size: 2em;
+    font-weight: bold;
+    color: #cc8d00;
+    background-size: 100%;
+    background-image: url(../img/coin.svg);
+    -ms-transform-origin: 50% 50%;
+        transform-origin: 50% 50%;
+    transform-style: preserve-3d;
+    position: relative; }
+    .coin .wrap.flip {
+      animation: flip 1s ease 1 normal none running; }
+  .coin .front, .coin .back {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden; }
+  .coin .front {
+    z-index: 2;
+    transform: rotateY(0deg); }
+  .coin .back {
+    z-index: 1;
+    transform: rotateY(180deg); }
+
+/*!
+ * ANCHORING TASK
+ *
+ * @author Armin Pfurtscheller
+ * @license MIT
+ */
+/*!
+ * SAVINGS SUPPORTED TASK
  *
  * @author Armin Pfurtscheller
  * @license MIT
@@ -10141,108 +10189,82 @@ td.uk-text-break {
     opacity: 0.75; }
 
 /*!
- * DIVERSIFICATION TASK
+ * PROCRASTINATION TASK
  *
  * @author Armin Pfurtscheller
  * @license MIT
  */
-.diversification-task .voucher {
-  z-index: 2;
-  cursor: move;
-  cursor: grab;
-  cursor: -webkit-grab;
-  -moz-user-select: -moz-none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  transition: opacity 0.3s; }
-  .diversification-task .voucher.active {
-    opacity: 0.75;
-    cursor: grabbing;
-    cursor: -webkit-grabbing; }
-  .diversification-task .voucher.disabled {
-    cursor: not-allowed; }
-
-.diversification-task .dropzone {
-  z-index: 1;
-  transition: 0.3s; }
-  .diversification-task .dropzone.enter {
-    -ms-transform: scale(1.1);
-        transform: scale(1.1); }
-
-@keyframes bounce {
-  0%, 90% {
-    animation-timing-function: linear; }
-  10% {
-    animation-timing-function: cubic-bezier(0, 0.4, 0.6, 1); }
-  50% {
-    animation-timing-function: cubic-bezier(0.4, 0, 1, 0.6); }
-  0% {
-    transform: translate(0%, 30%) scaleY(0.5); }
-  10% {
-    transform: translate(0%, 5%) scaleY(1.1); }
-  50% {
-    transform: translate(0%, -50%) scaleY(1.1); }
-  90% {
-    transform: translate(0%, 5%) scaleY(1.1); }
-  100% {
-    transform: translate(0%, 30%) scaleY(0.5); } }
-
-@keyframes flip {
-  0%, 100% {
-    animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5); }
-  50% {
-    animation-timing-function: cubic-bezier(0, 0.5, 0.5, 1); }
-  0% {
-    transform: rotateX(0deg); }
-  50% {
-    transform: rotateX(1800deg); }
-  100% {
-    transform: rotateX(3600deg); } }
-
-.flip {
-  animation: flip 1s 1; }
-
-.bounce {
-  animation: bounce 1s 1; }
-
-.coin {
-  perspective: 1000px; }
-  .coin .wrap {
-    width: 75px;
-    height: 75px;
-    line-height: 75px;
-    text-align: center;
-    font-size: 2em;
-    font-weight: bold;
-    color: #cc8d00;
-    background-size: 100%;
-    background-image: url(../img/coin.svg);
-    -ms-transform-origin: 50% 50%;
-        transform-origin: 50% 50%;
-    transform-style: preserve-3d;
-    position: relative; }
-  .coin .front, .coin .back {
-    top: 0;
+.procrastination-task .viewport {
+  width: 480px;
+  height: 480px;
+  max-width: 100%;
+  overflow: hidden;
+  position: relative;
+  background-color: #c1e9f7; }
+  .procrastination-task .viewport:after, .procrastination-task .viewport:before {
     left: 0;
     right: 0;
-    bottom: 0;
-    position: absolute;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden; }
-  .coin .front {
     z-index: 2;
-    transform: rotateY(0deg); }
-  .coin .back {
-    z-index: 1;
-    transform: rotateY(180deg); }
+    content: '';
+    height: 50px;
+    position: absolute;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: top center; }
+  .procrastination-task .viewport:before {
+    top: 0;
+    background-size: cover;
+    background-image: url(../img/clouds.svg); }
+  .procrastination-task .viewport:after {
+    bottom: 0;
+    background-size: cover;
+    background-image: url(../img/grass.svg); }
 
-/*!
- * ANCHORING TASK
- *
- * @author Armin Pfurtscheller
- * @license MIT
- */
+.procrastination-task .bubble {
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 50px;
+  height: 50px;
+  display: block;
+  position: absolute;
+  border-radius: 50%; }
+  .procrastination-task .bubble:before, .procrastination-task .bubble:after {
+    content: "";
+    display: block;
+    position: absolute;
+    border-radius: 50%; }
+  .procrastination-task .bubble:before {
+    top: 12%;
+    left: 20%;
+    width: 15%;
+    height: 6%;
+    background: #fff;
+    -ms-transform: rotate(-35deg);
+        transform: rotate(-35deg); }
+  .procrastination-task .bubble:after {
+    top: 5%;
+    left: 5%;
+    width: 100%;
+    height: 100%;
+    opacity: 0.025;
+    -ms-transform: scale(1.1, 1.1);
+        transform: scale(1.1, 1.1);
+    background: transparent;
+    background: radial-gradient(transparent, #000 60%, transparent 70%, transparent); }
+  .procrastination-task .bubble.catched {
+    animation: pop 0.1s cubic-bezier(0.16, 0.87, 0.48, 0.99) 1 normal forwards running; }
+  .procrastination-task .bubble.theme-1 {
+    box-shadow: 0 -1px 3px #fff inset, 0 -2px 1px #f44 inset, 0 -1px 1px #f44 inset, 1px 0 2px #fff inset, -1px 0 2px #fff inset; }
+  .procrastination-task .bubble.theme-2 {
+    box-shadow: 0 -1px 3px #fff inset, 0 -2px 1px #f84 inset, 0 -1px 1px #f84 inset, 1px 0 2px #fff inset, -1px 0 2px #fff inset; }
+  .procrastination-task .bubble.theme-3 {
+    box-shadow: 0 -1px 3px #fff inset, 0 -2px 1px #ff8 inset, 0 -1px 1px #ff8 inset, 1px 0 2px #fff inset, -1px 0 2px #fff inset; }
+  .procrastination-task .bubble.theme-4 {
+    box-shadow: 0 -1px 3px #fff inset, 0 -2px 1px #8f8 inset, 0 -1px 1px #8f8 inset, 1px 0 2px #fff inset, -1px 0 2px #fff inset; }
+  .procrastination-task .bubble.theme-5 {
+    box-shadow: 0 -1px 3px #fff inset, 0 -2px 1px #88f inset, 0 -1px 1px #88f inset, 1px 0 2px #fff inset, -1px 0 2px #fff inset; }
+
 .ct-legend {
   padding: 0;
   z-index: 10;
@@ -10274,50 +10296,11 @@ td.uk-text-break {
     right: 0;
     position: absolute; }
   .ct-legend .ct-series-0:before {
-    background-color: #d70206;
-    border-color: #d70206; }
-  .ct-legend .ct-series-1:before {
-    background-color: #f05b4f;
-    border-color: #f05b4f; }
-  .ct-legend .ct-series-2:before {
-    background-color: #f4c63d;
-    border-color: #f4c63d; }
-  .ct-legend .ct-series-3:before {
-    background-color: #d17905;
-    border-color: #d17905; }
-  .ct-legend .ct-series-4:before {
-    background-color: #453d3f;
-    border-color: #453d3f; }
-  .ct-legend .ct-series-5:before {
-    background-color: #59922b;
-    border-color: #59922b; }
-  .ct-legend .ct-series-6:before {
-    background-color: #0544d3;
-    border-color: #0544d3; }
-  .ct-legend .ct-series-7:before {
-    background-color: #6b0392;
-    border-color: #6b0392; }
-  .ct-legend .ct-series-8:before {
-    background-color: #f05b4f;
-    border-color: #f05b4f; }
-  .ct-legend .ct-series-9:before {
-    background-color: #dda458;
-    border-color: #dda458; }
-  .ct-legend .ct-series-10:before {
-    background-color: #eacf7d;
-    border-color: #eacf7d; }
-  .ct-legend .ct-series-11:before {
-    background-color: #86797d;
-    border-color: #86797d; }
-  .ct-legend .ct-series-12:before {
     background-color: #b2c326;
     border-color: #b2c326; }
-  .ct-legend .ct-series-13:before {
+  .ct-legend .ct-series-1:before {
     background-color: #6188e2;
     border-color: #6188e2; }
-  .ct-legend .ct-series-14:before {
-    background-color: #a748ca;
-    border-color: #a748ca; }
 
 /* --------------------------------------------------
  *  TAGS
@@ -10352,7 +10335,7 @@ td.uk-text-break {
  *  HEADER
  * -------------------------------------------------- */
 #logo-efit {
-  height: 70px; }
+  max-height: 70px; }
 
 /* --------------------------------------------------
  *  MAIN
@@ -10362,7 +10345,7 @@ td.uk-text-break {
  * -------------------------------------------------- */
 #logo-ak,
 #logo-uibk {
-  height: 40px; }
+  max-height: 40px; }
 
 /* --------------------------------------------------
  *  OFF-CANVAS
@@ -10379,22 +10362,38 @@ td.uk-text-break {
 /* --------------------------------------------------
  *  LOGIN
  * -------------------------------------------------- */
-[class*="login"], [class*="login"] body {
+[class*="login"] {
   height: 100%; }
 
-[class*="login"] #login {
+[class*="login"] body {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+  position: absolute; }
+
+[class*="login"] #wrap {
+  width: 100%;
+  height: 100%;
+  display: table;
+  table-layout: fixed; }
+
+[class*="login"] #main {
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle; }
+
+[class*="login"] #loginForm {
   top: 50%;
   left: 50%;
   width: 500px;
-  max-width: 100%;
-  position: absolute;
-  -ms-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%); }
+  max-width: 100%; }
 
 /* --------------------------------------------------
  *  BACKEND
  * -------------------------------------------------- */
-[class*="backend"] {
+[class*="backend"]:not([class*="login"]) {
   /**
    * Sticky footer
    *
@@ -10404,20 +10403,20 @@ td.uk-text-break {
    *    minimum size. See http://bit.ly/1Mn35US for details.
    * 3. Use `%` instead of `vh` since `vh` is buggy in older mobile Safari.
    */ }
-  [class*="backend"], [class*="backend"] body {
+  [class*="backend"]:not([class*="login"]), [class*="backend"]:not([class*="login"]) body {
     height: 100%; }
-  [class*="backend"] #wrap {
+  [class*="backend"]:not([class*="login"]) #wrap {
     height: 100%;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-direction: column;
         flex-direction: column; }
-  [class*="backend"] #main {
+  [class*="backend"]:not([class*="login"]) #main {
     width: 100%;
     -ms-flex: 1 0 auto;
         flex: 1 0 auto; }
-  [class*="backend"] #header,
-  [class*="backend"] #footer {
+  [class*="backend"]:not([class*="login"]) #header,
+  [class*="backend"]:not([class*="login"]) #footer {
     -ms-flex: none;
         flex: none; }
 

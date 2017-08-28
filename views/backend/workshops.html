@@ -85,6 +85,15 @@
                       </li>
                       <li>
                         <button
+                          title="Ziehung"
+                          data-uk-tooltip=""
+                          data-uk-icon="icon: tag"
+                          data-ng-disabled="!workshop.$$users"
+                          data-ng-click="workshopController.markWorkshopForDrawing(workshop)">
+                        </button>
+                      </li>
+                      <li>
+                        <button
                           title="Löschen"
                           data-uk-tooltip=""
                           data-uk-icon="icon: trash"
@@ -149,7 +158,7 @@
                           data-ng-click="workshopController.markTaskForChart(task)">
                         </button>
                       </li>
-                      <li>
+                      <li data-ng-if="task.isInteractive">
                         <button
                           data-uk-tooltip=""
                           data-ng-click="workshopController.toggleTask(task)"
@@ -186,7 +195,8 @@
       <h3 class="uk-card-title">Neuer Workshop</h3>
       <form
         name="workshopForm"
-        class="uk-form-stacked">
+        class="uk-form-stacked"
+        novalidate="novalidate">
 
         <div
           class="uk-margin"
@@ -200,7 +210,6 @@
             data-ng-required="true"
             data-form-field-model=""
             data-ng-model="workshopController.name"
-            data-ng-model-options="{ updateOn: 'blur' }"
             data-ng-minlength="workshopController.nameMinLength">
           <message-required>Ein Name ist erforderlich!</message-required>
           <message-minlength>Der Name ist zu kurz!</message-minlength>
@@ -218,7 +227,6 @@
               data-form-field-model=""
               data-validator-workshop-unique=""
               data-ng-model="workshopController.code"
-              data-ng-model-options="{ updateOn: 'blur' }"
               data-ng-pattern="workshopController.codePattern"
               data-ng-minlength="workshopController.codeMinLength">
           <message-minlength>Der Code ist zu kurz!</message-minlength>
@@ -244,6 +252,28 @@
 
   </div>
 
+</div>
+
+<!-- MODAL: -->
+<div data-modal="workshopController.drawingWorkshop">
+  <div class="uk-modal-dialog uk-modal-body text-center">
+    <h2 class="uk-modal-title">
+      Gewinnerziehung für {{workshopController.drawingWorkshop.name}}
+    </h2>
+    <div data-ng-if="workshopController.drawingTickets.length > 0">
+      <p>Die folgenden Tickets wurden gezogen von insgesamt {{workshopController.drawingTickets.length}}:</p>
+      <div
+        data-ng-bind="'#' + ticket.id"
+        data-ng-repeat="ticket in workshopController.drawingTickets | limitTo: workshopController.drawingAmount"
+        class="uk-badge uk-badge-large uk-margin-small-top uk-margin-small-bottom uk-margin-small-left uk-margin-small-right">
+      </div>
+    </div>
+    <div
+      class="uk-alert uk-alert-danger"
+      data-ng-if="workshopController.drawingTickets.length === 0">
+      Es sind noch keine Tickets für die Ziehung verfügbar.
+    </div>
+  </div>
 </div>
 
 <!-- MODAL: DELETE -->
@@ -275,7 +305,7 @@
     </h2>
     <div
       data-chart
-      class="ct-major-seventh"
+      class="ct-major-tenth"
       data-chart-task="workshopController.chartTask"
       data-chart-results="workshopController.chartResults">
     </div>

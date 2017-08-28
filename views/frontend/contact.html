@@ -11,6 +11,7 @@
         <form
           name="contactForm"
           class="uk-form-stacked"
+          novalidate="novalidate"
           data-ng-submit="contactController.submit()">
 
           <div
@@ -23,8 +24,7 @@
                 placeholder="Name"
                 data-ng-required="true"
                 data-form-field-model=""
-                data-ng-model="contactController.name"
-                data-ng-model-options="{ updateOn: 'blur' }">
+                data-ng-model="contactController.name">
             <message-required class="uk-text-muted">
               <span class="uk-text-danger"><strong>*</strong></span>
               <span class="uk-text-inverse">Bitte gib einen Namen an!</span>

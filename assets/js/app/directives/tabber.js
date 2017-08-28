@@ -27,6 +27,8 @@
     this.$element = $element;
     this.$transclude = $transclude;
 
+    this.domId = 'tabber-' + $scope.$id;
+
     this.hasExercise = $transclude.isSlotFilled('exercise');
   };
 

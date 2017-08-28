@@ -6,7 +6,7 @@
         <li data-ui-sref-active="uk-active">
           <a
             href="javascript:void(0)"
-            data-ui-sref="backend"
+            data-ng-click="backendController.goTo('backend')"
             data-uk-off-canvas-scroll="target: #off-canvas; offset: 80">
             Workshops
           </a>
@@ -14,7 +14,7 @@
         <li data-ui-sref-active="uk-active">
           <a
             href="javascript:void(0)"
-            data-ui-sref="frontend"
+            data-ng-click="backendController.goTo('frontend')"
             data-uk-off-canvas-scroll="target: #off-canvas; offset: 80">
             Zur App
           </a>

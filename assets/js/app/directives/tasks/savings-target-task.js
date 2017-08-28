@@ -29,6 +29,8 @@
     this.$element = $element;
     this.$injector = $injector;
 
+    this._flag = false;
+
     this.user = this.$injector.get('user');
     this.task = this.user.getTaskByType(type);
     this.result = this.user.getPendingByType(type);
@@ -74,6 +76,12 @@
 
   /** @var {object} form Form collecting user input. */
   SavingsTargetTask.prototype.form = null;
+
+  /** @var {number} minAmount Minimum amount for `amount` input. */
+  SavingsTargetTask.prototype.minAmount = 1;
+
+  /** @var {number} maxAmount Maximum amount for `amount` input. */
+  SavingsTargetTask.prototype.maxAmount = 999;
 
   //
   // METHODS
@@ -137,7 +145,7 @@
     // state, we skip unlocking
     // by using internal `_flag`
     if (this.task.isActive) {
-      return !!this._flag;
+      return this._flag;
     }
 
     // reset `_flag` as soon as
@@ -146,7 +154,7 @@
       this._storageKey
     );
 
-    this._flag = 0;
+    this._flag = false;
     return true;
   };
 
@@ -195,7 +203,8 @@
         this._flag = updatedAt >= this.task.updatedAt;
       }
 
-      this.amountRepeated = json.amountRepeated || 100;
+      // amount repeated cannot be desisted cause it's the
+      // condition in last step before setting `isPending`
       this.amount = json.amount;
       this.total = json.total;
       this.wish = json.wish;
@@ -274,13 +283,11 @@
         }
 
         me.result = result;
-
         me.storage.setItem(
           me._storageKey,
           me.task.updatedAt
         );
-
-        me._flag = 1;
+        me._flag = true;
         return;
       }
 

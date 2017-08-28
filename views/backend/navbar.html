@@ -5,7 +5,9 @@
 
         <div class="uk-navbar-left">
           <div class="uk-navbar-item">
-            <a data-ui-sref="backend" class="uk-navbar-item">
+            <a
+              class="uk-navbar-item"
+              data-ng-click="backendController.goTo('backend')">
               <img
                 id="logo-efit"
                 alt="Financial Training"
@@ -17,8 +19,12 @@
         <div class="uk-navbar-right">
           <ul class="uk-navbar-nav uk-visible@s">
 
-              <li data-ui-sref-active="uk-active"><a data-ui-sref="backend">Workshops</a></li>
-              <li data-ui-sref-active="uk-active"><a data-ui-sref="frontend">Zur App</a></li>
+              <li data-ui-sref-active="uk-active">
+                <a data-ng-click="backendController.goTo('backend')">Workshops</a>
+              </li>
+              <li data-ui-sref-active="uk-active">
+                <a data-ng-click="backendController.goTo('frontend')">Zur App</a>
+              </li>
               <li>
                 <a
                   href="javascript:void(0)"

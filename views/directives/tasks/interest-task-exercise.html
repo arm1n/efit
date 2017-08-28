@@ -24,12 +24,14 @@
   </div>
 </div>
 
-<div
-  data-dropable=""
-  class="dropzone uk-margin-auto"
-  data-dropable-on-drop="interestTaskExerciseController.onDrop($data)">
-  <div class="sum">
-    {{interestTaskExerciseController.sum|currency:'€ ':2}}
+<div class="uk-inline">
+  <div
+    data-dropable=""
+    class="dropzone uk-inline"
+    data-dropable-on-drop="interestTaskExerciseController.onDrop($data)">
+    <div class="sum">
+      {{interestTaskExerciseController.sum|currency:'€ ':2}}
+    </div>
   </div>
 </div>
 

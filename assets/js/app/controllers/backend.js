@@ -51,6 +51,21 @@
       );
     };
 
+  /**
+   * Redirects router to state.
+   *
+   * @public
+   * @method goTo
+   * @param {string} state
+   * @return {Void}
+   */
+  Backend.prototype.goTo = function(state)
+    {
+      var $state = this.$injector.get('$state');
+
+      $state.go(state);
+    };
+
   angular.module(module).controller('BackendController', Backend);
 
 })(ANGULAR_MODULE, angular);

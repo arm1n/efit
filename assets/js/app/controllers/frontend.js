@@ -15,9 +15,18 @@
   */
   var Frontend = function($injector) {
     this.$injector = $injector;
+
+    this.user = this.$injector.get('user');
   };
 
   Frontend.$inject = ['$injector'];
+
+  //
+  // PROPERTIES
+  //
+
+  /** @var {object} user User service object. */
+  Frontend.prototype.user = null;
 
   //
   // METHODS
@@ -41,7 +50,7 @@
         // update user object from response
         // handling comparisons for `state`,
         // `tickets` and showing messages
-        user.update(result.user);
+        user.update(result);
       };
 
     var failureCallback = function()
@@ -77,7 +86,7 @@
         // update user object from response
         // handling comparisons for `state`,
         // `tickets` and showing messages
-        user.update(result.user);
+        user.update(result);
       };
 
     var failureCallback = function()
@@ -120,6 +129,21 @@
         successCallback,
         failureCallback
       );
+    };
+
+  /**
+   * Redirects router to state.
+   *
+   * @public
+   * @method goTo
+   * @param {string} state
+   * @return {Void}
+   */
+  Frontend.prototype.goTo = function(state)
+    {
+      var $state = this.$injector.get('$state');
+
+      $state.go(state);
     };
 
   angular.module(module).controller('FrontendController', Frontend);

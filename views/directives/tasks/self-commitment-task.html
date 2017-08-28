@@ -1,4 +1,9 @@
 <div class="self-commitment">
+
+  <div class="uk-placeholder">VIDEO #1</div>
+
+  <div class="uk-placeholder">VIDEO #2</div>
+
   <p>Es ist nicht immer leicht, seine <strong>Ziele konsequent zu verfolgen</strong>. Oft kommen kleinere und größere Versuchungen dazwischen, die uns von unseren Zielen abbringen. Es gibt zum Glück aber ein paar einfache Tricks, wie man sich selber "überlisten" kann.</p>
 
   <p>Wir können es ähnlich machen, wie der <strong>Seefahrer Odysseus</strong> in einer alten griechischen Erzählung. Er musste auf seinem Weg nach Hause an einer Insel vorbei segeln, auf der die Sirenen lebten: Schöne Frauen, die bezaubernd singen konnten. Mit ihrem Gesang lockten sie Seefahrer an, um sie dann zu töten. Odysseus wusste das und ließ sich an der Vorüberfahrt an den Mast binden. So konnte er der Verlockung nicht nachgeben und unbeirrt nach Hause segeln.</p>
@@ -12,14 +17,14 @@
 
   <p><strong>Wenn du die Videos angeschaut hast, dann klicke bitte auf "Weiter" um ein Los dafür zu erhalten.</strong></p>
 
-  <div class="uk-placeholder">VIDEO #1</div>
-
-  <div class="uk-placeholder">VIDEO #2</div>
+  <div data-locked-state="selfCommitmentTaskController.isLocked()">
+    <!-- use default text -->
+  </div>
 
   <button
     class="uk-button uk-button-success"
     data-ng-click="selfCommitmentTaskController.resolve()"
-    data-ng-disabled="selfCommitmentTaskController.resolved">
+    data-ng-disabled="!selfCommitmentTaskController.canResolve()">
     <span>Weiter</span>
   </button>
 </div>

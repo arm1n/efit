@@ -1,5 +1,5 @@
 <div
-  class="uk-margin-medium uk-margin-medium-top uk-text-center">
+  class="uk-margin-medium uk-margin-medium-top">
 
   <div data-locked-state="evaluationController.parent.isLocked()">
     <!-- use default text -->
@@ -12,6 +12,7 @@
   <div data-ng-transclude="defaultButtons">
 
     <button
+      type="submit"
       class="uk-button uk-button-success"
       data-ng-click="evaluationController.parent.resolve()"
       data-ng-disabled="!evaluationController.parent.canResolve()">
@@ -31,7 +32,7 @@
 </div>
 
 <div
-  class="uk-margin-medium-top uk-text-center"
+  class="uk-margin-medium-top"
   data-ng-attr-id="{{evaluationController.domId}}"
   data-ng-if="evaluationController.parent.resolved">
 
@@ -39,6 +40,7 @@
       <hr>
       <h2>Auswertung</h2>
       <div
+
         class="uk-text-small"
         data-ng-transclude="text">
       </div>

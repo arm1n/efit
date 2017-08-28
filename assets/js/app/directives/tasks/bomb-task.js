@@ -119,15 +119,14 @@
    * @return {Void}
    */
   BombTask.prototype.getPayload = function() {
-    /* jshint camelcase: false */
     return {
       task: this.task,
       json: {
-        has_bomb: this.hasBomb,
-        collected_boxes: this.collectedBoxes
-      }
+        hasBomb: this.hasBomb,
+        collectedBoxes: this.collectedBoxes
+      },
+      ticketCount: this.getTicketCount()
     };
-    /* jshint camelcase: true */
   };
 
   /**
@@ -295,16 +294,31 @@
   };
 
   /**
+   * Calculates final ticket amount by predefined formula.
+   *
+   * @public
+   * @method getTicketCount
+   * @return {number}
+   */
+  BombTask.prototype.getTicketCount = function(){
+    if (this.hasBomb) {
+      return 1;
+    }
+
+    return this.collectedBoxes + 1;
+  };
+
+  /**
    * Callback for card click. Updates all
    * related properties for final result.
    *
    * @public
-   * @method update
+   * @method toggle
    * @param {object} column
    * @param {boolean} active
    * @return {Void}
    */
-  BombTask.prototype.update = function(column, active) {
+  BombTask.prototype.toggle = function(column, active) {
     var index = this.collection.indexOf(column);
 
     if (active) {

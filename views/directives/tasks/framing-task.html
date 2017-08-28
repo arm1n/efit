@@ -1,18 +1,15 @@
 <div class="framing-task">
 
-  <p>In dieser Übung gibt es zwei Gewinnspiele. Du kannst nun entscheiden, an welchen Gewinnspielen du teilnehmen würdest (dabei ist jede Auswahl möglich, du kannst also an keinem, einem oder an beiden Gewinnspielen teilnehmen).</p>
+  <p>In dieser Übung gibt es zwei Gewinnspiele. Du kannst nun entscheiden, an welchen Gewinnspielen du teilnehmen würdest (du kannst also an keinem, einem oder an beiden Gewinnspielen teilnehmen).</p>
 
   <div
     data-uk-grid=""
-    class="uk-grid-match uk-child-width-1-2@m">
+    class="uk-grid-match uk-child-width-1-2@s">
 
     <div
       data-card=""
       data-card-disabled="framingTaskController.resolved"
       data-card-on-click="framingTaskController.update(data, selected)">
-      <card-icon>
-        <img width="150" src="assets/img/letter-a.svg">
-      </card-icon>
       <card-title>
         Gewinnspiel A
       </card-title>
@@ -21,6 +18,7 @@
       </card-text>
 
       <card-buttons>
+        <div class="uk-margin-top">
           <button
             class="uk-button uk-button-small"
             data-ng-class="{
@@ -41,6 +39,7 @@
             data-ng-click="framingTaskController.update('lotteryA', false)">
             Nein
           </button>
+        </div>
       </card-buttons>
     </div>
 
@@ -48,9 +47,6 @@
       data-card=""
       data-card-disabled="framingTaskController.resolved"
       data-card-on-click="framingTaskController.update(data, selected)">
-      <card-icon>
-        <img width="150" src="assets/img/letter-b.svg">
-      </card-icon>
       <card-title>
         Gewinnspiel B
       </card-title>
@@ -58,28 +54,28 @@
         Die Teilnahme diesem Gewinnspiel kostet 5 Euro, wobei du anschließend mit 10%-iger Wahrscheinlichkeit 100 Euro gewinnen kannst.
       </card-text>
       <card-buttons>
-
-        <button
-          class="uk-button uk-button-small"
-          data-ng-class="{
-            'uk-button-primary': framingTaskController.lotteryB === true,
-            'uk-button-default': framingTaskController.lotteryB !== true
-          }"
-          data-ng-disabled="framingTaskController.resolved"
-          data-ng-click="framingTaskController.update('lotteryB', true)">
-          Ja
-        </button>
-        <button
-          class="uk-button uk-button-small"
-          data-ng-class="{
-            'uk-button-primary': framingTaskController.lotteryB === false,
-            'uk-button-default': framingTaskController.lotteryB !== false
-          }"
-          data-ng-disabled="framingTaskController.resolved"
-          data-ng-click="framingTaskController.update('lotteryB', false)">
-          Nein
-        </button>
-
+        <div class="uk-margin-top">
+          <button
+            class="uk-button uk-button-small"
+            data-ng-class="{
+              'uk-button-primary': framingTaskController.lotteryB === true,
+              'uk-button-default': framingTaskController.lotteryB !== true
+            }"
+            data-ng-disabled="framingTaskController.resolved"
+            data-ng-click="framingTaskController.update('lotteryB', true)">
+            Ja
+          </button>
+          <button
+            class="uk-button uk-button-small"
+            data-ng-class="{
+              'uk-button-primary': framingTaskController.lotteryB === false,
+              'uk-button-default': framingTaskController.lotteryB !== false
+            }"
+            data-ng-disabled="framingTaskController.resolved"
+            data-ng-click="framingTaskController.update('lotteryB', false)">
+            Nein
+          </button>
+        </div>
       </card-buttons>
     </div>
   </div>

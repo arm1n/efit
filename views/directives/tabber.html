@@ -1,5 +1,6 @@
 <ul
   data-uk-switcher=""
+  data-ng-attr-id="{{tabberController.domId}}"
   data-uk-tab="animation: uk-animation-slide-top-small">
   <li>
     <a href="#">Beschreibung</a>
@@ -26,14 +27,15 @@
             href="javascript:void(0)"
             data-uk-switcher-item="next"
             class="uk-button uk-button-primary"
+            data-scroll-to="tabberController.domId"
             data-ng-if="tabberController.hasExercise">
             Zur Aufgabe
           </a>
         </div>
       </div>
       <div
-        class="uk-text-center"
-        data-ng-if="!tabberController.icon">
+        data-ng-if="!tabberController.icon"
+        class="uk-text-center uk-text-left@m">
         <div
           data-ng-transclude="description"
           class="uk-text-small uk-margin-bottom">
@@ -43,6 +45,7 @@
           href="javascript:void(0)"
           data-uk-switcher-item="next"
           class="uk-button uk-button-primary"
+          data-scroll-to="tabberController.domId"
           data-ng-if="tabberController.hasExercise">
           Zur Aufgabe
         </a>
@@ -50,7 +53,7 @@
     </li>
     <li
       data-ng-transclude="exercise"
-      class="uk-text-small uk-text-center">
+      class="uk-text-small uk-text-center uk-text-left@m">
       <!-- exercise -->
     </li>
 </ul>

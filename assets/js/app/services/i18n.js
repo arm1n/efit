@@ -129,7 +129,7 @@
         text = this.translations[locale][key];
       } catch(e) {}
 
-      return string.sprintf(text || key,params);
+      return string.sprintf(text || key, params);
     };
 
   /**

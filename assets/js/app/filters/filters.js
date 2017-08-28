@@ -28,8 +28,11 @@
   // Percentage
   // --------------------------------------------------
   angular.module(module).filter('percent', function(){
-    return function(value) {
-      return (value * 100) + '%';
+    return function(value, fraction) {
+      fraction = isNaN(fraction) ? 0 : fraction;
+      value = isNaN(value) ? 0 : value * 100;
+
+      return value.toFixed(fraction) + '%';
     };
   });
 

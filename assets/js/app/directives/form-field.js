@@ -288,6 +288,8 @@
       },
       transclude: {
         label: '?label',
+        messageMin: '?messageMin',
+        messageMax: '?messageMax',
         messageUrl: '?messageUrl',
         messageEmail: '?messageEmail',
         messageNumber: '?messageNumber',

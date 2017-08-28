@@ -21,6 +21,16 @@
           {{"This field is required!"|i18n}}
         </div>
       </div>
+      <div data-ng-message="min">
+        <div data-ng-transclude="messageMin">
+          {{"This field has a too low input value!"|i18n}}
+        </div>
+      </div>
+      <div data-ng-message="max">
+        <div data-ng-transclude="messageMax">
+          {{"This field has a too hight input value!"|i18n}}
+        </div>
+      </div>
       <div data-ng-message="url">
         <div data-ng-transclude="messageUrl">
           {{"This field requires a valid url!"|i18n}}

@@ -51,6 +51,15 @@
   /** @var {object} deleteWorkshop Currently marked workshop for deletion. */
   Workshop.prototype.deleteWorkshop = null;
 
+  /** @var {object} drawingWorkshop Currently marked workshop for drawing. */
+  Workshop.prototype.drawingWorkshop = null;
+
+  /** @var {array} drawingTickets Randomly picked tickets of drawing. */
+  Workshop.prototype.drawingTickets = null;
+
+  /** @var {array} drawingAmount Amount of chosen tickets for drawing. */
+  Workshop.prototype.drawingAmount = 2;
+
   /** @var {array} chartResults Currently loaded results for chart. */
   Workshop.prototype.chartResults = null;
 
@@ -168,6 +177,37 @@
     };
 
   /**
+   * Loads task's results and invokes modal dialog.
+   *
+   * @public
+   * @method markWorkshopForDrawing
+   * @param {object} workshop
+   * @return {void}
+   */
+  Workshop.prototype.markWorkshopForDrawing = function(workshop)
+    {
+      var Ticket = this.$injector.get('Ticket');
+      var random = this.$injector.get('random');
+
+      var me = this;
+      var successCallback = function(tickets)
+        {
+          me.drawingTickets = random.shuffle(tickets);
+          me.drawingWorkshop = workshop;
+        };
+
+      var failureCallback = function()
+        {
+        };
+
+      var resource = Ticket.getByWorkshop({ workshopId: workshop.id });
+      resource.$promise.then(
+        successCallback,
+        failureCallback
+      );
+    };
+
+  /**
    * Invokes confirmation modal for deleting a workshop.
    *
    * @public
@@ -242,7 +282,6 @@
 
       var failureCallback = function()
         {
-          console.log(arguments);
         };
 
       var resource = Result.getByTask({ taskId: task.id });

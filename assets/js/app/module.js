@@ -6,7 +6,7 @@
  * @version 1.0.0
  * Copyright 2017. MIT licensed.
  */
-/* global angular */
+/* global angular, FastClick */
 (function(global, angular){
   'use strict';
 
@@ -36,8 +36,8 @@
   // CONSTANTS
   //
   app.constant('VIEWS_PATH', 'views');
-  //app.constant('API_URL','http://localhost/felix/e-fit/backend/web/app_dev.php/api');
-  app.constant('API_URL', 'https://efit-production.scalingo.io/api');
+  app.constant('API_URL','http://localhost/felix/e-fit/backend/web/app_dev.php/api');
+  //app.constant('API_URL', 'https://efit-production.scalingo.io/api');
 
   app.constant('GROUP_A', 1);
   app.constant('GROUP_B', 2);
@@ -149,7 +149,7 @@
             });
           }]
         },
-        template: '<div data-ui-view=""></div>'
+        template: '<div id="main" data-ui-view=""></div>'
       });
 
       // frontend
@@ -160,7 +160,6 @@
           user: ['user', '$state', function(user, $state){
             var promise = user.load().$promise;
             return promise.catch(function(){
-              console.log('YES');
               $state.go('login.frontend');
             });
           }]
@@ -199,7 +198,10 @@
             controllerAs: 'contactController'
           },
           'footer@frontend': {},
-          'offcanvas@frontend': {},
+          'offcanvas@': {
+            controller: 'FrontendController',
+            controllerAs: 'frontendController'
+          },
           '@': {
             controller: 'FrontendController',
             controllerAs: 'frontendController'
@@ -219,12 +221,16 @@
           'main@backend': {},
           'navbar@backend': {},
           'footer@backend': {},
-          'offcanvas@backend': {},
+          'offcanvas@': {
+            controller: 'BackendController',
+            controllerAs: 'backendController'
+          },
           '@': {
             controller: 'BackendController',
             controllerAs: 'backendController'
           }
-        }
+        },
+
       });
 
       $stateProvider.state('backend.workshops', {
@@ -300,9 +306,6 @@
       var appState = $injector.get('appState');
       var $state = $injector.get('$state');
       var auth = $injector.get('auth');
-
-      var $trace = $injector.get('$trace');
-      $trace.enable('TRANSITION');
 
       var onStart = function(transition) {
         appState.routerBusy = true;
@@ -387,6 +390,8 @@
       $transitions.onError({}, onError);
       $transitions.onStart({}, onStart);
       $transitions.onSuccess({}, onSuccess);
+
+      FastClick.attach(document.body);
     }
   ]);
 

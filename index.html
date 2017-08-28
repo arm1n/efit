@@ -40,6 +40,13 @@
       class="tm-wrap uk-offcanvas-content uk-vertical-align-middle">
     </div>
 
+    <!-- off-canvas -->
+    <div
+      id="off-canvas"
+      data-ui-view="offcanvas"
+      data-uk-offcanvas="mode: reveal; flip: true; overlay: true" >
+    </div>
+
     <!-- polyfills -->
     <script>
       (function() {
@@ -71,9 +78,10 @@
     <script type="text/javascript" src="assets/js/vendor/angular-locale_de.min.js"></script>
     <script type="text/javascript" src="assets/js/vendor/angular-ui-router.min.js"></script>
     <script type="text/javascript" src="assets/js/vendor/interact.min.js"></script>
-    <script type="text/javascript" src="assets/js/vendor/scratchcard-standalone.min.js"></script>
     <script type="text/javascript" src="assets/js/vendor/chartist.min.js"></script>
     <script type="text/javascript" src="assets/js/vendor/chartist-plugin-legend.min.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/fastclick.min.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/moment.min.js"></script>
 
     <!-- uikit -->
     <script type="text/javascript" src="assets/js/uikit/components.min.js"></script>
@@ -83,6 +91,7 @@
     <script type="text/javascript" src="assets/js/app/services/http-interceptor.min.js"></script>
     <script type="text/javascript" src="assets/js/app/services/notification.min.js"></script>
     <script type="text/javascript" src="assets/js/app/services/app-state.min.js"></script>
+    <script type="text/javascript" src="assets/js/app/services/animation.min.js"></script>
     <script type="text/javascript" src="assets/js/app/services/random.min.js"></script>
     <script type="text/javascript" src="assets/js/app/services/string.min.js"></script>
     <script type="text/javascript" src="assets/js/app/services/storage.min.js"></script>
@@ -98,6 +107,7 @@
     <script type="text/javascript" src="assets/js/app/directives/status.min.js"></script>
     <script type="text/javascript" src="assets/js/app/directives/tabber.min.js"></script>
     <script type="text/javascript" src="assets/js/app/directives/dragdrop.js"></script>
+    <script type="text/javascript" src="assets/js/app/directives/scroll-to.js"></script>
     <script type="text/javascript" src="assets/js/app/directives/evaluation.js"></script>
     <script type="text/javascript" src="assets/js/app/directives/locked-state.js"></script>
     <script type="text/javascript" src="assets/js/app/directives/form-field.min.js"></script>
@@ -108,7 +118,6 @@
     <script type="text/javascript" src="assets/js/app/directives/tasks/anchoring-task.min.js"></script>
     <script type="text/javascript" src="assets/js/app/directives/tasks/mental-bookkeeping-task.min.js"></script>
     <script type="text/javascript" src="assets/js/app/directives/tasks/framing-task.min.js"></script>
-    <script type="text/javascript" src="assets/js/app/directives/tasks/savings-supported-task.min.js"></script>
     <script type="text/javascript" src="assets/js/app/directives/tasks/savings-target-task.min.js"></script>
     <script type="text/javascript" src="assets/js/app/directives/tasks/self-commitment-task.min.js"></script>
     <script type="text/javascript" src="assets/js/app/directives/tasks/procrastination-task.min.js"></script>
@@ -119,6 +128,7 @@
     <script type="text/javascript" src="assets/js/app/controllers/backend.min.js"></script>
     <script type="text/javascript" src="assets/js/app/controllers/workshop.min.js"></script>
     <script type="text/javascript" src="assets/js/app/resources/workshop.min.js"></script>
+    <script type="text/javascript" src="assets/js/app/resources/ticket.min.js"></script>
     <script type="text/javascript" src="assets/js/app/resources/result.min.js"></script>
     <script type="text/javascript" src="assets/js/app/resources/task.min.js"></script>
     <script type="text/javascript" src="assets/js/app/resources/user.min.js"></script>

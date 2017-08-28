@@ -15,7 +15,6 @@
 
         <div class="uk-navbar-right">
           <ul class="uk-navbar-nav uk-visible@s" data-uk-scrollspy-nav="closest: li; scroll: true; offset: 80">
-              <li><a href="#home">Start</a></li>
               <li>
                 <a href="#topics">Themen</a>
                 <div class="uk-navbar-dropdown">
@@ -27,7 +26,7 @@
                 </div>
               </li>
               <li>
-                <a href="#status">Mein Status</a>
+                <a href="#status">Status</a>
                 <div class="uk-navbar-dropdown">
                   <div
                     data-status=""
@@ -44,6 +43,13 @@
                 </div>
               </li>
               <li><a href="#contact">Kontakt</a></li>
+              <li data-ng-if="!frontendController.user.isUser()">
+                <a
+                  href="javascript:void(0)"
+                  data-ng-click="frontendController.goTo('backend')">
+                  Administration
+                </a>
+              </li>
               <li>
                 <a
                   href="javascript:void(0)"

@@ -21,9 +21,9 @@
         class="voucher uk-inline uk-margin-small-left uk-margin-small-right"
         data-ng-repeat="(id, ticket) in diversificationTaskController.tickets track by ticket.id">
 
-        <img width="150" src="assets/img/voucher.svg">
+        <img width="125" src="assets/img/voucher.svg">
         <div class="uk-position-small uk-position-left uk-flex uk-flex-middle">
-            <span class="uk-text-bold uk-margin-left">
+            <span class="uk-text-bold uk-margin-small-left">
              <span>Los #</span><span data-ng-bind="ticket.id"></span>
             </span>
         </div>
@@ -34,7 +34,11 @@
     <!-- COMPANIES -->
     <div class="uk-margin">
       <div
-        class="uk-inline uk-text-top uk-margin-small-left uk-margin-small-right"
+        data-ng-class="{
+          'uk-margin-small-left': $last,
+          'uk-margin-small-right': $first
+        }"
+        class="company uk-inline uk-text-top"
         data-ng-repeat="(id, company) in diversificationTaskController.companies track by company.id">
 
         <div
@@ -42,7 +46,7 @@
           data-dropable=""
           data-dropable-on-drop="diversificationTaskController.update($data, company, 'add')"
           data-dropable-on-drag-leave="diversificationTaskController.update($data, company, 'remove')">
-          <img data-ng-src="{{'assets/img/' + company.image}}">
+          <img width="250" data-ng-src="{{'assets/img/' + company.image}}">
         </div>
 
         <div class="uk-heading-line uk-text-center">
@@ -52,11 +56,13 @@
           </span>
         </div>
 
-        <div
-          data-diversification-task-coin=""
-          class="uk-inline uk-margin uk-margin-small-left uk-margin-small-right"
-          data-diversification-task-coin-flip="diversificationTaskController.resolved"
-          data-diversification-task-coin-toss="diversificationTaskController.throws[id].toss">
+        <div class="uk-text-center uk-margin-top">
+          <div
+            data-diversification-task-coin=""
+            class="uk-inline uk-margin uk-margin-small-left uk-margin-small-right"
+            data-diversification-task-coin-flip="diversificationTaskController.resolved"
+            data-diversification-task-coin-toss="diversificationTaskController.throws[id].toss">
+          </div>
         </div>
 
         <div class="uk-text-center">
@@ -76,11 +82,9 @@
       <p>
         <strong>
           <span
-            class="uk-text-primary"
             data-ng-class="{
-              'uk-text-success': (
-                diversificationTaskController.throws.one.toss === diversificationTaskController.heads && diversificationTaskController.companies.one.count > 0
-              )
+              'uk-text-success': diversificationTaskController.throws.one.toss === diversificationTaskController.heads,
+              'uk-text-danger': diversificationTaskController.throws.one.toss === diversificationTaskController.tails
             }">
             <span>Der erste Wurf war</span>
             <span data-ng-if="diversificationTaskController.throws.one.toss === diversificationTaskController.heads"> Kopf.</span>
@@ -95,11 +99,9 @@
       <p>
         <strong>
           <span
-            class="uk-text-primary"
             data-ng-class="{
-              'uk-text-success': (
-                diversificationTaskController.throws.two.toss === diversificationTaskController.heads && diversificationTaskController.companies.two.count > 0
-              )
+              'uk-text-success': diversificationTaskController.throws.two.toss === diversificationTaskController.heads,
+              'uk-text-danger': diversificationTaskController.throws.two.toss === diversificationTaskController.tails
             }">
             <span>Der zweite Wurf war</span>
             <span data-ng-if="diversificationTaskController.throws.two.toss === diversificationTaskController.heads"> Kopf.</span>
@@ -142,87 +144,114 @@
 
       <p>Die folgende Grafik verdeutlicht dieses Prinzip. Sie zeigt dir eine Übersicht über die 4 möglichen Ausgänge des Spiels. Die vorletzte Spalte zeigt dir an, wie viele Lose du jeweils dazugewinnst, wenn du deine Investitionen auf beide Firmen aufgeteilt hast. Die allerletzte Spalte zeigt dir an, wie viele Lose du jeweils dazugewinnst, wenn du nur in die Firma Smart investiert hast.</p>
 
-      <div class="uk-overflow-auto">
-        <table class="uk-table uk-table-middle uk-table-divider uk-table-striped uk-width-1-2@m uk-margin-auto">
-          <thead>
-            <tr>
-              <th class="uk-text-left">Ausgang</th>
-              <th class="uk-text-center">Firma Smart</th>
-              <th class="uk-text-center">Firma Phone</th>
-              <th class="uk-text-center">1 Los auf Smart, 1 Los auf Phone</th>
-              <th class="uk-text-center">2 Lose auf Smart, 0 Lose auf Phone</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>
-                <div
-                  data-diversification-task-coin=""
-                  data-diversification-task-coin-start-side="diversificationTaskController.heads"></div>
-              </td>
-              <td>
-                <div
-                  data-diversification-task-coin=""
-                  data-diversification-task-coin-start-side="diversificationTaskController.heads"></div>
-              </td>
-              <td><code>2 x 1 + 2 x 1 = 4</code></td>
-              <td><code>2 x 2 + 2 x 0 = 4</code></td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>
-                <div
-                  data-diversification-task-coin=""
-                  data-diversification-task-coin-start-side="diversificationTaskController.heads"></div>
-              </td>
-              <td>
-                <div
-                  data-diversification-task-coin=""
-                  data-diversification-task-coin-start-side="diversificationTaskController.tails"></div>
-              </td>
-              <td><code>2 x 1 + 1 x 1 = 3</code></td>
-              <td><code>2 x 2 + 1 x 0 = 4</code></td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>
-                <div
-                  data-diversification-task-coin=""
-                  data-diversification-task-coin-start-side="diversificationTaskController.tails"></div>
-              </td>
-              <td>
-                <div
-                  data-diversification-task-coin=""
-                  data-diversification-task-coin-start-side="diversificationTaskController.heads"></div>
-              </td>
-              <td><code>1 x 1 + 2 x 1 = 3</code></td>
-              <td><code>2 x 1 + 2 x 0 = 2</code></td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>
-                <div
-                  data-diversification-task-coin=""
-                  data-diversification-task-coin-start-side="diversificationTaskController.tails"></div>
-              </td>
-              <td>
-                <div
-                  data-diversification-task-coin=""
-                  data-diversification-task-coin-start-side="diversificationTaskController.tails"></div>
-              </td>
-              <td><code>1 x 1 + 1 x 1 = 2</code></td>
-              <td><code>1 x 2 + 1 x 0 = 2</code></td>
-            </tr>
-            <tr>
-              <td colspan="5">
-                <span><strong>Formel:</strong> <code>W1 * S + W2 * (2-S) = Neue Lose</code></span><br>
-                <span><strong>W1/W2 = </strong> Nummer des Wurfs (Kopf = 1, Zahl = 2)</span><br>
-                <span><strong>S = </strong> Anzahl der investierten Lose in Smart</span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="uk-inline">
+        <div class="uk-overflow-auto">
+          <table class="uk-table uk-table-middle uk-table-divider uk-table-striped uk-width-1-2@m">
+            <thead>
+              <tr>
+                <th class="uk-text-center">Ausgang</th>
+                <th class="uk-text-center">Firma Smart</th>
+                <th class="uk-text-center">Firma Phone</th>
+                <th class="uk-text-center">1 Los auf Smart,<br>1 Los auf Phone</th>
+                <th class="uk-text-center">2 Lose auf Smart,<br>0 Lose auf Phone</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="uk-text-center">1</td>
+                <td class="uk-text-center">
+                  <div
+                    data-diversification-task-coin=""
+                    data-diversification-task-coin-start-side="diversificationTaskController.heads"></div>
+                </td>
+                <td class="uk-text-center">
+                  <div
+                    data-diversification-task-coin=""
+                    data-diversification-task-coin-start-side="diversificationTaskController.heads"></div>
+                </td>
+                <td class="uk-text-center">
+                  <img width="50" src="assets/img/voucher.svg">
+                  <img width="50" src="assets/img/voucher.svg">
+                  <img width="50" src="assets/img/voucher.svg">
+                  <img width="50" src="assets/img/voucher.svg">
+                </td>
+                <td class="uk-text-center">
+                  <img width="50" src="assets/img/voucher.svg">
+                  <img width="50" src="assets/img/voucher.svg">
+                  <img width="50" src="assets/img/voucher.svg">
+                  <img width="50" src="assets/img/voucher.svg">
+                </td>
+              </tr>
+              <tr>
+                <td class="uk-text-center">2</td>
+                <td class="uk-text-center">
+                  <div
+                    data-diversification-task-coin=""
+                    data-diversification-task-coin-start-side="diversificationTaskController.heads"></div>
+                </td>
+                <td class="uk-text-center">
+                  <div
+                    data-diversification-task-coin=""
+                    data-diversification-task-coin-start-side="diversificationTaskController.tails"></div>
+                </td>
+                <td class="uk-text-center">
+                  <img width="50" src="assets/img/voucher.svg">
+                  <img width="50" src="assets/img/voucher.svg">
+                  <img width="50" src="assets/img/voucher.svg">
+                </td>
+                <td class="uk-text-center">
+                  <img width="50" src="assets/img/voucher.svg">
+                  <img width="50" src="assets/img/voucher.svg">
+                  <img width="50" src="assets/img/voucher.svg">
+                  <img width="50" src="assets/img/voucher.svg">
+                </td>
+              </tr>
+              <tr>
+                <td class="uk-text-center">3</td>
+                <td class="uk-text-center">
+                  <div
+                    data-diversification-task-coin=""
+                    data-diversification-task-coin-start-side="diversificationTaskController.tails"></div>
+                </td>
+                <td class="uk-text-center">
+                  <div
+                    data-diversification-task-coin=""
+                    data-diversification-task-coin-start-side="diversificationTaskController.heads"></div>
+                </td>
+                <td class="uk-text-center">
+                  <img width="50" src="assets/img/voucher.svg">
+                  <img width="50" src="assets/img/voucher.svg">
+                  <img width="50" src="assets/img/voucher.svg">
+                </td>
+                <td class="uk-text-center">
+                  <img width="50" src="assets/img/voucher.svg">
+                  <img width="50" src="assets/img/voucher.svg">
+                </td>
+              </tr>
+              <tr>
+                <td class="uk-text-center">4</td>
+                <td class="uk-text-center">
+                  <div
+                    data-diversification-task-coin=""
+                    data-diversification-task-coin-start-side="diversificationTaskController.tails"></div>
+                </td>
+                <td class="uk-text-center">
+                  <div
+                    data-diversification-task-coin=""
+                    data-diversification-task-coin-start-side="diversificationTaskController.tails"></div>
+                </td>
+                <td class="uk-text-center">
+                  <img width="50" src="assets/img/voucher.svg">
+                  <img width="50" src="assets/img/voucher.svg">
+                </td>
+                <td class="uk-text-center">
+                  <img width="50" src="assets/img/voucher.svg">
+                  <img width="50" src="assets/img/voucher.svg">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </evaluation-text>
   </div>

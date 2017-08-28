@@ -28,6 +28,7 @@
     ];
 
     this._eventSource = null;
+    this._results = [];
     this._payload = {};
     this._pending = {};
     this._tasks = {};
@@ -42,10 +43,10 @@
   /** @var {number} state Current state of user. */
   User.prototype.state = null;
 
-  /** @var {number} group Current state of user. */
+  /** @var {number} group Random group of user. */
   User.prototype.group = null;
 
-  /** @var {number} tickets Current state of user. */
+  /** @var {number} tickets Current ticket count. */
   User.prototype.tickets = null;
 
   //
@@ -80,9 +81,13 @@
         return;
       }
 
+      // init tasks at first!
       me._initWatches();
-      me._initPending();
       me._initTasks();
+
+      // then results & SSE!
+      me._initPending();
+      me._initResults();
       me._initSSE();
     };
 
@@ -123,6 +128,7 @@
     }
 
     this._eventSource = null;
+    this._results = [];
     this._payload = {};
     this._pending = {};
     this._tasks = {};
@@ -141,13 +147,14 @@
    *
    * @public
    * @method update
-   * @param {object} user
+   * @param {object} result
    * @return {void}
    *
    */
-  User.prototype.update = function(user) {
-    this._payload = user;
+  User.prototype.update = function(result) {
+    this._payload = result.user;
 
+    this._addResult(result);
     this._initTickets();
     this._initState();
     this._initGroup();
@@ -225,6 +232,17 @@
   };
 
   /**
+   * Provides user's task hash map.
+   *
+   * @public
+   * @method getTasks
+   * @return {object}
+   */
+  User.prototype.getTasks = function() {
+    return this._tasks;
+  };
+
+  /**
    * Gets `task` resource of user by type.
    *
    * @public
@@ -237,7 +255,7 @@
   };
 
   /**
-   * Gets `result` resource of user by type.
+   * Gets pending `result` resource of user by type.
    *
    * @public
    * @method getResultByType
@@ -318,7 +336,7 @@
    */
   User.prototype._initTickets = function() {
     var tickets = this._payload.tickets;
-    this.tickets = tickets || 0;
+    this.tickets = tickets || [];
   };
 
   /**
@@ -360,7 +378,11 @@
       if (newTickets === oldTickets) {
         return;
       }
-      var tickets = newTickets - oldTickets;
+
+      var oldCount = oldTickets && oldTickets.length;
+      var newCount = newTickets && newTickets.length;
+
+      var tickets = newCount - oldCount;
       if (tickets < 0) {
         return;
       }
@@ -372,7 +394,7 @@
       notification.primary(message);
     };
 
-    this._unwatchTickets = $rootScope.$watch(
+    this._unwatchTickets = $rootScope.$watchCollection(
       _watchTicketsExpression,
       _watchTicketsCallback
     );
@@ -462,6 +484,39 @@
     angular.forEach(pending,function(result) {
       me._pending[result.task.type] = result;
     });
+  };
+
+  /**
+   * Caches results hash map from workshop
+   * for lookups from `getResultsByType()`.
+   *
+   * @private
+   * @method _initResults
+   * @return {void}
+   */
+  User.prototype._initResults = function() {
+    var _addResult = this._addResult.bind(this);
+    var results = this._payload.results || [];
+
+    angular.forEach(results, _addResult);
+  };
+
+  /**
+   * Adds result to collection and sets `$$result`
+   *
+   * @private
+   * @method _addResult
+   * @param {object} result
+   * @return {void}
+   */
+  User.prototype._addResult = function(result) {
+    var task = this.getTaskByType(result.task.type);
+    if (task !== null) {
+      var current = task.$$results || 0;
+      task.$$results = current + 1;
+    }
+
+    this._results.push(result);
   };
 
   //

@@ -66,7 +66,7 @@
   SelfCommitmentTask.prototype.getPayload = function() {
     return {
       task: this.task,
-      json: null
+      json: {}
     };
   };
 

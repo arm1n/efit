@@ -205,7 +205,8 @@
     }
 
     // check if 1 week pasted since last result
-    /*if (this.result !== null) {
+    /*
+    if (this.result !== null) {
       var updatedAt = new Date(this.result.updatedAt * 1000);
       var minDate = new Date(updatedAt.getTime());
       minDate.setDate(minDate.getDate()+7);
@@ -219,7 +220,8 @@
         card.complete = false;
         return;
       }
-    }*/
+    }
+    */
 
     // check if resolve is possible
     if (!this.canResolve()) {

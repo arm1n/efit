@@ -13,10 +13,18 @@
         </ul>
       </li>
       <li>
-        <a href="#status" data-uk-off-canvas-scroll="target: #off-canvas; offset: 80">Mein Status</a>
+        <a href="#status" data-uk-off-canvas-scroll="target: #off-canvas; offset: 80">Status</a>
       </li>
       <li>
         <a href="#contact" data-uk-off-canvas-scroll="target: #off-canvas; offset: 80">Kontakt</a>
+      </li>
+      <li data-ng-if="!frontendController.user.isUser()">
+        <a
+          href="javascript:void(0)"
+          data-ng-click="frontendController.goTo('backend')"
+          data-uk-off-canvas-scroll="target: #off-canvas; offset: 80">
+          Administration
+        </a>
       </li>
       <li>
         <a

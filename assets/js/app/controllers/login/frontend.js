@@ -24,11 +24,11 @@
   // PROPERTIES
   //
 
-  /** @var {string} username User name for authentication. */
-  LoginFrontend.prototype.username = null;
-
   /** @var {string} code Workshop code for authentication. */
   LoginFrontend.prototype.code = null;
+
+  /** @var {string} username User name for authentication. */
+  LoginFrontend.prototype.username = null;
 
   /** @var {RegExp} codeMinLength Minimum length of password. */
   LoginFrontend.prototype.codeMinLength = 8;
@@ -37,7 +37,7 @@
   LoginFrontend.prototype.codePattern = /^[A-Za-z0-9]+$/;
 
   /** @var {RegExp} userpattern Regular expression for `username` property. */
-  LoginFrontend.prototype.userpattern = /^[a-z][a-z](?:0[1-9]|[12]\d|3[01])[A-Z]\d$/;
+  LoginFrontend.prototype.userpattern = /^[A-Za-z][A-Za-z](?:0[1-9]|[12]\d|3[01])[A-Za-z]\d$/;
 
   //
   // METHODS

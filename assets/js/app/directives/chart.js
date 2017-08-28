@@ -40,7 +40,8 @@
   //
 
   /**
-   *
+   * Inits chart with options and data
+   * and renders it with these settings.
    *
    * @public
    * @method $onInit
@@ -86,7 +87,10 @@
     var GROUP_B = this.$injector.get('GROUP_B');
 
     var me = this;
+
+    var map = {};
     var data = [];
+    var mapResults;
 
     switch(me.task.type) {
       //case me.$injector.get('TYPE_INTEREST'):
@@ -94,12 +98,11 @@
       //case me.$injector.get('TYPE_DIVERSIFICATION'):
       //case me.$injector.get('TYPE_RISK'):
       case me.$injector.get('TYPE_ANCHORING'):
-
-        var map = {};
+      case me.$injector.get('TYPE_MENTAL_BOOKKEEPING'): {
         map[GROUP_A] = { choice1: 0, choice2: 0, count:0 };
         map[GROUP_B] = { choice1: 0, choice2: 0, count:0 };
 
-        var mapResults = function(result) {
+        mapResults = function(result) {
           var group = result.json.group;
 
           switch (result.json.choice) {
@@ -132,15 +135,55 @@
           groupB.choice2 / groupB.count
         ]);
 
-
         break;
+      }
 
-      //case me.$injector.get('TYPE_MENTAL_BOOKKEEPING'):
       //case me.$injector.get('TYPE_FRAMING'):
       //case me.$injector.get('TYPE_SAVINGS_TARGET'):
       //case me.$injector.get('TYPE_SAVINGS_SUPPORTED'):
       //case me.$injector.get('TYPE_SELF_COMMITMENT'):
-      //case me.$injector.get('TYPE_PROCRASTINATION'):
+      case me.$injector.get('TYPE_PROCRASTINATION'): {
+        var SPLIT = 'SPLIT';
+        var ALL = 'ALL';
+
+        map[SPLIT] = { success: 0, failure: 0, count:0 };
+        map[ALL] = { success: 0, failure: 0, count:0 };
+
+        mapResults = function(result) {
+          var mode = result.json.mode;
+
+          console.log(result.json.mode, result.json.success);
+
+          if (result.json.success) {
+            map[mode].success++;
+          } else {
+            map[mode].failure++;
+          }
+
+          map[mode].count++;
+        };
+
+        angular.forEach(this.results, mapResults);
+
+        var split = map[SPLIT];
+        var all = map[ALL];
+
+        console.log(map);
+
+        // series 1
+        data.push([
+          split.success / split.count,
+          all.success / all.count
+        ]);
+
+        // series 2
+        data.push([
+          split.failure / split.count,
+          all.failure / all.count
+        ]);
+
+        break;
+      }
 
       default:
     }
@@ -160,9 +203,15 @@
 
     switch(this.task.type) {
       case this.$injector.get('TYPE_ANCHORING'):
+      case this.$injector.get('TYPE_MENTAL_BOOKKEEPING'):
         return [
           i18n.get('GROUP_A'),
           i18n.get('GROUP_B')
+        ];
+      case this.$injector.get('TYPE_PROCRASTINATION'):
+        return [
+          i18n.get('ALL'),
+          i18n.get('SPLIT')
         ];
       default:
         return [];
@@ -181,6 +230,7 @@
 
     switch(this.task.type) {
       case this.$injector.get('TYPE_ANCHORING'):
+      case this.$injector.get('TYPE_MENTAL_BOOKKEEPING'):
         return {
           seriesBarDistance: 15,
           chartPadding: {
@@ -203,6 +253,33 @@
               legendNames: [
                 i18n.get('Choice 1'),
                 i18n.get('Choice 2')
+              ]
+            })
+          ]
+        };
+      case this.$injector.get('TYPE_PROCRASTINATION'):
+        return {
+          seriesBarDistance: 15,
+          chartPadding: {
+            top: 50,
+            left: 0,
+            right: 0,
+            bottom: 0
+          },
+          axisY:{
+            labelInterpolationFnc: function(value) {
+              return (value * 100) + '%';
+            },
+            ticks: [0, 0.2, 0.4, 0.6, 0.8, 1],
+            type: Chartist.FixedScaleAxis,
+            high: 1,
+            low: 0
+          },
+          plugins: [
+            Chartist.plugins.legend({
+              legendNames: [
+                i18n.get('Target reached'),
+                i18n.get('Target dismissed')
               ]
             })
           ]
@@ -230,6 +307,8 @@
     var render = function() {
       switch(me.task.type) {
         case me.$injector.get('TYPE_ANCHORING'):
+        case me.$injector.get('TYPE_MENTAL_BOOKKEEPING'):
+        case me.$injector.get('TYPE_PROCRASTINATION'):
           me._chart = new Chartist.Bar(element, data, options);
           break;
         default:

@@ -36,7 +36,7 @@
   String.prototype.sprintf = function(input,variables)
     {
         if (!angular.isArray(variables)) {
-          variables = [];
+          variables = [].slice.call(arguments, 1);
         }
 
         for (var i=0; i<variables.length; i++) {

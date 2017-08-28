@@ -21,10 +21,11 @@
   /**
    * @constructor
    */
-  var Draggable = function($scope, $element, $attrs) {
+  var Draggable = function($scope, $element, $attrs, $injector) {
     this.$element = $element;
     this.$scope = $scope;
     this.$attrs = $attrs;
+    this.$injector = $injector;
 
     this._body = null;
     this._clone = null;
@@ -47,9 +48,11 @@
         me._interactable.draggable({enabled: !disabled});
       }
     );
+
+    this._onResize = this._onResize.bind(this);
   };
 
-  Draggable.$inject = ['$scope','$element','$attrs'];
+  Draggable.$inject = ['$scope','$element','$attrs','$injector'];
 
   //
   // PROPERTIES
@@ -80,6 +83,8 @@
    * @return {Void}
    */
   Draggable.prototype.$onInit = function() {
+    var $window = this.$injector.get('$window');
+
     this._body = angular.element(document.body);
     this.$element.addClass(this._itemClass);
     var element = this.$element.get(0);
@@ -127,6 +132,9 @@
 
     this._interactable.draggable(options);
     this._interactable.getData = this._getData.bind(this);
+
+    this._window = angular.element($window);
+    this._window.on('resize', this._resize);
   };
 
   /**
@@ -137,8 +145,20 @@
    * @return {void}
    */
   Draggable.prototype.$onDestroy = function() {
+    this._window.off('resize', this._onResize);
     this._interactable.unset();
     this._unwatch();
+  };
+
+  /**
+   * Resets `origin` info for snapping.
+   *
+   * @public
+   * @method $onDestroy
+   * @return {void}
+   */
+  Draggable.prototype._onResize = function() {
+    this._origin = null;
   };
 
   /**

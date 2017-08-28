@@ -72,7 +72,8 @@
     return {
       task: this.task,
       json: {
-      }
+      },
+      ticketCount: this.getTicketCount()
     };
   };
 
@@ -178,6 +179,17 @@
     );
 
     return promise;
+  };
+
+  /**
+   * Calculates final ticket amount by predefined formula.
+   *
+   * @public
+   * @method getTicketCount
+   * @return {number}
+   */
+  AbstractTask.prototype.getTicketCount = function(){
+    return 1;
   };
 
   //

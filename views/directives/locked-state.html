@@ -5,13 +5,11 @@
   <p
     data-ng-transclude="userText"
     data-ng-if="lockedStateController.user.isUser()">
-    <strong>Achtung: </strong><br>
-    <span>Diese Aufgabe ist derzeit gesperrt!</span>
+    <span>Diese Aufgabe kann derzeit nicht gespielt werden!</span>
   </p>
   <p
     data-ng-transclude="adminText"
     data-ng-if="lockedStateController.user.isAdmin()">
-    <strong>Achtung: </strong><br>
     <span>Trainer dürfen keine Aufgaben machen!</span>
   </p>
 </div>
